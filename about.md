@@ -29,6 +29,20 @@ You will be competing in teams of 2-5 students.
 - Class Room: Divinity and Religious Studies 302
 - Needed Materials: A Laptop computer, R, RStudio 
 
+## Course Topics 
+
+We will be covering topics like these, plus others y'all request.
+
+- TidyR vs Base R
+- GitHub and Collaborative Coding
+- Data Visualization and Data Cleaning
+- Advanced Visualization and Interactive Graphics
+- Creating a Plan, Addressing Client Needs, and Advanced Data Prep
+- Regression Reviews and How to Choose a Model
+- Decision Trees : All about it!
+- Practice Competition (focus on data cleaning / prep and making a plan)
+- How to give an effective presentation? All what to do (and not to do)
+
 # A Note about Perfume, Cologne, and Scented Products
 
 Dr. Dalzell has a lung disability that reacts to perfume, cologne, scented lotion, body sprays, and any other scented products. In the presence of these products, Dr. Dalzell cannot breathe or speak.
@@ -79,21 +93,4 @@ you are in need of an accommodation, please contact CLASS as soon as possible.
 
 As you all have already read, I have a lung disability the requires some accommodation from you (avoiding scents) so I know what it is like to go through the accommodation process and ask professors for help. It can seem intimidating, but please please please reach out if you have accommodations. I can’t help you if I don’t know what you need!
 
-## Course Topics 
-
-We will be covering topics like these, plus others y'all request.
-
-- TidyR vs Base R
-- GitHub and Collaborative Coding
-- Data Visualization and Data Cleaning
-- Advanced Visualization and Interactive Graphics
-- Creating a Plan, Addressing Client Needs, and Advanced Data Prep
-- Regression Reviews and How to Choose a Model
-- Decision Trees : All about it!
-- Practice Competition (focus on data cleaning / prep and making a plan)
-- How to give an effective presentation? All what to do (and not to do)
-
 ---
-
-
-
