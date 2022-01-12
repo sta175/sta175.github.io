@@ -57,6 +57,8 @@ In any semester, but especially during this semester, it is important that any s
 
 Grading in this class is composed of 2 things - participation in class and participation in DataFest. The course will be graded on a pass/fail scale. 
 
+To pass the course, you must fully paricipate in the course (which mean attending and participating in class activities) and fully participate in the DataFest competition (which means attending, working through the data task, and presenting with your team). 
+
 **Note: Full participation in DataFest on April 1 - 3 is required to pass this course. If you are unable to attend, you need to drop the course.** If some emergency/illness comes up that means you cannot attend DataFest, you must contact Dr. Dalzell immediately. 
 
 # Anything I should know about sending emails?
