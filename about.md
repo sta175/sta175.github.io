@@ -31,8 +31,9 @@ You will be competing in teams of 2-5 students.
 
 # Course Topics 
 
-We will be covering topics like these, plus others y'all request.
+We will be covering topics like these:
 
+- Visualizations with ggplot2
 - TidyR vs Base R
 - GitHub and Collaborative Coding
 - Data Visualization and Data Cleaning
