@@ -29,7 +29,7 @@ You will be competing in teams of 2-5 students.
 - Class Room: Divinity and Religious Studies 302
 - Needed Materials: A Laptop computer, R, RStudio 
 
-## Course Topics 
+# Course Topics 
 
 We will be covering topics like these, plus others y'all request.
 
@@ -52,7 +52,7 @@ Because of this, students may not wear scented products in class or to any other
 
 In any semester, but especially during this semester, it is important that any students who are feeling ill do not come to class. Rest will speed your recovery, and help us protect other students in the classroom. I offer Zoom office hours and appointments so students will be able to communicate with me even if they are not feeling well.
 
-## Grading
+# Grading
 
 Grading in this class is composed of 2 things - participation in class and participation in DataFest. The course will be graded on a pass/fail scale. 
 
