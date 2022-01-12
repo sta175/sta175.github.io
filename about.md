@@ -46,8 +46,7 @@ We will be covering topics like these:
 
 # A Note about Perfume, Cologne, and Scented Products
 
-Dr. Dalzell has a lung disability that reacts to perfume, cologne, scented lotion, body sprays, and any other scented products. In the presence of these products, Dr. Dalzell cannot breathe or speak.
-Because of this, students may not wear scented products in class or to any other face to face meeting with Dr. Dalzell. Please let Dr. Dalzell know if you have any questions!
+Dr. Dalzell has a lung disability that reacts to perfume, cologne, scented lotion, body sprays, and any other scented products. In the presence of these products, Dr. Dalzell cannot breathe or speak.Because of this, students may not wear scented products in class or to any other face to face meeting with Dr. Dalzell. Please let Dr. Dalzell know if you have any questions!
 
 # What if I am sick?
 
@@ -60,6 +59,8 @@ Grading in this class is composed of 2 things - participation in class and parti
 To pass the course, you must fully paricipate in the course (which mean attending and participating in class activities) and fully participate in the DataFest competition (which means attending, working through the data task, and presenting with your team). 
 
 **Note: Full participation in DataFest on April 1 - 3 is required to pass this course. If you are unable to attend, you need to drop the course.** If some emergency/illness comes up that means you cannot attend DataFest, you must contact Dr. Dalzell immediately. 
+
+All participants in ASA DataFest agree to abide by the [ASA Code of Conduct](https://sites.google.com/wfu.edu/datafest2020/code-of-conduct)
 
 # Anything I should know about sending emails?
 
