@@ -81,7 +81,7 @@ img {
 
 <p>Throughout this course, we are going to practice some of the skills that will help you tackle these sorts of open ended problems. For today, we are going to start with reviewing how to visualize data in R. We will also see some best practices for visualizations (like adding appropriate labels and titles to graphs) that your team should use for DataFest and indeed any formal report or presentation! The activity will also give you chance to get to know your team mates. </p>
 
-<p>As you work through this activity, feel free to use RMarkdown, R scripts, or whatever you prefer. This assignment is just to help you all practice. I strongly recommend storing your work in a folder you can find later, so you can refer to it during DataFest!</p>
+<p>As you work through this activity, feel free to use RMarkdown, R scripts, or whatever you prefer. I strongly recommend storing your work in a folder you can find later, so you can refer to it during DataFest!</p>
 
 <h2>The Data</h2>
 
@@ -89,9 +89,9 @@ img {
 
 For our first activity, this data is contained in a Google Drive file <a href="https://drive.google.com/file/d/1hM08da1DH21P5I126FyEoKJ0OwIElFUo">linked here</a>. If the link does not work, you can copy and paste the following into your browser: https://drive.google.com/file/d/1hM08da1DH21P5I126FyEoKJ0OwIElFUo</p>
 
-<p>This is a large data set, and is currently being used for the 5th Annual WiDS Datathon. If you are interested in this data set, you can compete until February 26th by <a href="https://www.kaggle.com/c/widsdatathon2022">joining the competition here</a>.</p>
+<p>The data was created by Climate Change AI (CCAI) and Lawrence Berkeley National Laboratory (Berkeley Lab). This is a large data set, and is currently being used for the 5th Annual WiDS Datathon. If you are interested in this data set, you can compete until February 26th by <a href="https://www.kaggle.com/c/widsdatathon2022">joining the competition here</a>.</p>
 
-<p>Because the data is so large, it is housed in a ZIP file. Download the ZIP file, and then extract the files that are inside of it. The one your are looking for is called <code>train.csv</code>. FOr instructions on how to load this data in R, look <a href="https://sta175-s22.github.io/slides/loadingData.html">here</a>.</p>
+<p>Because the data is so large, it is housed in a ZIP file. Download the ZIP file, and then extract the file that is inside of it, which should be called <code>train.csv</code>. For instructions on how to load this data in R, look <a href="https://sta175-s22.github.io/slides/loadingData.html">here</a>.</p>
 
 <p>Our response variable (outcome variable) is:</p>
 
@@ -114,9 +114,9 @@ For our first activity, this data is contained in a Google Drive file <a href="h
 <li><code>year_built</code> -  year in which the building was constructed.</li>
 <li><code>energy_star_rating</code> -  the energy star rating of the building.</li>
 <li><code>ELEVATION</code> -  elevation of the building location.</li>
-<li><code>january_min_temp</code> - minimum temperature in January (in Fahrenheit) at the location of the building.</li>
-<li><code>january_avg_temp</code> - average temperature in January (in Fahrenheit) at the location of the building.</li>
-<li><code>january_max_temp</code> - maximum temperature in January (in Fahrenheit) at the location of the building.</li>
+<li><code>january_min_temp</code> - minimum temperature in January (in Fahrenheit) at the location of the building. NOTE: The data contain information for additional months, such as <code>february_min_temp</code>.</li>
+<li><code>january_avg_temp</code> - average temperature in January (in Fahrenheit) at the location of the building. NOTE: The data contain information for additional months, such as <code>february_avg_temp</code>.</li>
+<li><code>january_max_temp</code> - maximum temperature in January (in Fahrenheit) at the location of the building. NOTE: The data contain information for additional months, such as <code>february_max_temp</code>.</li>
 <li><code>cooling_degree_days</code> - cooling degree day for a given day is the number of degrees where the daily average temperature exceeds 65 degrees Fahrenheit. Each month is summed to produce an annual total at the location of the building.</li>
 <li><code>heating_degree_days</code> - heating degree day for a given day is the number of degrees where the daily average temperature falls under 65 degrees Fahrenheit. Each month is summed to produce an annual total at the location of the building.</li>
 <li><code>precipitation_inches</code> - annual precipitation in inches at the location of the building.</li>
@@ -241,7 +241,7 @@ For our first activity, this data is contained in a Google Drive file <a href="h
 
 <p> Once we have explored our response variable, we will likely want to get some idea of how some of the features relate to the response variable. This means that we want to create a graph to examine the relationship between two variables.</p>
 
-<p>Let's start with the amount of square feet in the building. This means we have two numeric variables, so we need a scatter plot. we could create the necessary plot using the following code:</p>
+<p>Let's start with the amount of square feet in the building. This means we have two numeric variables, so we need a scatter plot. We could create the necessary plot using the following code:</p>
 
 <pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(train, aes(x=floor_area, y = site_eui)) + <span class="kw">geom_point</span>()</code></pre>
 
@@ -270,7 +270,7 @@ For our first activity, this data is contained in a Google Drive file <a href="h
 <p>If I put that in a chunk and press play, one histogram will appear on my screen. Let's suppose I want to show a box plot along with this histogram. I can create both graphs and have them both print out separately in my knit document. However, I can also tell the computer to print more than one graph at once to save space. Try the following:</p>
 
 <pre class="sourceCode r"><code class="sourceCode r">g1 <- <span class="kw">ggplot</span>(train, aes(x=site_eui)) + <span class="kw">geom_histogram</span>(fill='blue', col = 'black', bins = 20) + <span class="kw">labs</span>(title="Figure 1:", x = "Site EUI", y = "Frequency")</code>
-<code class="sourceCode r">g2 <- <span class="kw">ggplot</span>(train, aes(x=site_eui)) + <span class="kw">geom_histogram</span>(fill='blue', col = 'black', bins = 20) + <span class="kw">labs</span>(title="Figure 1:", x = "Site EUI", y = "Frequency")</code>
+<code class="sourceCode r">g2 <- <span class="kw">ggplot</span>(train, aes(x=site_eui)) + <span class="kw">geom_boxplot</span>(fill='gold') + <span class="kw">labs</span>(title="Figure 2:", x = "Site EUI", y = "")</code>
 <code class="sourceCode r"><span class="kw">gridExtra::grid.arrange</span>(g1,g2, ncol = 2)</code>
 </pre>
 
@@ -281,8 +281,8 @@ For our first activity, this data is contained in a Google Drive file <a href="h
 <p>To create the 1 by 2 grid, we feed the computer our two graphs, and then tell it we want the figures in 2 columns (next to each other) by specifying <code>ncol = 2</code>. In other words, the number of columns we want is 2!</p>
 
 <ol start="8" style="list-style-type: decimal">
-<li><p>Create a (1) box plot for site SUI, (2) histogram for site EUI, (3) box plot for the average temperature in March and (4) histogram for the average temperature in March. Stack 4 graphs in a 2 x 2 grid (2 rows and 2 columns). You have already made some of the graphs you need!</p></li>
-</ol
+<li><p>Create a (1) box plot for site EUI, (2) histogram for site EUI, (3) box plot for the average temperature in March and (4) histogram for the average temperature in March. Stack 4 graphs in a 2 x 2 grid (2 rows and 2 columns). You have already made some of the graphs you need!</p></li>
+</ol>
 
 <h2>Changing Themes</h2>
 
@@ -304,7 +304,7 @@ For our first activity, this data is contained in a Google Drive file <a href="h
 
 <h2> Making Tables </h2>
 
-<p>While we are thinking about EDA, we don't only focus on numeric variables. What if we have categories? With categorical variables, we can make tables or bar plots. We make bar plots just like we made histograms, except their are no bins and we use <code>geom_bar</code> instead of <code>geom_histogram</code>.</p>
+<p>While we are thinking about EDA, we don't only focus on numeric variables. What if we have categories? With categorical variables, we can make tables or bar plots. We make bar plots just like we made histograms, except there are no bins and we use <code>geom_bar</code> instead of <code>geom_histogram</code>.</p>
 
 <ol start="3" style="list-style-type: decimal">
 <li>Make a bar plot to display the building class. Make sure you title your graphs appropriately!</li>
@@ -319,6 +319,8 @@ For our first activity, this data is contained in a Google Drive file <a href="h
 
 <p>The code is more complex, but the heart of it is the same table. This table will not look very pretty when you press play, but go ahead and knit. See how nicely the table gets formatted?</p>
 
+<p>Luckily, you only have to adapt a few things in this code to make different tables. You need need to specify what you want to make a table of (<code>train$building_class</code>) and you need to change the column names accordingly ("Building Type").</p>
+
 <ol start="3" style="list-style-type: decimal">
 <li>Create a table, using the second way to make a table, for the facility type. Make sure your columns are labelled Facility Type and Count. (Hint: The <code>col.names</code> part of the code above will help with that.)</li>
 
@@ -329,24 +331,23 @@ For our first activity, this data is contained in a Google Drive file <a href="h
 <ol start="3" style="list-style-type: decimal">
 <li>Discuss as a team how you would proceed with exploring and visualizing this data set. This is called making a plan, and is critical to success in applied statistics/data science work.</li>
 
+<ol start="3" style="list-style-type: decimal">
+<li>Take a look at the variables (features) you are given. Are there any that you think it would not make sense to graph? If so, explain why.</li>
+
 <p>We will keep working with this data set for future activities.</p>
 
-<div id="license">
-<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/4.0/88x31.png" /></a><br />This work was created by Nicole Dalzell is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">Creative Commons Attribution-NonCommercial 4.0 International License</a>. Last updated 2021 January 6.
+<div id="instructions">
+  The <a href="https://www.kaggle.com/c/widsdatathon2022">data</a> referenced in this lab was retrieved from the <a href="https://www.kaggle.com/c/widsdatathon2022">here</a> on January 10, 2022.
 </div>
 
 <div id="instructions">
   The <a href="https://raw.githubusercontent.com/mine-cetinkaya-rundel/sta101-s16/master/Labs/lab.css">css file</a> used to format this lab was retrieved from the <a href="https://github.com/mine-cetinkaya-rundel/sta101-s16/blob/master/Labs/lab.css">GitHub of Mine Çetinkaya-Rundel</a>, version 2016 Jan 13.
 </div>
 
-
 <div id="license">
-The data set used in this lab is from the palmerpenguins library in R:
-Horst AM, Hill AP, Gorman KB (2020). palmerpenguins: Palmer Archipelago
-  (Antarctica) penguin data. R package version 0.1.0.
-  https://allisonhorst.github.io/palmerpenguins/. doi: 10.5281/zenodo.3960218.
-</a>.
+<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/4.0/88x31.png" /></a><br />This work was created by Nicole Dalzell is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">Creative Commons Attribution-NonCommercial 4.0 International License</a>. Last updated 2021 January 12.
 </div>
+
 
 <script>
 
