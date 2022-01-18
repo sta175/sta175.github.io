@@ -17,17 +17,21 @@ class: center, middle, inverse, title-slide
 
 
 
-## Goal
+### Goal
 
+.large[
 .question[
 Learn/review some functions for manipulating and summarizing data in R.
+]
 ]
 
 ---
 
-## Penguins data
+### Penguins data
 
+.large[
 Data on 344 penguins near Palmer Station, Antarctica.
+]
 
 .center[
 &lt;img src="penguin_art.png" width="600"&gt;
@@ -39,8 +43,9 @@ Artwork by @allison_horst
 
 ---
 
-## Penguins data
+### Penguins data
 
+.large[
 Data on 344 penguins near Palmer Station, Antarctica. Variables include:
 
 * `species`: penguin's species (Adelie, Chinstrap, Gentoo)
@@ -51,17 +56,21 @@ Data on 344 penguins near Palmer Station, Antarctica. Variables include:
 * `body_mass_g`: penguin's body mass (g)
 * `sex`: penguin's sex (female, male)
 * `year`: year when data recorded (2007, 2008, 2009)
+]
 
 --
 
+.large[
 .question[
 We get this data set -- where do we start?
+]
 ]
 
 ---
 
-## Starting points for data analysis
+### Starting points for data analysis
 
+.large[
 * Work with a smaller, manageable subset of the data
 * Plots, summary statistics, and missing data
 * Create new variables
@@ -69,11 +78,13 @@ We get this data set -- where do we start?
 .question[
 **Data wrangling:** Manipulating, summarizing, and transforming data.
 ]
+]
 
 ---
 
-## Tools for data wrangling
+### Tools for data wrangling
 
+.large[
 .pull-left[
 .center[
 &lt;img src="dplyr_logo.png" width = "200px"&gt;
@@ -85,17 +96,21 @@ We get this data set -- where do we start?
 * provides a "grammar of data manipulation": useful verbs (functions) for manipulating data
 * we will cover a few key `dplyr` functions
 ]
+]
 
 ---
 
-## Making a subset of the data
+### Making a subset of the data
 
+.large[
 .question[
 We have three species of penguin (Adelie, Chinstrap, Gentoo). Let's make a subset with just the Chinstrap penguins.
+]
 ]
 
 --
 
+.large[
 **Step 1:** What data do I start with?
 
 
@@ -105,25 +120,27 @@ penguins
 
 ```
 ## # A tibble: 344 × 8
-##    species   island bill_length_mm bill_depth_mm flipper_length_mm body_mass_g
-##    &lt;fct&gt;     &lt;fct&gt;           &lt;dbl&gt;         &lt;dbl&gt;             &lt;int&gt;       &lt;int&gt;
-##  1 Adelie    Dream            39.6          18.1               186        4450
-##  2 Chinstrap Dream            46.9          16.6               192        2700
-##  3 Adelie    Dream            41.5          18.5               201        4000
-##  4 Gentoo    Biscoe           50.4          15.3               224        5550
-##  5 Adelie    Biscoe           35.9          19.2               189        3800
-##  6 Gentoo    Biscoe           46.5          14.5               213        4400
-##  7 Adelie    Dream            36.5          18                 182        3150
-##  8 Adelie    Dream            37.3          16.8               192        3000
-##  9 Gentoo    Biscoe           44.5          14.3               216        4100
-## 10 Adelie    Biscoe           38.2          18.1               185        3950
+##    species   island    bill_length_mm bill_depth_mm flipper_length_… body_mass_g
+##    &lt;fct&gt;     &lt;fct&gt;              &lt;dbl&gt;         &lt;dbl&gt;            &lt;int&gt;       &lt;int&gt;
+##  1 Adelie    Dream               38.8          20                190        3950
+##  2 Gentoo    Biscoe              47.5          15                218        4950
+##  3 Adelie    Dream               36.2          17.3              187        3300
+##  4 Gentoo    Biscoe              45.1          14.5              207        5050
+##  5 Chinstrap Dream               45.2          16.6              191        3250
+##  6 Adelie    Torgersen           36.2          17.2              187        3150
+##  7 Gentoo    Biscoe              49.3          15.7              217        5850
+##  8 Adelie    Biscoe              41.1          18.2              192        4050
+##  9 Adelie    Torgersen           44.1          18                210        4000
+## 10 Chinstrap Dream               52            20.7              210        4800
 ## # … with 334 more rows, and 2 more variables: sex &lt;fct&gt;, year &lt;int&gt;
 ```
+]
 
 ---
 
-## Making a subset of the data
+### Making a subset of the data
 
+.large[
 .question[
 We have three species of penguin (Adelie, Chinstrap, Gentoo). Let's make a subset with just the Chinstrap penguins.
 ]
@@ -131,32 +148,36 @@ We have three species of penguin (Adelie, Chinstrap, Gentoo). Let's make a subse
 **Step 2:** What do I do to that data?
 
 
+
 ```r
 penguins %&gt;%
   filter(species == "Chinstrap")
 ```
+]
+
 
 ```
 ## # A tibble: 68 × 8
 ##    species   island bill_length_mm bill_depth_mm flipper_length_mm body_mass_g
 ##    &lt;fct&gt;     &lt;fct&gt;           &lt;dbl&gt;         &lt;dbl&gt;             &lt;int&gt;       &lt;int&gt;
-##  1 Chinstrap Dream            46.9          16.6               192        2700
-##  2 Chinstrap Dream            50.9          19.1               196        3550
-##  3 Chinstrap Dream            45.7          17                 195        3650
-##  4 Chinstrap Dream            46.4          17.8               191        3700
-##  5 Chinstrap Dream            50.8          18.5               201        4450
-##  6 Chinstrap Dream            51.3          19.9               198        3700
-##  7 Chinstrap Dream            46            18.9               195        4150
-##  8 Chinstrap Dream            51.3          18.2               197        3750
-##  9 Chinstrap Dream            51            18.8               203        4100
-## 10 Chinstrap Dream            49            19.5               210        3950
+##  1 Chinstrap Dream            45.2          16.6               191        3250
+##  2 Chinstrap Dream            52            20.7               210        4800
+##  3 Chinstrap Dream            54.2          20.8               201        4300
+##  4 Chinstrap Dream            42.5          17.3               187        3350
+##  5 Chinstrap Dream            45.5          17                 196        3500
+##  6 Chinstrap Dream            50.2          18.8               202        3800
+##  7 Chinstrap Dream            50.8          18.5               201        4450
+##  8 Chinstrap Dream            50.5          18.4               200        3400
+##  9 Chinstrap Dream            50.5          19.6               201        4050
+## 10 Chinstrap Dream            46.5          17.9               192        3500
 ## # … with 58 more rows, and 2 more variables: sex &lt;fct&gt;, year &lt;int&gt;
 ```
 
 ---
 
-## Making a subset of the data
+### Making a subset of the data
 
+.large[
 .question[
 We have three species of penguin (Adelie, Chinstrap, Gentoo). Let's make a subset with just the Chinstrap penguins.
 ]
@@ -171,11 +192,13 @@ penguins %&gt;%
 
 * `%&gt;%` is called the *pipe*. It means "take `&lt;this&gt;`, THEN do `&lt;that&gt;`"
 * `filter` keeps only the rows which satisfy a specific condition
+]
 
 ---
 
-## Making a subset of the data
+### Making a subset of the data
 
+.large[
 .question[
 We have three species of penguin (Adelie, Chinstrap, Gentoo). Let's make a subset with just the Chinstrap penguins.
 ]
@@ -190,11 +213,13 @@ chinstrap_penguins &lt;- penguins %&gt;%
 
 * `&lt;-` is the *assignment* operator. It means "save the result in R"
   * Here we create a new data frame called `chinstrap_penguins` that contains just the Chinstraps
+]
   
 ---
 
-## Making a subset of the data
+### Making a subset of the data
 
+.large[
 .question[
 We have three species of penguin (Adelie, Chinstrap, Gentoo). Let's make a subset with just the Chinstrap penguins.
 ]
@@ -207,42 +232,49 @@ chinstrap_penguins &lt;- penguins %&gt;%
 chinstrap_penguins
 ```
 
+]
+
+
 ```
 ## # A tibble: 68 × 8
 ##    species   island bill_length_mm bill_depth_mm flipper_length_mm body_mass_g
 ##    &lt;fct&gt;     &lt;fct&gt;           &lt;dbl&gt;         &lt;dbl&gt;             &lt;int&gt;       &lt;int&gt;
-##  1 Chinstrap Dream            46.9          16.6               192        2700
-##  2 Chinstrap Dream            50.9          19.1               196        3550
-##  3 Chinstrap Dream            45.7          17                 195        3650
-##  4 Chinstrap Dream            46.4          17.8               191        3700
-##  5 Chinstrap Dream            50.8          18.5               201        4450
-##  6 Chinstrap Dream            51.3          19.9               198        3700
-##  7 Chinstrap Dream            46            18.9               195        4150
-##  8 Chinstrap Dream            51.3          18.2               197        3750
-##  9 Chinstrap Dream            51            18.8               203        4100
-## 10 Chinstrap Dream            49            19.5               210        3950
+##  1 Chinstrap Dream            45.2          16.6               191        3250
+##  2 Chinstrap Dream            52            20.7               210        4800
+##  3 Chinstrap Dream            54.2          20.8               201        4300
+##  4 Chinstrap Dream            42.5          17.3               187        3350
+##  5 Chinstrap Dream            45.5          17                 196        3500
+##  6 Chinstrap Dream            50.2          18.8               202        3800
+##  7 Chinstrap Dream            50.8          18.5               201        4450
+##  8 Chinstrap Dream            50.5          18.4               200        3400
+##  9 Chinstrap Dream            50.5          19.6               201        4050
+## 10 Chinstrap Dream            46.5          17.9               192        3500
 ## # … with 58 more rows, and 2 more variables: sex &lt;fct&gt;, year &lt;int&gt;
 ```
-  
 
 ---
 
-## Starting points for data analysis
+### Starting points for data analysis
 
+.large[
 * Work with a smaller, manageable subset of the data
 * Plots, summary statistics, and missing data
 * Create new variables
+]
 
 ---
 
-## Calculating summary statistics
+### Calculating summary statistics
 
+.large[
 .question[
 What is the average body mass for Chinstrap penguins?
+]
 ]
 
 --
 
+.large[
 **Step 1:** What data do I start with?
 
 
@@ -254,23 +286,25 @@ chinstrap_penguins
 ## # A tibble: 68 × 8
 ##    species   island bill_length_mm bill_depth_mm flipper_length_mm body_mass_g
 ##    &lt;fct&gt;     &lt;fct&gt;           &lt;dbl&gt;         &lt;dbl&gt;             &lt;int&gt;       &lt;int&gt;
-##  1 Chinstrap Dream            46.9          16.6               192        2700
-##  2 Chinstrap Dream            50.9          19.1               196        3550
-##  3 Chinstrap Dream            45.7          17                 195        3650
-##  4 Chinstrap Dream            46.4          17.8               191        3700
-##  5 Chinstrap Dream            50.8          18.5               201        4450
-##  6 Chinstrap Dream            51.3          19.9               198        3700
-##  7 Chinstrap Dream            46            18.9               195        4150
-##  8 Chinstrap Dream            51.3          18.2               197        3750
-##  9 Chinstrap Dream            51            18.8               203        4100
-## 10 Chinstrap Dream            49            19.5               210        3950
+##  1 Chinstrap Dream            45.2          16.6               191        3250
+##  2 Chinstrap Dream            52            20.7               210        4800
+##  3 Chinstrap Dream            54.2          20.8               201        4300
+##  4 Chinstrap Dream            42.5          17.3               187        3350
+##  5 Chinstrap Dream            45.5          17                 196        3500
+##  6 Chinstrap Dream            50.2          18.8               202        3800
+##  7 Chinstrap Dream            50.8          18.5               201        4450
+##  8 Chinstrap Dream            50.5          18.4               200        3400
+##  9 Chinstrap Dream            50.5          19.6               201        4050
+## 10 Chinstrap Dream            46.5          17.9               192        3500
 ## # … with 58 more rows, and 2 more variables: sex &lt;fct&gt;, year &lt;int&gt;
 ```
+]
 
 ---
 
-## Calculating summary statistics
+### Calculating summary statistics
 
+.large[
 .question[
 What is the average body mass for Chinstrap penguins?
 ]
@@ -278,10 +312,13 @@ What is the average body mass for Chinstrap penguins?
 **Step 2:** What do I do to that data?
 
 
+
 ```r
 chinstrap_penguins %&gt;%
   summarize(avg_mass = mean(body_mass_g))
 ```
+]
+
 
 ```
 ## # A tibble: 1 × 1
@@ -290,13 +327,15 @@ chinstrap_penguins %&gt;%
 ## 1    3733.
 ```
 
+.large[
 * `%&gt;%` is called the *pipe*. It means "take `&lt;this&gt;`, THEN do `&lt;that&gt;`"
 * `summarize` is used to calculate summary statistics
-
+]
 ---
 
-## Calculating summary statistics
+### Calculating summary statistics
 
+.large[
 .question[
 What is the average body mass for Chinstrap penguins?
 ]
@@ -307,21 +346,14 @@ What is the average body mass for Chinstrap penguins?
 ```r
 chinstrap_summary &lt;- chinstrap_penguins %&gt;%
   summarize(avg_mass = mean(body_mass_g))
-
-chinstrap_summary
 ```
-
-```
-## # A tibble: 1 × 1
-##   avg_mass
-##      &lt;dbl&gt;
-## 1    3733.
-```
+]
 
 ---
 
 ### Chaining pipes together
 
+.large[
 If we don't care about the intermediate results, we can chain pipes (`%&gt;%`) together. These two chunks calculate the same summary statistics.
 
 
@@ -345,11 +377,13 @@ penguins %&gt;%
   filter(species == "Chinstrap") %&gt;%
   summarize(avg_mass = mean(body_mass_g))
 ```
+]
 
 ---
 
-## Calculating summary statistics
+### Calculating summary statistics
 
+.large[
 .question[
 What if I want the average body mass for Adelie penguins?
 ]
@@ -360,11 +394,13 @@ penguins %&gt;%
   filter(species == "Chinstrap") %&gt;%
   summarize(avg_mass = mean(body_mass_g))
 ```
+]
 
 ---
 
-## Calculating summary statistics
+### Calculating summary statistics
 
+.large[
 .question[
 What if I want the average body mass for Adelie penguins?
 ]
@@ -375,11 +411,13 @@ penguins %&gt;%
   filter(species == "Adelie") %&gt;%
   summarize(avg_mass = mean(body_mass_g))
 ```
+]
 
 ---
 
-## Calculating summary statistics
+### Calculating summary statistics
 
+.large[
 .question[
 What is the average body mass for Adelie penguins?
 ]
@@ -390,6 +428,8 @@ penguins %&gt;%
   filter(species == "Adelie") %&gt;%
   summarize(avg_mass = mean(body_mass_g))
 ```
+]
+
 
 ```
 ## # A tibble: 1 × 1
@@ -398,19 +438,24 @@ penguins %&gt;%
 ## 1       NA
 ```
 
+.large[
 .question[
 What does a result of `NA` mean?
+]
 ]
 
 --
 
+.large[
 * `NA` means "Not Available"
 * We get `NA` when there are missing values
+]
 
 ---
 
-## Handling missing values
+### Handling missing values
 
+.large[
 .question[
 What is the average body mass for Adelie penguins?
 ]
@@ -424,6 +469,8 @@ penguins %&gt;%
   summarize(avg_mass = mean(body_mass_g,
                             na.rm=TRUE))
 ```
+]
+
 
 ```
 ## # A tibble: 1 × 1
@@ -432,14 +479,16 @@ penguins %&gt;%
 ## 1    3701.
 ```
 
+.large[
 * Use `filter` to focus only on Adelie penguins
 * `summarize` is used to calculate summary statistics
 * `na.rm=TRUE` means "ignore missing values"
-
+]
 ---
 
-## Handling missing values
+### Handling missing values
 
+.large[
 .question[
 What is the average body mass for Adelie penguins?
 ]
@@ -453,6 +502,8 @@ penguins %&gt;%
   drop_na() %&gt;%
   summarize(avg_mass = mean(body_mass_g))
 ```
+]
+
 
 ```
 ## # A tibble: 1 × 1
@@ -461,12 +512,14 @@ penguins %&gt;%
 ## 1    3706.
 ```
 
+.large[
 * `drop_na` means "remove any rows with missing values in any columns"
-
+]
 ---
 
-## Handling missing values
+### Handling missing values
 
+.large[
 
 ```r
 penguins %&gt;%
@@ -489,25 +542,30 @@ penguins %&gt;%
 .question[
 Why do these chunks give different numbers?
 ]
+]
 
 ---
 
-## Handling missing values
+### Handling missing values
 
+.large[
 * `drop_na` removes *all* rows with missing values (not just missing values in `body_mass_g`)
 * Reasonable if this is a small number of rows
 * When you have missing values, check how much data is missing
-
+]
 ---
 
-## Calculating summary statistics
+### Calculating summary statistics
 
+.large[
 .question[
 What is the average body mass for *each* species of penguin?
+]
 ]
 
 --
 
+.large[
 
 ```r
 penguins %&gt;%
@@ -524,20 +582,25 @@ penguins %&gt;%
 ## 2 Chinstrap    3733.
 ## 3 Gentoo       5076.
 ```
+]
 
 --
 
+.large[
 * `group_by` is used to group rows together
 * We often use `group_by` before `summarize`
-
+]
 ---
 
-## Calculating summary statistics
+### Calculating summary statistics
 
+.large[
 .question[
 What is the mean and standard deviation of body mass, for each species and sex?
 ]
+]
 
+.large[
 
 ```r
 penguins %&gt;%
@@ -564,15 +627,19 @@ penguins %&gt;%
 ## 7 Gentoo    male      5485.    313.
 ## 8 Gentoo    &lt;NA&gt;      4588.    338.
 ```
+]
 
 ---
 
-## Calculating summary statistics
+### Calculating summary statistics
 
+.large[
 .question[
 How many penguins of each species and sex are there?
 ]
+]
 
+.large[
 
 ```r
 penguins %&gt;%
@@ -592,52 +659,62 @@ penguins %&gt;%
 ## 7 Gentoo    male      61
 ## 8 Gentoo    &lt;NA&gt;       5
 ```
+]
 
 ---
 
-## Starting points for data analysis
+### Starting points for data analysis
 
+.large[
 * Work with a smaller, manageable subset of the data
 * Plots, summary statistics, and missing data
 * Create new variables
+]
 
 ---
 
-## Creating new variables
+### Creating new variables
 
+.large[
 .question[
 What's the distribution of the ratio of body mass to flipper length?
+]
 ]
 
 --
 
+.large[
 **Step 1:** Create a new variable
 
 
 ```r
 penguins %&gt;%
-  mutate(body_flipper_ratio = flipper_length_mm/body_mass_g)
+  mutate(bf_ratio = body_mass_g/flipper_length_mm)
 ```
+]
 
+.large[
 
 ```
 ...
-##    species   island body_mass_g flipper_length_mm body_flipper_ratio
-##    &lt;fct&gt;     &lt;fct&gt;        &lt;int&gt;             &lt;int&gt;              &lt;dbl&gt;
-##  1 Adelie    Dream         4450               186             0.0418
-##  2 Chinstrap Dream         2700               192             0.0711
-##  3 Adelie    Dream         4000               201             0.0503
-##  4 Gentoo    Biscoe        5550               224             0.0404
-##  5 Adelie    Biscoe        3800               189             0.0497
-##  6 Gentoo    Biscoe        4400               213             0.0484
-##  7 Adelie    Dream         3150               182             0.0578
+##    species   island    body_mass_g flipper_length_mm bf_ratio
+##    &lt;fct&gt;     &lt;fct&gt;           &lt;int&gt;             &lt;int&gt;    &lt;dbl&gt;
+##  1 Adelie    Dream            3950               190     20.8
+##  2 Gentoo    Biscoe           4950               218     22.7
+##  3 Adelie    Dream            3300               187     17.6
+##  4 Gentoo    Biscoe           5050               207     24.4
+##  5 Chinstrap Dream            3250               191     17.0
+##  6 Adelie    Torgersen        3150               187     16.8
+##  7 Gentoo    Biscoe           5850               217     27.0
 ...
 ```
+]
 
 ---
 
-## Creating new variables
+### Creating new variables
 
+.large[
 .question[
 What's the distribution of the ratio of body mass to flipper length?
 ]
@@ -647,15 +724,17 @@ What's the distribution of the ratio of body mass to flipper length?
 
 ```r
 penguins %&gt;%
-  mutate(body_flipper_ratio = flipper_length_mm/body_mass_g)
+  mutate(bf_ratio = body_mass_g/flipper_length_mm)
 ```
 
 * `mutate` creates a new column in your dataset
+]
 
 ---
 
-## Creating new variables
+### Creating new variables
 
+.large[
 .question[
 What's the distribution of the ratio of body mass to flipper length?
 ]
@@ -665,48 +744,60 @@ What's the distribution of the ratio of body mass to flipper length?
 
 ```r
 penguins_new &lt;- penguins %&gt;%
-  mutate(body_flipper_ratio = flipper_length_mm/body_mass_g)
+  mutate(bf_ratio = body_mass_g/flipper_length_mm)
 ```
+]
 
 ---
 
-## Creating new variables
+### Creating new variables
 
+.large[
 .question[
 What's the distribution of the ratio of body mass to flipper length?
 ]
 
 **Step 3:** Exploratory data analysis
+]
 
+.large[
 
 ```r
 penguins_new &lt;- penguins %&gt;%
-  mutate(body_flipper_ratio = flipper_length_mm/body_mass_g)
+  mutate(bf_ratio = body_mass_g/flipper_length_mm)
 
 penguins_new %&gt;%
   group_by(species) %&gt;%
-  summarize(mean_ratio = mean(body_flipper_ratio, na.rm=T))
+  summarize(mean_ratio = mean(bf_ratio, 
+                              na.rm=T))
 ```
 
 ```
 ## # A tibble: 3 × 2
 ##   species   mean_ratio
 ##   &lt;fct&gt;          &lt;dbl&gt;
-## 1 Adelie        0.0520
-## 2 Chinstrap     0.0529
-## 3 Gentoo        0.0431
+## 1 Adelie          19.5
+## 2 Chinstrap       19.0
+## 3 Gentoo          23.3
 ```
+]
 
 ---
 
-## Starting points for data analysis
+### Starting points for data analysis
 
+.large[
 * Work with a smaller, manageable subset of the data
   * `filter`
 * Plots, summary statistics, and missing data
   * `summarize`, `group_by`, `count`, `drop_na`
 * Create new variables
   * `mutate`
+
+.question[
+**Activity:** practice with data wrangling functions on the building energy efficiency data.
+]
+]
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
