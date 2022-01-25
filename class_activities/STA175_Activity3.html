@@ -218,18 +218,18 @@
 <!-- Don't indent these lines or it will mess pre blocks indentation --> 
 <div id="the-goal" class="section level1">
 <h1>The Goal</h1>
-<p>So far, we have explored how to create graphs using ggplot2 and how to use tidyR to wrangle the data (which means using code to get the data ready for us to work with). However, our activities so far have been rather guided. When we get a data set at DataFest, we don’t have steps helping us decide what do to first, second, etc.</p>
+<p>So far, we have explored how to create graphs using ggplot2 and how to use tidyR to wrangle the data (which means using code to get the data ready for us to work with). However, our activities so far have been rather guided. When we get a data set at DataFest, we don’t have steps helping us decide what do to first, second, etc. All of that is up to us.</p>
 <p>Today, you are going to be working with the energy efficiency data (the same data set we have been working with) as though we were in a competition. If you need a refresher on plotting, look back at Activity 1. If you need a refresher on data wrangling, you can look at <a href="https://sta175-s22.github.io/slides/data_wrangling.html">the slides</a> we covered last time.</p>
 </div>
 <div id="setup" class="section level1">
 <h1>Setup</h1>
 <p>For this activity you will need the <code>dplyr</code>, <code>ggplot2</code>, and <code>tidyr</code> packages. Create a chunk and load these into R by using <code>library(tidyverse)</code> and <code>library(ggplot2)</code>.</p>
 <p>**Note: This first step (loading the libraries) is something you should do before starting any analysis for this course, and at DataFest.</p>
-<p>We will continue using the energy efficiency data from last week. Load the <code>train.csv</code> dataset into R (see <a href="https://sta175-s22.github.io/class_activities/ca_1.html">Activity 1</a> for full instructions).</p>
+<p>We will continue using the energy efficiency data from last week. Load the <code>train.csv</code> data set into R (see <a href="https://sta175-s22.github.io/class_activities/ca_1.html">Activity 1</a> for full instructions).</p>
 </div>
 <div id="activity" class="section level1">
 <h1>Activity</h1>
-<p>At DataFest, you will be given a prompt from a client. For today, we have a client who is interested in determining what features (explanatory variables) in the data set are related to high energy use for residential buildings with at least 6000 sq feet of floor area. Recall that energy use is included in the eui variable in the data set.</p>
+<p>At DataFest, you will be given a prompt from a client. For today, we have a client who is interested in determining what features (explanatory variables) in the data set are related to high energy use for residential buildings with at least 6000 sq feet of floor area. Recall that energy use is included in the EUI variable in the data set.</p>
 <p>The client asks you to create visualizations and/or use a model to explore this. The goal is to identify features related to high energy use so the client can explore ways to help buildings make changes and reduce energy consumption. They ask you specifically to look at the age of the building, but want you to examine other features as well.</p>
 <div id="getting-started---data-wrangling" class="section level2">
 <h2>Getting Started - Data Wrangling</h2>
@@ -245,7 +245,7 @@
 </div>
 <div id="next-steps---considering-age" class="section level2">
 <h2>Next Steps - Considering Age</h2>
-<p>Let’s start with the variable the client asked us specifically to include - age. Take a look at your data set. Do we have a column that indicates buildign age? Nope, though we have a column that can help us figure it out!</p>
+<p>Let’s start with the variable the client asked us specifically to include - age. Take a look at your data set. Do we have a column that indicates building age? Nope, though we have a column that can help us figure it out!</p>
 <div id="question-3" class="section level4 question">
 <h4>Question 3</h4>
 <p>Using the <code>mutate</code> function, create a new column which records the (current) age of each building.</p>
@@ -262,7 +262,7 @@
 <p>Now, let’s take a look at what the client asked for - how does age relate to the energy use of the building.</p>
 <div id="question-6" class="section level4 question">
 <h4>Question 6</h4>
-<p>Fill in the code below to create a scatterplot showing the relationship between age and energy efficiency. Change the color and shape of the points to reflect facility type. Add good labels, a title, and a caption. Feel free to change the theme too.</p>
+<p>Fill in the code below to create a scatter plot showing the relationship between age and energy efficiency. Change the color and shape of the points to reflect facility type. Add good labels, a title, and a caption. Feel free to change the theme too.</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>train_residential <span class="sc">%&gt;%</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> ...,</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>             <span class="at">y =</span> ...,</span>
@@ -282,7 +282,7 @@
 <p>Based on the plot you have created, Note: It is totally fine if you explore a variable and then decide it does not relate to the response variable. The client has asked us to explore…and this means that not every variable will have a relationship.</p>
 </div>
 <p>:::{.question} #### Question 8</p>
-<p>When calculating the age of each building, we compared the year in which it was built to 2022. While we don’t know in which year the buildings were inspected, this is fine as long as all buildings were measured in the same year. However, the buildings in this dataset were actually measured across seven different years. How would you handle this when analyzing building age?</p>
+<p>When calculating the age of each building, we compared the year in which it was built to 2022. While we don’t know in which year the buildings were inspected, this is fine as long as all buildings were measured in the same year. However, the buildings in this data set were actually measured across seven different years. How would you handle this when analyzing building age?</p>
 </div>
 <div id="next-steps---choosing-other-variables" class="section level2">
 <h2>Next Steps - Choosing Other Variables</h2>
