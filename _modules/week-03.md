@@ -1,5 +1,5 @@
 ---
-title: Data wrangling with dplyr
+title: First Steps in the Competition
 ---
 
 January 26
