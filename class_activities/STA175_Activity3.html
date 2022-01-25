@@ -255,8 +255,62 @@
 <p>Now that we’ve made a column for building age, we can explore this new variable.</p>
 <div id="question-4" class="section level4 question">
 <h4>Question 4</h4>
-<p>How many buildings in the data have a missing value for age? <em>(Hint: check out the <code>is.na</code> function in the table of logical operators by Question 3).</em></p>
+<p>How many buildings in the data have a missing value for age? <em>(Hint: check out the <code>is.na</code> function in the table of logical operators below).</em></p>
 </div>
+<table>
+<thead>
+<tr class="header">
+<th>operator</th>
+<th>definition</th>
+<th>operator</th>
+<th>definition</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>&lt;</code></td>
+<td>less than</td>
+<td><code>x | y</code></td>
+<td><code>x</code> OR <code>y</code></td>
+</tr>
+<tr class="even">
+<td><code>&lt;=</code></td>
+<td>less than or equal to</td>
+<td><code>is.na(x)</code></td>
+<td>test if <code>x</code> is <code>NA</code></td>
+</tr>
+<tr class="odd">
+<td><code>&gt;</code></td>
+<td>greater than</td>
+<td><code>!is.na(x)</code></td>
+<td>test if <code>x</code> is not <code>NA</code></td>
+</tr>
+<tr class="even">
+<td><code>&gt;=</code></td>
+<td>greater than or equal to</td>
+<td><code>x %in% y</code></td>
+<td>test if <code>x</code> is in <code>y</code></td>
+</tr>
+<tr class="odd">
+<td><code>==</code></td>
+<td>exactly equal to</td>
+<td><code>!(x %in% y)</code></td>
+<td>test if <code>x</code> is not in <code>y</code></td>
+</tr>
+<tr class="even">
+<td><code>!=</code></td>
+<td>not equal to</td>
+<td><code>!x</code></td>
+<td>not <code>x</code></td>
+</tr>
+<tr class="odd">
+<td><code>x &amp; y</code></td>
+<td><code>x</code> AND <code>y</code></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
 <div id="question-5" class="section level4 question">
 <h4>Question 5</h4>
 <p>Do the residential buildings with missing age tend to belong to a specific facility type?</p>
@@ -281,10 +335,12 @@
 </div>
 <div id="question-7" class="section level4 question">
 <h4>Question 7</h4>
-<p>Based on the plot you have created, Note: It is totally fine if you explore a variable and then decide it does not relate to the response variable. The client has asked us to explore…and this means that not every variable will have a relationship.</p>
+<p>Based on your work, what patterns do you see between age and energy usage? Note: It is totally fine if you explore a variable and then decide it does not relate to the response variable. The client has asked us to explore…and this means that not every variable will have a relationship.</p>
 </div>
-<p>:::{.question} #### Question 8</p>
+<div id="question-8" class="section level4 question">
+<h4>Question 8</h4>
 <p>When calculating the age of each building, we compared the year in which it was built to 2022. While we don’t know in which year the buildings were inspected, this is fine as long as all buildings were measured in the same year. However, the buildings in this data set were actually measured across seven different years. How would you handle this when analyzing building age?</p>
+</div>
 </div>
 <div id="next-steps---choosing-other-variables" class="section level2">
 <h2>Next Steps - Choosing Other Variables</h2>
@@ -299,7 +355,7 @@
 </div>
 <div id="question-11" class="section level4 question">
 <h4>Question 11</h4>
-<p>Based on your work, what patterns do you see between age and energy usage? Have you identified any features that might be associated with high EUI?</p>
+<p>Based on your work, what patterns do you see between the features and energy usage? Have you identified any features that might be associated with high EUI?</p>
 </div>
 </div>
 <div id="time-permitting" class="section level2">
