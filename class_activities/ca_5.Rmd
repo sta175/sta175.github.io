@@ -116,7 +116,7 @@ Once we have a fitted regression model for which the assumptions seem reasonable
 Does your regression model explain much of the variability in EUI?
 :::
 
-In general, we need more than one predictor to do a good job predicting the response. Let's add more predictors to the model.
+In general, we need more than one predictor to do a good job predicting the response. Let's add more predictors to the model. When we add predictors, we also need to think about whether there are any *interactions* between explanatory variables. Remember that an interaction means that the relationship between an explanatory and the response changes depending on the value of another explanatory variable in the model.
 
 :::{.question}
 #### Question 7
