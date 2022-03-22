@@ -1,5 +1,5 @@
 ---
-title: Exploring Trees
+title: Getting ready for competition day!
 ---
 
 March 22 
