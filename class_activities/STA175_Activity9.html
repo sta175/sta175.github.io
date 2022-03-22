@@ -199,6 +199,7 @@
           <li><a href="#slides---general-tips">Slides - General Tips</a></li>
           </ul></li>
           <li><a href="#presentation">Presentation</a></li>
+          <li><a href="#get-ready">Get Ready!</a></li>
           </ul>
         </nav>
         <ul class="authors">
@@ -313,8 +314,10 @@
 <h4>Question 4</h4>
 <p>On your RMarkdown slides, delete everything after the first chunk. This creates a blank presentation (aside from the title slide). Knit to check your work!</p>
 </div>
-<p>Now that we have a blank canvas, let’s add a slide. To make a slide on Markdown, you just need to use two hashtags (##). Look at the slide Markdown file you created in Question 3. Do you see that at the beginning of this, you have ## R Markdown? This is the title of the first slide. If you want to add a new slide, you just need two hashtags and then you type your slide title. You can create as many slides as you like!</p>
-<p>Once you have created your title (## Research Question 1) hit enter twice to move to a line below your title. Here, you can put content just like you can in any other Markdown file. This means you can type things, insert a code chunk, etc.</p>
+<p>Now that we have a blank canvas, let’s add a slide. To make a slide on Markdown, you just need to use two hashtags (##), a space, and then a title for your slide. For example,</p>
+<p><code>## Slide 1</code></p>
+<p>will create a slide called Slide 1. This goes in the white space of your Markdown, not in a chunk.</p>
+<p>Once you have created your slide title, hit enter twice to move to a line below your title. Here, you can put content just like you can in any other Markdown file. This means you can type things, insert a code chunk, etc.</p>
 <div id="question-5" class="section level4 question">
 <h4>Question 5</h4>
 <p>Change the title of the first slide to “Research Question 1.” On the first slide, put a statement describing your client’s research question. Knit your slides and check your work!</p>
@@ -330,31 +333,27 @@
 <p>There are three types of things you can type into a Markdown document: regular text, R code, and mathematical notation. Anything in the white space is read just as text, like what you would type into Word. Anything in an R chunk is read as R code.</p>
 <p>If you want to write mathematical notation, we need to tell Markdown, “Hey, we’re going to make a math symbol!” To do that, you use dollar signs. For instance, to make <span class="math inline">\(\hat{\beta}_1\)</span>, you simply put <code>$\hat{\beta}_1$</code> into <strong>the white space (not a chunk)</strong> in your Markdown. Go ahead and do that. See how the dollar signs change colors? Also note that if you hover your mouse over what you just pasted, the mathematical symbol we want will appear.</p>
 <p>The same type of structure can be used for other mathematical symbols. Let’s say I want to write out the LSLR model. We then type</p>
-<ul>
-<li><code>${Body Mass} = {\beta}_0 + {\beta_1} FlipperLength + \epsilon$</code></li>
-</ul>
+<p><code>$Body Mass = \beta_0 + \beta_1 FlipperLength + \epsilon$</code></p>
 <p>into the white space on a slide.</p>
 <p>What if I want the LSLR line (the fitted model)? We then type</p>
-<ul>
-<li><code>$\widehat{Body Mass} = \hat{\beta}_0 + \hat{\beta_1} FlipperLength$</code></li>
-</ul>
+<p><code>$\widehat{Body Mass} = \hat{\beta}_0 + \hat{\beta_1} FlipperLength$</code></p>
 <p>into the white space on a slide.</p>
 We’ll notice that we used <code>\hat</code> for the <span class="math"><span class="math inline">\(\hat{\beta}_1\)</span></span> but <code>\widehat</code> over <code>BodyMass</code>. Why? Because <code>BodyMass</code> is a longer word than <span class="math"><span class="math inline">\(\hat{\beta}_1\)</span></span> and hence needs a bigger (wider) hat.
 </p>
 <div id="question-7" class="section level4 question">
 <h4>Question 7</h4>
-<p>Build an LSLR model to explore the client’s research question. Write down the fitted LSLR line (meaning include numeric values for <span class="math inline">\(\hat{\beta}_0\)</span> and <span class="math inline">\(\hat{\beta}_1\)</span>) on Slide 3 of your presentation.</p>
+<p>Build an LSLR model to explore the client’s research question. Write down both the LSLR model and the fitted LSLR line (meaning include numeric values for <span class="math inline">\(\hat{\beta}_0\)</span> and <span class="math inline">\(\hat{\beta}_1\)</span>) on Slide 3 of your presentation.</p>
 </div>
 </div>
 <div id="slides---adding-bullets" class="section level2">
 <h2>Slides - Adding Bullets</h2>
-<p>Now we have shown a graph and shown our LSLR line. We now need to create a slide that responds to our client’s research question. This likely involves text in addition to rather than an equation or a graph.</p>
+<p>Now we have shown a graph and shown our LSLR line. We now need to create a slide that responds to our client’s research question. This likely involves text in addition to an equation or a graph.</p>
 <p>To create bullets on a Markdown slide, you just use dashes( - ). For instance,</p>
 <p><code>- Bullet 1</code></p>
 <p><code>- Bullet 2</code></p>
 <div id="question-8" class="section level4 question">
 <h4>Question 8</h4>
-<p>Based on your graph and LSLR model, respond to the client’s.</p>
+<p>Based on your graph and LSLR model, respond to the client’s research question.</p>
 </div>
 <div id="question-9" class="section level4 question">
 <h4>Question 9</h4>
@@ -395,6 +394,11 @@ We’ll notice that we used <code>\hat</code> for the <span class="math"><span c
 <li><strong>Use Eye Contact</strong>: Presentations are more engaging if you look at the judges or audience while you present. In more general terms, talk to the people rather than the screen.</li>
 <li><strong>Don’t read the slides</strong>: We can all see the slides. Make sure you do not simply read off them during your presentation!</li>
 </ul>
+<p>Your presentation will go much more smoothly if you discuss all of these things in advance and if you practice. Remember, you only have a few minutes! Practice will help you figure out what you have time to say.</p>
+</div>
+<div id="get-ready" class="section level1">
+<h1>Get Ready!</h1>
+<p>DataFest is next week!!</p>
 </div>
 
    

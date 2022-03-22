@@ -118,9 +118,13 @@ Recall that client's first research question: *What is the relationship between 
 On your RMarkdown slides, delete everything after the first chunk. This creates a blank presentation (aside from the title slide). Knit to check your work! 
 :::
 
-Now that we have a blank canvas, let's add a slide. To make a slide on Markdown, you just need to use two hashtags (##). Look at the slide Markdown file you created in Question 3. Do you see that at the beginning of this, you have ## R Markdown? This is the title of the first slide. If you want to add a new slide, you just need two hashtags and then you type your slide title. You can create as many slides as you like!
+Now that we have a blank canvas, let's add a slide. To make a slide on Markdown, you just need to use two hashtags (##), a space, and then a title for your slide. For example, 
 
-Once you have created your title (## Research Question 1) hit enter twice to move to a line below your title. Here, you can put content just like you can in any other Markdown file. This means you can type things, insert a code chunk, etc. 
+`## Slide 1`
+
+will create a slide called Slide 1. This goes in the white space of your Markdown, not in a chunk. 
+
+Once you have created your slide title, hit enter twice to move to a line below your title. Here, you can put content just like you can in any other Markdown file. This means you can type things, insert a code chunk, etc. 
 
 :::{.question}
 #### Question 5 
@@ -142,13 +146,13 @@ If you want to write mathematical notation, we need to tell Markdown, "Hey, we'r
 
 The same type of structure can be used for other mathematical symbols. Let's say I want to write out the LSLR model. We then type 
 
-- `${Body Mass} = {\beta}_0 + {\beta_1} FlipperLength + \epsilon$` 
+`$Body Mass = \beta_0 + \beta_1 FlipperLength + \epsilon$` 
 
 into the white space on a slide.
 
 What if I want the LSLR line (the fitted model)? We then type 
 
-- `$\widehat{Body Mass} = \hat{\beta}_0 + \hat{\beta_1} FlipperLength$`
+`$\widehat{Body Mass} = \hat{\beta}_0 + \hat{\beta_1} FlipperLength$`
 
 into the white space on a slide. 
 
@@ -156,12 +160,12 @@ We'll notice that we used `\hat` for the <span class="math">\(\hat{\beta}_1\)</s
 
 :::{.question}
 #### Question 7 
-Build an LSLR model to explore the client's research question. Write down the fitted LSLR line (meaning include numeric values for $\hat{\beta}_0$ and $\hat{\beta}_1$) on Slide 3 of your presentation.  
+Build an LSLR model to explore the client's research question. Write down both the LSLR model and the fitted LSLR line (meaning include numeric values for $\hat{\beta}_0$ and $\hat{\beta}_1$) on Slide 3 of your presentation. 
 :::
 
 ## Slides - Adding Bullets
 
-Now we have shown a graph and shown our LSLR line. We now need to create a slide that responds to our client's research question. This likely involves text in addition to rather than an equation or a graph.
+Now we have shown a graph and shown our LSLR line. We now need to create a slide that responds to our client's research question. This likely involves text in addition to an equation or a graph.
 
 To create bullets on a Markdown slide, you just use dashes( - ). For instance, 
 
@@ -171,7 +175,7 @@ To create bullets on a Markdown slide, you just use dashes( - ). For instance,
 
 :::{.question}
 #### Question 8 
-Based on your graph and LSLR model, respond to the client's.   
+Based on your graph and LSLR model, respond to the client's research question.   
 :::
 
 :::{.question}
@@ -210,4 +214,10 @@ The final step is to discuss the actual presentation with your team. You need to
 - **Volume**:  We will seat the judges in the front, but make sure they can hear you! 
 - **Use Eye Contact**: Presentations are more engaging if you look at the judges or audience while you present. In more general terms, talk to the people rather than the screen. 
 - **Don't read the slides**: We can all see the slides. Make sure you do not simply read off them during your presentation! 
+
+Your presentation will go much more smoothly if you discuss all of these things in advance and if you practice. Remember, you only have a few minutes! Practice will help you figure out what you have time to say. 
+
+# Get Ready! 
+
+DataFest is next week!!
 
