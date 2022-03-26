@@ -55,3 +55,10 @@ Saturday is entirely for working. There will be folks available to help you to (
 - **Level 1 Teams:** Manchester 121
 - **Level 2 Teams:** Divinity and Religious Studies Room 302 (our classroom) 
 
+## Timeline 
+
+- You must submit your slides to Dr. Dalzell by 9:30 AM
+- Judging begins at 10 AM sharp. 
+- You **MUST** be in your juding location by 9:55 AM. 
+- Winners will be announced at 11:30 AM. 
+
