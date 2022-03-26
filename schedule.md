@@ -60,5 +60,9 @@ Saturday is entirely for working. There will be folks available to help you to (
 - You must submit your slides to Dr. Dalzell by 9:30 AM
 - Judging begins at 10 AM sharp. 
 - You **MUST** be in your judging location by 9:55 AM. 
+
+## Winners Announced: Divinity and Religious Studies Room 302 (our classroom)
+
 - Winners will be announced at 11:30 AM. 
+- There will be a winning team in Level 1 and a winning team in Level 2. 
 
