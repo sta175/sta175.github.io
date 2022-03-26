@@ -1,11 +1,14 @@
 ---
 layout: page
-title: Weekly Schedule
+title: DataFest Schedule
 description: The weekly event schedule.
 ---
 
-# Weekly Schedule
+# DataFEst Schedule: Overview 
 
-{% for schedule in site.schedules %}
-{{ schedule }}
-{% endfor %}
+# Friday April 1st
+
+# Saturday April 2nd
+
+# Sunday April 3rd
+
