@@ -12,6 +12,8 @@ DataFest begins on Friday April 1st at 5:45 PM and continues until Sunday April 
 - Saturday: Work Day
 - Sunday: Judging and Announcing the Winners 
 
+---
+
 # Friday April 1st: 
 
 ## Location: Divinity and Religious Studies Room 302 (our classroom) 
@@ -33,6 +35,8 @@ At 6:30 PM, we will move to the tents on Davis field where dinner will be provid
 
 ## Work Time: 7 PM - Whenever you choose to sleep 
 
+---
+
 # Saturday April 2nd
 
 ## Location: Manchester/Kirby
@@ -41,6 +45,8 @@ Saturday is entirely for working. There will be folks available to help you to (
 
 - We have reserved most classrooms on the 1st floor and the basement for y'all to use. Find your team, grab a room, and work! 
 - **Lunch** : Lunch will be provided at noon. 
+
+---
 
 # Sunday April 3rd
 
