@@ -4,7 +4,13 @@ title: DataFest Schedule
 description: The weekly event schedule.
 ---
 
-# DataFEst Schedule: Overview 
+# DataFest Schedule: Overview 
+
+DataFest begins on Friday April 1st at 5:30 PM and continues until Sunday April 3rd at noon. 
+
+- Friday: Getting Started
+- Satruday: Work Day
+- Sunday: Judging and Announcing the Winners 
 
 # Friday April 1st
 
