@@ -35,5 +35,17 @@ At 6:30 PM, we will move to the tents on Davis field where dinner will be provid
 
 # Saturday April 2nd
 
+## Location: Manchester/Kirby
+
+Saturday is entirely for working. There will be folks available to help you to (Dr. Dalzell or Dr. Evans) from 10 AM - 4 PM, but you may start working as early as you like and may work past 4 PM. We generally recommend 10 AM - 7 PM. 
+
+- We have reserved most classrooms on the 1st floor and the basement for y'all to use. Find your team, grab a room, and work! 
+- **Lunch** : Lunch will be provided at noon. 
+
 # Sunday April 3rd
+
+## Location: 
+
+- **Level 1 Teams:** Manchester 121
+- **Level 2 Teams:** Divinity and Religious Studies Room 302 (our classroom) 
 
