@@ -27,7 +27,7 @@ Each competitor must
 
 ## Competition Start: 6 PM
 
-At 6 PM, we will open the compeition. We will share information about the data and will release the data at 6:15 after opening ceremonies. 
+At 6 PM, we will open the competition. We will share information about the data and will release the data at 6:15 after opening ceremonies. 
 
 ## Dinner: 6:30 PM 
 
