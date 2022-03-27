@@ -33,7 +33,7 @@ At 6 PM, we will open the competition. We will share information about the data 
 
 At 6:30 PM, we will move to the tents on Davis field where dinner will be provided. 
 
-## Work Time: 7 PM - Whenever you choose to sleep 
+## Work Time: 7 PM - Whenever you choose to stop
 
 ---
 
