@@ -6,7 +6,7 @@ description: The weekly event schedule.
 
 # DataFest Schedule: Overview 
 
-DataFest begins on Friday April 1st at 5:45 PM and continues until Sunday April 3rd at noon. 
+DataFest begins on Friday March 31 at 5:45 PM and continues until Sunday April 2nd at 1 PM. 
 
 - Friday: Getting Started
 - Saturday: Work Day
@@ -14,9 +14,9 @@ DataFest begins on Friday April 1st at 5:45 PM and continues until Sunday April 
 
 ---
 
-# Friday April 1st: 
+# Friday March 31: 
 
-## Location: Divinity and Religious Studies Room 302 (our classroom) 
+## Location: TBA
 
 ## **Registration**: 5:45 PM
 
@@ -29,31 +29,24 @@ Each competitor must
 
 At 6 PM, we will open the competition. We will share information about the data and then will release the data at 6:15 after opening ceremonies. 
 
-## Dinner: 6:30 PM 
-
-At 6:30 PM, we will move to the tents on Davis field where dinner will be provided. 
-
 ## Work Time: 7 PM - Whenever you choose to stop
 
 ---
 
-# Saturday April 2nd
+# Saturday April 1st
 
 ## Location: Manchester/Kirby
 
 Saturday is entirely for working. There will be folks available to help you to (Dr. Dalzell or Dr. Evans) from 10 AM - 4 PM, but you may start working as early as you like and may work past 4 PM. We generally recommend 10 AM - 7 PM. 
 
-- We have reserved most classrooms on the 1st floor and the basement for y'all to use. Find your team, grab a room, and work! 
-- **Lunch** : Lunch will be provided at noon. 
-
 ---
 
-# Sunday April 3rd
+# Sunday April 2nd
 
 ## Judging Location: 
 
-- **Level 1 Teams:** Manchester 121
-- **Level 2 Teams:** Divinity and Religious Studies Room 302 (our classroom) 
+- **Level 1 Teams:** TBA
+- **Level 2 Teams:** TBA
 
 ## Timeline 
 
@@ -61,8 +54,8 @@ Saturday is entirely for working. There will be folks available to help you to (
 - Judging begins at 10 AM sharp. 
 - You **MUST** be in your judging location by 9:55 AM. 
 
-## Winners Announced: Divinity and Religious Studies Room 302 (our classroom)
+## Winners Announced: Location TBA
 
-- Winners will be announced at 11:30 AM. 
+- Winners will be announced at 12:30 PM. 
 - There will be a winning team in Level 1 and a winning team in Level 2. 
 
