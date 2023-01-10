@@ -1,5 +1,5 @@
 ---
-title: Week 2 - Data wrangling with dplyr
+title: Week 2 Data wrangling with dplyr
 ---
 
 January 18
