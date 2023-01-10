@@ -1,8 +1,8 @@
 ---
-title: Introduction
+title: Week 1 Introduction
 ---
 
-January 12
+January 11
 : Welcome to STA 175!
   : [Downloading the Data](https://sta175-s22.github.io/slides/loadingData.html), [Class Activity](https://sta175-s22.github.io/class_activities/ca_1.html)
   

@@ -1,8 +1,7 @@
 ---
-title: Getting ready for competition day!
+title: Week 9 - Spring Break, No Class
 ---
 
-March 22 
-: Presentation Skills
-  : [Link to RStudio Pro: rstudio.deac.wfu.edu](https://rstudio.deac.wfu.edu/), [Class Activity](https://sta175-s22.github.io/class_activities/STA175_Activity9.html)
+March 8th
+: No class, have a wonderful break! 
   
