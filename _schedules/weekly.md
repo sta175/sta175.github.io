@@ -25,8 +25,8 @@ schedule:
     events:
       - name: STA 175
         start: 3:30 PM
-        end: 4:20 PM
-        location: Divinity and Religious Studies Room 302
+        end: 4:40 PM
+        location: Kirby 104
   - name: Thursday
   - name: Friday
 ---

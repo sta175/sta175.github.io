@@ -18,7 +18,7 @@ tagline: STA 175
 description: Course materials
 author: Ciaran Evans
 baseurl: # the subpath of your site, e.g. /blog
-url: 'https://sta175-s22.github.io' # the base hostname & protocol for your site, e.g. http://example.com
+url: 'https://sta175.github.io' # the base hostname & protocol for your site, e.g. http://example.com
 exclude: ["Gemfile", "Gemfile.lock", "LICENSE", "README.md"]
 
 # Theme settings

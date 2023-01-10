@@ -15,6 +15,6 @@ seo:
 
 Welcome to the course website for STA 175!
 
-* Slides, handouts, and activities can be found in the [Course Calendar](https://sta175-s22.github.io/calendar/)
+* Slides, handouts, and activities can be found in the [Course Calendar](https://sta175.github.io/calendar/)
 
-* The [Syllabus](https://sta175-s22.github.io/about/) contains information about course policies
+* The [Syllabus](https://sta175.github.io/about/) contains information about course policies
