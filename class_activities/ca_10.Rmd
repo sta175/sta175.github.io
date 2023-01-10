@@ -1,0 +1,65 @@
+---
+title: "STA 175 DataFest Activity 10: Elm City Stories"
+output: 
+  rmdformats::robobook:
+    css: "homework.css"
+    highlight: pygments
+link-citations: yes
+---
+
+# Playforward: Elm City Stories
+
+*Playforward: Elm City Stories* is a game for teenagers that is designed to help them make good life choices. This game will be relevant to DataFest, so today you will play through some of the game and become familiar with the different components and choices involved.
+
+## Step 0: Log in
+
+To play the game, go to [https://user.p2p-games.org/login]( https://user.p2p-games.org/login)
+
+Login information will be provided by Dr. Dalzell and Dr. Evans.
+
+## Step 1: Create a character
+
+When you first log on to the game, you will be prompted to create a character. Your first step is to choose the age and gender, then on the next screen you will choose an avatar and enter a name.
+
+:::{.question}
+#### Note
+
+Note that you have fixed choices for age, and there are only two choices for gender.
+:::
+
+Once you have created your character, you will see a message that you have earned three "Me Power" stars. These stars are the currency for this game: you will earn stars by completing tasks and challenges, and you will spend stars to make good decisions for your future.
+
+## Step 2: Tutorial
+
+Once you have created your character, there is a short tutorial that introduces you to the layout of the game. Elm City Stories is a point-and-click game, in which you click on different people and items in a scene to learn information and move the story forward.
+
+**Sense tools:** When exploring a scene, you have three *sense tools*: know sense, people sense, and priority sense. You can switch between these tools using the buttons at the bottom right of the screen. You are looking for *key points* in each scene -- important information in the story. Using different sense tools gives you different information -- you should explore a scene using each tool.
+
+**Decision points:** The story is divided between what happened in the past, and how it affects the future. You begin by exploring the past, then you go back to make better choices that lead to a better future. These choices take place at *decision points* in each story.
+
+**"Me Power":** To make better decisions, you will spend "Me Power" stars. You accumulate these stars by completing minigames.
+
+## Step 3: Work through a story
+
+The first story you can access is "Cheaters". Play through this story, exploring each scene and the different decision points. As you go, you will play minigames to boost your sense tools and earn "Me Power" stars. For example, one of the minigames in "Cheaters" involves choosing good friendships.
+
+As you play, keep an eye out for which elements can be controlled by the user, and which cannot.
+
+:::{.question}
+#### Question 1
+
+Can you explore a story in different ways, or is the order of events fixed? For example, can you access minigames or skill challenges in different orders? With your teammates, try exploring "Cheaters" in a different order, and see how similar your experiences are.
+:::
+
+:::{.question}
+#### Question 2
+
+Which decisions are left up to the user? For example, some minigames allow you to choose different friends and see the results, whereas discovering key points in a scene requires you to point and click, but you can't change the key points themselves.
+:::
+
+:::{.question}
+#### Question 3
+
+Can you ever go back and re-try parts of the game?
+:::
+
