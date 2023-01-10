@@ -1,5 +1,5 @@
 ---
-title: Week 1: Introduction
+title: Week 1 Introduction
 ---
 
 January 11
