@@ -1,0 +1,176 @@
+---
+title: "STA 175 DataFest Activity 2"
+output: 
+  rmdformats::robobook:
+    css: "homework.css"
+    highlight: pygments
+link-citations: yes
+---
+
+# The Goal
+
+Today, we are going to start our work on **collaborative coding**, meaning that we will discuss techniques and tips that can be used to help you work with others when you are coding in R. 
+
+To do this, we are going to start working with **RStudio Pro**, which is an online way to access R. RStudio Pro has faster processing time and more storage space that most of your computers, and it also allows you to collaborate with others. Today, you will be starting to get acquainted with Pro. Most of you will need to plan to use Pro at DataFest, as the large size of the data will make it difficult for many of your computers to use your downloaded version of R.  
+
+# Setup
+
+### Step 1 - Logging on 
+
+To access RStudio Pro, you MUST be on Wake Forest's campus, or you MUST be on the Wake Forest VPN. So, if you are not on campus, log on to the VPN.
+
+Once you have done that, go to [https://rstudio.deac.wfu.edu/](https://rstudio.deac.wfu.edu/) in any web browser.
+
+You will log in with your Wake Forest user name (your WFU Email
+address without @wfu.edu) and password .
+
+### Step 2 - Changing the Working Directory  
+
+Now, we have stated that RStudio Pro has more storage space than most of your computers. We have a special space on Pro that is just for this course and this competition that has extra storage. We need to navigate to that special space now. 
+
+Spaces in R are called **working directories**; this is where all your files are stored. When you initially log in to RStudio Pro, your working directory is set to /home/your_username. However, we
+want to store all of our data and files for class under a different working directory: 
+
+/deac/sta/classes/sta175-sp-2023/your_username
+
+where `your_username` should be replaced with your actual username (so your Wake Forest email without the @wfu.edu. Dr. Dalzell's is dalzelnm). 
+
+Okay, so how do we get to that working directory that has all the special storage space for the competition? Well, to change your working directory…
+
+- Click on Console at the bottom left hand panel of your RStudio screen.  
+- Run the command `setwd("/deac/sta/classes/sta175-sp-2023/your_username")`
+- **NOTE: Make sure you replace `your_username` with your actual user name!!!!** 
+- Now, look at the top left hand panel of RStudio, and find R 4.0.2 on the top of the Console tab. Next to it you should see something that looks like /deac/sta/classes/sta175-sp-2023/your_username
+- Click the white arrow next to this. This changes your working directory in the right panel.
+- Now, look at the bottom right hand panel of your screen. Click on Files. 
+- At the top of this tab, you should see something that includes sta175 and your user name. 
+- If you do, you are done! 
+
+If you get stuck at any point during this process, let us know. 
+
+# Loading Data Into RStudio Pro
+
+Now that we are ready to start working with RStudio Pro, we need data. The process of loading the data into RStudio Pro requires one more step than loading data onto your computer. 
+
+We will continue using the energy efficiency data from last week. If you haven't already, load the `train.csv` dataset into R (see [Activity 1](https://sta175.github.io/class_activities/ca_1.html) for full instructions).
+
+Let's go ahead and upload our `train` data that we need for our activity today. 
+
+- Look at the bottom right hand panel of your RStudio Pro screen.
+- Find Files and click on it. 
+- Click Upload. 
+- Choose the data set from your computer and upload it. 
+- Be patient, this may take a minute, it's a big file!!
+
+The steps we have just done essentially move the data from your computer onto the Cloud. Now, we need to tell Pro we want to use that data. 
+
+- Look at the top right hand panel of your RStudio Pro screen.
+- Find Environment. 
+- Click Import Dataset. 
+- Find your file, and load it in! **Make sure you have column names on your data that are not V1, V2, etc.** 
+
+These are the same steps we will use anytime we need to load data into Pro. 
+
+# Collaborating 
+
+At this point, RStudio Pro will function just like R. You can open an R script, or a Markdown file, and work as usual. However, one of the perks of RStudio Pro is that you can collaborate with others. How can you do that? 
+
+### Creating a Project 
+
+One person on your team (and just one) needs to create a **project**. A project in R is like a Google Drive folder. You can put things inside the project and your teammates (once we had added them to the project) will be able to access those files. They will also be able to add and change things in the project space. 
+
+Pick one person on your team to create the project (it doesn't matter who!). That ONE person who wants to create the project will
+
+- Find File at the top of their screen. 
+- Click New Project.
+- Click Existing Directory. 
+- At the bottom of the screen that pops up, hit Create Project. 
+- Create the project! 
+
+At this point, your project is created. What on earth does that mean??  
+
+So, how can you share with your teammates? 
+
+- Click File at the top of your screen. 
+- Click Share Project.
+- Type in your teammates user IDS. 
+
+You have now shared your project with the rest of your teammates. This means that those teammates now need to access that project. How can they do that?? 
+
+- Click on File at the top of their screen.
+- Choose Open Project.
+- Choose the STA175 project. 
+
+And now your teammates are in the project space! 
+
+### Creating files in the project 
+
+Okay, so everyone is in the project...which right is extraordinarily boring because nothing is in it. Let's fix that. 
+
+Everyone in your team should create either an R script or a Markdown file. Save that file under your first name. If you choose a Markdown file, knit the file. 
+
+Now, everyone look at the lower right hand panel of your RStudio Pro screen, and click Files. You should see all of your teams files in that space! 
+
+### Collaborating on a File 
+
+Now, let's see how this collaboration thing works. 
+
+Choose one of your teammates to be your partner for a moment. Suppose Student A and Student B are partners. Both Students should open Student A's file (the R script or Markdown file with their name). Student A, type Hi!!! on the first blank line available. Student B, type Hi Back!!! on the second blank line available. Can you see each others typing?? If not, let us know! 
+
+This is pretty powerful - you can both write on the same script! However, this also means you can delete each others work. If Student B erases something in Student A's file, it is gone. This means that you need to make sure you are careful to only delete or change what you are sure the other person does not need. How do you make sure not to do that? 
+
+Let's say your team is working on EDA. Each member of the team is creating a visualization of a different variable. Each of you should be doing that on your own file in the project (so a Markdown file called YourName.Rmd). Once you have completed your EDA and your code is all complete, then you can move this code into a different "Master" file called Master.Rmd. This master file is where everyone will put their finished code so everyone can see it. This means that everyone has access to the finished versions of the code!
+
+# Working with Pro
+
+Now that we have the basics, let's see if we can do some practicing. We are going to continue with our same work from last time. This means you need the `ggplot2` package. Create a chunk and load this into R by using `library(ggplot2)`.
+
+### Recall:  The Client
+
+We have a client who is interested in determining what features (explanatory variables) in the data set are related to high energy use for residential buildings with at least 6000 sq feet of floor area. Recall that energy use is included in the EUI variable in the data set. 
+
+The client asks you to create visualizations and/or use a model to explore this. The goal is to identify **features** (this means explanatory variables in the data set) that are related to high energy use so the client can explore ways to help buildings make changes and reduce energy consumption. 
+
+The client asks you specifically to look at the age of the building, but want you to examine other features as well. 
+
+## Exploring Features   
+
+Now, we have a ton of variables in this data set. Our client wants to know which of them is associated with high energy usage. Does this means we have to look at all 60+ at once??? Nope. If you are familiar with variable selection techniques and want to try that, go for it. However, it is also totally reasonable to start exploring just a few variables. 
+
+As you are working in a team, it is also likely that each person will explore a feature on their own and then share their findings with the group. Let's practice that. 
+
+:::{.question}
+#### Question 1
+
+Have each member of your team choose one feature (explanatory variable) that they want to explore. Each team member should use appropriate graphs or summaries to explore the relationship between their chosen feature and EUI **in their own file**. 
+:::
+
+:::{.question}
+#### Question 2
+
+Have one person in your team create a new file called `Master_Activity2`. This should be an R script or a Markdown file where you will all put your final code. The person who creates the file should create a section with each team members name by using `## Name Here`. This helps show everyone where it is safe to type. 
+:::
+
+:::{.question}
+#### Question 3
+
+Have each person on the team access into their designated space on the `Master_Activity2` file. Go ahead and paste whatever code you used to create your graphs there. This creates a master file where everyone's code can be seen! Save the document. When everyone is done, have one person knit the document. 
+:::
+
+:::{.question}
+#### Question 4
+
+Come back together as a team. Share with one another what each of you has found. Based on this work, what patterns do you see between the features and energy usage? Have you identified any features that might be associated with high EUI? How might this help you respond to your client's research question? 
+:::
+
+We have now explored a few features, but what about the rest? 
+
+:::{.question}
+#### Question 5
+
+What techniques do you know that could help you decide which features to explore? Are there any features that might prove difficult to use? Why? Talk through these concepts with your group - this is a great way to learn about each others skills, and to practice allocating tasks like we would need to do at DataFest. 
+:::
+
+## Next Steps
+
+EDA can take a while - don't be surprised if you spend a lot of time at the competition working on these skills! You probably noticed also that working with a large data set is more complicated than working with smaller data sets. Next week, we will focus on **data wrangling skills**, which will help us work with larger data sets more easily! 
