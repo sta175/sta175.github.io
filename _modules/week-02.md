@@ -1,5 +1,5 @@
 ---
-title: Using RStudio Pro
+title: Week 2 - Using RStudio Pro
 ---
 
 January 18
