@@ -11,7 +11,9 @@ link-citations: yes
 
 Where do you start when you get a dataset? We generally begin by exploring basic characteristics of the data: how large is the data, what types of observations are recorded, are there any missing data, etc. We can also do some summaries and visualizations of variables we know or expect to be important.
 
-Doing this kind of data exploration requires some data wrangling tools. [These slides](https://sta175.github.io/slides/data_wrangling.html) review some useful data wrangling functions from the `dplyr` package. In this activity, you will practice using these functions to explore the energy efficiency data we started work on last time.
+Doing this kind of data exploration requires some data wrangling tools. [These slides](https://sta175.github.io/slides/data_wrangling.html) summarize some useful data wrangling functions from the `dplyr` package. In this activity, we will review these functions using the data on penguins, then use them to explore the energy efficiency data.
+
+
 
 # Setup
 
@@ -19,7 +21,18 @@ Doing this kind of data exploration requires some data wrangling tools. [These s
 
 For this activity you will need the `dplyr`, `ggplot2`, and `tidyr` packages. Each of these packages is part of the tidyverse. If you don't have `tidyverse` installed, go to your R console and install it first with `install.packages("tidyverse")` (remember you only need to do this once).
 
-Once the `tidyverse` package is installed, load it into R with `library(tidyverse)`.
+Once the `tidyverse` package is installed, load it into R with 
+
+```{r, message=F, warning=F}
+library(tidyverse)
+```
+
+The example data wrangling code shown in this activity also uses the `penguins` data from the `palmerpenguins` package.
+
+
+```{r, message=F, warning=F}
+library(palmerpenguins)
+```
 
 ### Data
 
@@ -33,14 +46,28 @@ The first part of the activity contains some guided practice with the `dplyr` fu
 
 There are two main groups of buildings in the data (specified by the `building_class` variable): Commercial buildings and Residential buildings. There is much more variety to commercial buildings than residential buildings, so let's make the problem more manageable by focusing on the residential buildings to start.
 
+**filter:** One method to create a subset of data is the `filter` function, which specifies the rows of data we want to keep. For example, if we only want to keep the Chinstrap penguins in the `penguins` data, we would use
+
+```{r, eval=F}
+penguins %>%
+  filter(species == "Chinstrap")
+```
+
 :::{.question}
 #### Question 1
 
-Create a subset of the data called `train_residential`, which only contains the residential buildings.
+create a subset of the data called `train_residential`, which only contains the residential buildings.
 
 :::
 
 In addition to the `building_class` variable, the `facility_type` variable gives more detailed information about building type. Let's see what different facility types are included, and how common they are.
+
+**count:** The `count` function counts the number of rows for each level of one or more variables. For example, to calculate the number of penguins of each species in the `penguins` data:
+
+```{r}
+penguins %>%
+  count(species)
+```
 
 :::{.question}
 #### Question 2
@@ -105,6 +132,15 @@ Does it look like energy efficiency differs for different facility types?
 
 We can also use summary statistics to quantify what we see visually in the plot.
 
+**group_by** and **summarize**: Suppose we want to calculate the mean body mass for each species of penguins. This calculation involves two steps: first we *group* the penguins by their species, then we *summarize* each species with their mean body mass. The `group_by` function can be used to group rows of the data by one or more explanatory variables, and the `summarize` function can be used to calculate summary statistics:
+
+```{r}
+penguins %>%
+  group_by(species) %>%
+  summarize(avg_mass = mean(body_mass_g,
+                            na.rm=T))
+```
+
 :::{.question}
 #### Question 5
 
@@ -133,6 +169,16 @@ train_residential %>%
 ## Part II
 
 Building type is one variable that might be associated with energy efficiency. Another important variable is building *age*: we probably expect that older buildings will be less efficient than newer buildings. However, we don't have a column for building age in the data.
+
+**mutate**: One way to make new columns in the data is with the `mutate` function. Suppose we want to make a new column in the penguins data which contains the ratio of body mass to flipper length:
+
+```{r}
+penguins <- penguins %>%
+  mutate(bf_ratio = body_mass_g/flipper_length_mm)
+glimpse(penguins)
+```
+
+We can see that the penguins data now contains this new column!
 
 :::{.question}
 #### Question 6
