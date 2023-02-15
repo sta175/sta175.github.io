@@ -1,7 +1,7 @@
 ---
-title: Week 6 - Model selection (best subset and stepwise)
+title: Week 6 - Trees
 ---
 
 February 15th 
-: Model selection
-  : [Link to RStudio Pro: rstudio.deac.wfu.edu](https://rstudio.deac.wfu.edu/), [Class Activity](https://sta175.github.io/class_activities/ca_6.html)
+: Regression trees
+  : [Class Activity](https://sta175.github.io/class_activities/STA175_Activity6_New.html)
