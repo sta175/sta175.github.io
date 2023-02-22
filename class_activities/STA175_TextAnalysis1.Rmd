@@ -1,0 +1,267 @@
+---
+title: "STA 175 DataFest Activity 7"
+output: 
+  rmdformats::robobook:
+    css: "homework.css"
+    highlight: pygments
+link-citations: yes
+---
+
+# The Goal
+
+For our activity today, we are going to work with a brand new kind of data - text data! **Text data** means data that comes in the form of words or sentences. This could be a review posted online, a book, a journal article, or anything else that involves words. Our goal for today will be to start exploring how we work with this sort of data. We will continue this work next week! 
+
+# The Data 
+
+One of the forms of text data that is analyzed frequently is online reviews. It is common for customers to be asked to provided open-ended feedback on a product or service, meaning that this data is provided to companies in the form of text data. For today, we are looking at reviews provided about airlines. 
+
+The data we will be working with today has 14640 rows. Each row in the data set represents a tweet that someone posted about an airline. To download the data, [follow this link](https://drive.google.com/file/d/1O1yBrvxwuGIYSdplRhYeDi-dB4jQugI-/view?usp=share_link) or copy and paste the following into a browser window: https://drive.google.com/file/d/1O1yBrvxwuGIYSdplRhYeDi-dB4jQugI-/view?usp=share_link
+
+This data set has 15 columns. For the moment, we are interested in the column called `text`, which contains the actual text of the Tweet. 
+**Warning**: These are real Tweets, which means they may contain objectionable content and language. 
+
+# Exploring the data: Tokenizing
+
+Now that we have the data set loaded, let's start actually looking at some text data. 
+
+:::{.question}
+#### Question 1 
+What is the text of the Tweet shown in the 15th row in the data set?  
+:::
+
+
+Okay, so this is a short sentence. Now what? Well, the power of text data lies in looking at what are called **tokens**. Generally, a token is a word, though there are some cases where we use short phrases as tokens. We know that Tweets are composed of written text, and that means that to understand the content of the text we need to look at the individual words that make up the Tweet.  
+
+There are two packages we need in order to **tokenize** our text data:
+
+```r
+# Load dplyr
+library(dplyr)
+
+# Load tidytext 
+library(tidytext)
+```
+
+The first package is familiar to us, but the second (`tidytext`) is specifically designed to help us work with text data. As the name of the package suggests, this is a `tidy` package, which means it works with the tidyverse in R. Because of this, before we can work with the text, we need to put it in the form of a **tibble** (a tidy table). This is the format that the package is expecting. To make the conversion, use the following: 
+
+```r 
+# Pull the text of the 15th Tweet 
+textdata <- Tweets$text[15]
+
+# Convert to the form we need for tidyText
+textdata  <- tibble(textdata )
+```
+
+Once the data is in the correct form, we are ready to tokenize the text of the 15th Tweet! 
+
+```r
+# Break the text into tokens 
+textdata %>%
+  unnest_tokens(word, textdata )
+```
+
+What appears on your screen is 2 words. These are the two unique words in the text. What happens if the text has more than two words? 
+
+:::{.question}
+#### Question 2
+Tokenize text of the Tweet for the 13th row in the data set. How many unique words does this text contain? 
+:::
+
+Aside from converting the text into tokens, two other changes are made to the text data when we use the `unnest_tokens()` command.
+
+:::{.question}
+#### Question 3
+What are these two other changes? Hint: Look at the original text and then look at the output from tokenizing. 
+:::
+
+Okay, so we can break our text into words. Great!! However, are *all* of these words really useful?
+
+# Stop Words 
+
+:::{.question}
+#### Question 4
+Take a look at the result of tokenizing Tweet 13. What words here do not provide any information about the content of the review? Think about words that don't really tell you anything about why the individual is writing this comment. 
+:::
+
+Words that convey no useful information are called **stop words**. These are different from language to language, but in English they include things like "a", "the", "it", and "is". There is a whole list of these contained in R. To load them (you need to do this!), use the function below: 
+
+```r
+# Load the list of English stop words
+data(stop_words)
+```
+
+These words are necessary for writing, but they don't tell us much about how the writer felt about the airline or the flight. So, let's remove them! 
+
+Luckily, removing stop words can be done using one function: 
+
+```r
+# Pull the text of the 13th Tweet 
+textdata  <- Tweets$text[13]
+
+# Convert to tidy form 
+textdata <-tibble(textdata)
+
+textdata  %>%
+  unnest_tokens(word, textdata ) %>%
+  anti_join(stop_words)
+```
+
+:::{.question}
+#### Question 5
+After removing the stop words, how many unique words do we have in the Tweet now? 
+:::
+
+Let's practice! 
+
+:::{.question}
+#### Question 6
+Look at Tweet 27 (row 27). Tokenize the comment and remove the stop words. Based on what you see, what do you think motivated this individual to write a comment? 
+:::
+
+:::{.question}
+#### Question 7
+Stop words are not the only challenge in interpreting text data. Take a look at the result of Question 6. Based on what you see, comment on at least two other potential issues we need to figure out how to solve before analyzing text data. 
+:::
+
+Okay, so we can tokenize and remove stop words in individual comments. Now what? 
+
+# Looking at all the words
+
+Instead of looking Tweet by Tweet, let's take a look at what types of words we are seeing across the whole data set. To do this, we need to tokenize the *entire* column `text` in the data set. 
+
+```r
+# Pull the whole column 
+textdata <- Tweets$text
+
+# Convert to tibble
+textdata <-tibble(textdata)
+
+# Store all the words
+words_only <- textdata %>%
+  unnest_tokens(word, textdata) %>%
+  anti_join(stop_words)
+```
+
+Running this code creates the object `words_only`. Let's take a look at this object. 
+
+:::{.question}
+#### Question 8
+How many words in total are there in the data once the stop words are removed?
+:::
+
+That's a lot of words!!! Are they all unique? Or do certain words come up more than once. Let's see. 
+
+```r
+unique_words <- words_only %>%
+  count(word, sort = TRUE) 
+```
+
+Running the code above creates a data frame with two columns. 
+
+:::{.question}
+#### Question 9
+What do you think the column `n` in the `unique_words` data frame represents? 
+:::
+
+:::{.question}
+#### Question 10
+What are the top 6 most frequent words in our text data? Explain why it makes sense that these words occur often across our data set. 
+:::
+
+## Visualizing the words 
+
+Instead of answering Question 10 by looking at the data set, we can also create a visualization. What kind of visualization can we make using words??
+
+```r
+library(ggplot2)
+
+# Start with the unique words data frame
+unique_words %>%
+  # Choose only words that occur at least 600 times 
+  filter(n > 600) %>%
+  # Order the words from most frequent to least frequent
+  mutate(word = reorder(word, n)) %>%
+  # Create a plot
+  ggplot(aes(n, word)) +
+  geom_col() +
+  labs(y = NULL)
+```
+
+Hey, it's a bar graph! This is a familiar type of visualization, just applied to new data. 
+
+:::{.question}
+#### Question 11
+Change the plot to include only words that occur at least 1000 times. Add a label to the x axis, title the plot, and the change the color of the bars to be a different color.  
+:::
+
+Hmm...okay, these words are the most frequent, but are they really useful to tell us about what kinds of comment are being made about flights?? Not so much. 
+
+## Removing additional words 
+
+If we decide that there are some words that we do not want to consider, we can add them to our list of stop words. They are not really stop words, but for us, these are words that we do not want to consider for our analysis. 
+
+Recall that this is the code that we used to remove stop words: 
+
+```r
+# Store all the words
+words_only <- text %>%
+  unnest_tokens(word, text) %>%
+  anti_join(stop_words)
+```
+
+The part of this code that removes the words that we don't want to include is `anti_join`. Let's say that in addition to the stop words, I want to exclude the word "united" from the data set. 
+
+```r
+# Store all the words
+words_only1 <- text %>%
+  unnest_tokens(word, text) %>%
+  anti_join(stop_words) %>%
+  filter( word != "united") 
+```
+
+:::{.question}
+#### Question 12
+Re-create your graph from Question 11 using the new `words_only1` list of words. Hint: You will need to create `unique_words1` before you can create your plot.  
+:::
+
+:::{.question}
+#### Question 13
+What other words you might want to exclude? 
+:::
+
+If we have a list of words that we want to exclude, we want to clean up the code a little bit to make the filtering easier. 
+
+```r
+# Create the list of words to exclude
+to_exclude <- c("united", "flight")
+
+# Store all the words
+words_only1 <- text %>%
+  unnest_tokens(word, text) %>%
+  anti_join(stop_words) %>%
+  filter( !(word %in% to_exclude))
+```
+
+:::{.question}
+#### Question 14
+Continue this process until you create a plot with 10 words that you consider informative. In other words, you want 10 words that tell you something about why the individual was writing the Tweet. 
+:::
+
+:::{.question}
+#### Question 15
+Based on what you see, what seems to be common topics that people are writing about? 
+:::
+
+At this point, there are two big things we can do with text data: (1) topic modeling and (2) sentiment analysis. *Topic modeling* groups together words that describe a similar reason for writing, such as complaining about a late flight. *Sentiment analysis* helps us determine if a Tweet contains mostly positive or mostly negative content, and what words are associated wit these positive or negative messages. 
+
+We will explore sentiment analysis next week!! 
+
+<div id="license">
+<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/4.0/88x31.png" /></a><br />This work was created by Nicole Dalzell and is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">Creative Commons Attribution-NonCommercial 4.0 International License</a>. Last updated 2023 February 21. 
+</div>
+
+### Citation
+
+The data used in this lab came from: 
+
+Figure Eight. *Twitter US Airline Sentiment*. 2020. Kaggle. Data Set [.csv], accessed day February 20, 2023 from <https://www.kaggle.com/datasets/crowdflower/twitter-airline-sentiment>.
