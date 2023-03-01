@@ -1,0 +1,314 @@
+---
+title: "STA 175 DataFest Activity 8"
+output: 
+  rmdformats::robobook:
+    css: "homework.css"
+    highlight: pygments
+link-citations: yes
+---
+
+# The Goal
+
+Last week, we started exploring text data, which is data composed of words and sentences. We learned about **tokenzing** text data, which means breaking the text down into words before analysis, and we started to see some ways we could visualize text data. 
+
+Today, we are going to start exploring what statistical questions we can answer using text data. Specifically, we are going to explore **sentiment analysis**. 
+
+# Recall: The Data 
+
+One of the forms of text data that is analyzed frequently is online reviews. It is common for customers to be asked to provided open-ended feedback on a product or service, meaning that this data is provided to companies in the form of text data. For today, we are looking at reviews provided about airlines. 
+
+The data we will be working with today has 14640 rows. Each row in the data set represents a tweet that someone posted about an airline. To download the data, [follow this link](https://drive.google.com/file/d/1O1yBrvxwuGIYSdplRhYeDi-dB4jQugI-/view?usp=share_link) or copy and paste the following into a browser window: https://drive.google.com/file/d/1O1yBrvxwuGIYSdplRhYeDi-dB4jQugI-/view?usp=share_link
+
+This data set has 15 columns. For the moment, we are interested in the column called `text`, which contains the actual text of the Tweet. 
+**Warning**: These are real Tweets, which means they may contain objectionable content and language. 
+
+# Sentiment Analysis
+
+Last time we worked with this data set, we focused on the processing steps that are needed to make it possible to work with the data. Today, we are going to start to use this data to ask questions. 
+
+Specifically, we are going to focus on **sentiment analysis**. A **sentiment** is an emotion or feeling. Some sentiment analysis work focuses only on identifying positive or negative comments. Other sentiment analysis work allow more categories, such as annoyed, pleased, angry, disappointed, etc. 
+
+The goal is generally to **cluster**, or group, text into categories based on sentiment. We can then analyze the comments in the different sentiments to determine what words are occurring more commonly in each. 
+
+Why is this useful?? Well, suppose you are a video game designer. You have all of these reviews online on your game, and you want to know what the clients particularly like and what you might need to improve. It would therefore be helpful to collect together all the positive comments and see what words are in these, as these words would tell you what the customer likes about the game. Similarly, grouping together negative comments would allow you to see what things people are complaining about and what you might be able to fix.  
+
+## Lexicons
+
+The key to sentiment analysis are what are called **lexicons**. There are multiple different types of lexicons, but all of them have the goal of helping to identify the sentiment of words. Remember that in text analysis, words are our data! 
+
+The first lexicon we are going to explore focuses on just two types of sentiment: positive or negative. The lexicon is a long list of English words, and each word in the lexicon is assigned a numeric value identifying how positive or negative that word is.  
+
+Let's see if we could build such a lexicon. Here are five different words: fine, amazing, great, good, spectacular. All of these words express a positive sentiment, but do they all express positivity equally? In other words, is "fine" stronger or less strong than "amazing"? 
+
+:::{.question}
+#### Question 1 
+You have the scores 1, 2, 3, 4, and 5 to assign to the five words listed above. Which score would you assign to each word? Note: Higher scores denote stronger positive sentiments. 
+:::
+
+Hmm...this might seem a little subjective. Luckily, experts have been working on building lexicons for a long time. These individual are experts on words and sentiment. We will be using their work to help us identify the sentiment of our airplane data. 
+
+The lexicon we will start with is the AFINN lexicon. To load this lexicon into R, use the following: 
+
+```r
+# Load the libraries 
+library(tidytext)
+library(textdata)
+
+# Load the lexicon
+get_sentiments("afinn")
+```
+
+The AFINN lexicon assigns words a score between -5 and 5. Negative scores indicate a negative sentiment and positive scores indicate a positive sentiment. The closer to 0 that a word is scored, the more neutral the word. 
+
+:::{.question}
+#### Question 2 
+Take a look at the lexicon. What score is given to the word "abducted"? Does this reflect positive or negative sentiment? 
+:::
+
+:::{.question}
+#### Question 3 
+Does the score of "abhorrent" indicate a more negative or less negative sentiment than "abandon"? 
+:::
+
+Okay, so thus far we know that the AFINN lexicon is a list of words in English that have been assigned a score between -5 and 5. Will we find every word in the English language in the lexicon?? Nope. A lot of words in English are neutral (grass, tree, sidewalk, etc.). The words in the lexicon are those that express a sentiment of some kind.
+
+What can we do with this lexicon now that we have it? One option is to look at the words in each Tweet. For all the words in the lexicon we can assign them their scores. We can then add up all the scores to decide if a Tweet is positive or negative overall! 
+
+Let's try that. First of all, there are a lot of columns in the data set. We only need to keep two of them for now, the ID of the tweet and the text
+
+```r
+TweetsSmall <- Tweets[,c(1,11)]
+```
+
+We are going to do one more thing what will make our lives easier.
+
+```r
+TweetsSmall$tweet_id <- 1:nrow(TweetsSmall)
+```
+
+:::{.question}
+#### Question 4
+What does the line of code in the chunk above do? Why do you think this will be helpful? *Hint*: If you are not sure, look at the `TweetsSmall` before you run the code and after you run the code.
+:::
+
+At this point, we are ready to **tokenize** the data, which we did last time. 
+
+```r
+# Tokenize each tweet
+tidy_Tweets <- TweetsSmall %>%
+  unnest_tokens(word, text) %>%
+  anti_join(stop_words)
+```
+
+:::{.question}
+#### Question 5
+Remind me - what's a stop word? 
+:::
+
+:::{.question}
+#### Question 6
+Open up `tidy_Tweets`. Explain the organization of the data. In other words, how can we tell which word goes with which Tweet? 
+:::
+
+We currently have broken the tweets down into words. Now, we want to look at these words and figure out which of them are also in the lexicon. For those words that are in the lexicon, we want to assign the scores from the lexicon to the words. We can do that using one short code.
+
+```r
+textdata_sentiment <- tidy_Tweets %>%
+  inner_join(get_sentiments("afinn"))
+```
+
+:::{.question}
+#### Question 7
+Open up `textdata_sentitment`. What score would you assign the tweet with ID #4? Explain. 
+:::
+
+We don't really want to do add up the scores by ourselves for each Tweet. Luckily, we don't have to. To create a column of scores for each tweet, use the following: 
+
+```r
+textdata_sentiment <- tidy_Tweets %>%
+  # Add in the lexicon scores
+  inner_join(get_sentiments("afinn")) %>%
+  # Group together the words in each Tweet
+  group_by(tweet_id) %>%
+  # Create a new variable that is a sum of 
+  # the sentiment scores for each word
+  mutate(sentimentScore= sum(value)) %>%
+  # The last step
+  filter(row_number(tweet_id) == 1)
+```
+
+:::{.question}
+#### Question 8
+What does the part of the code that is labelled `The last step` do? Hint: Try running all the code up to that point, and then running the code with it and see what happens! 
+:::
+
+As a last step, let's get rid of the columns we don't need. 
+
+```r
+textdata_sentiment <- textdata_sentiment[,c(1,4)]
+```
+Now we have a score for each tweet! Let's plot those. 
+
+```r
+library(ggplot2)
+
+textdata_sentiment %>%
+  ggplot(aes(sentimentScore)) +
+  geom_bar(show.legend = FALSE, fill = "purple") +
+   labs(x = "Sentiment Score",
+       y = "Number of Tweets", title = "Figure 1")
+```
+
+:::{.question}
+#### Question 9
+Based on Figure 1, what do you notice about the sentiments of the Tweets? 
+:::
+
+:::{.question}
+#### Question 10
+What is the score of the most negative Tweet? The most positive? 
+:::
+
+At this point, we can identify whether a tweet is positive or negative, so let's add that in. 
+
+```r
+textdata_sentiment <- textdata_sentiment %>%
+  mutate(category = ifelse(sentimentScore > 0, "positive",    ifelse(sentimentScore ==0, "neutral", "negative")))
+```
+
+:::{.question}
+#### Question 11
+How percent of the Tweets are in each of three categories?
+:::
+
+Now that we have the Tweets assigned to categories, let's see what words are showing up in these Tweets.
+
+```r
+textdata_sentiment <- tidy_Tweets %>%
+  # Add in the lexicon scores
+  inner_join(get_sentiments("afinn")) %>%
+  # Group together the words in each Tweet
+  group_by(tweet_id) %>%
+  # Create a new variable that is a sum of 
+  # the sentiment scores for each word
+  mutate(sentimentScore= sum(value)) %>%
+  # Adding on the sentiments
+  mutate(category = ifelse(sentimentScore > 0, "positive", ifelse(sentimentScore ==0, "neutral", "negative")))
+
+afinn_word_counts <- textdata_sentiment %>%
+  count(word, category, sort = TRUE)
+
+afinn_word_counts %>%
+  group_by(category) %>%
+  slice_max(n, n = 10) %>% 
+  ungroup() %>%
+  mutate(word = reorder(word, n)) %>%
+  ggplot(aes(n, word, fill = category)) +
+  geom_col(show.legend = FALSE) +
+  facet_wrap(~category, scales = "free_y") +
+  labs(x = "Contribution to sentiment",
+       y = NULL)
+```
+
+:::{.question}
+#### Question 12
+Looking at the graphs, are there any words you want to remove? if so, do so and re-create the visualization. Hint: Look back at your last activity when we discussed stop words!
+:::
+
+:::{.question}
+#### Question 13
+What information about the Tweets can you obtain from this graph? Note: This is the key part of DataFest - communicating your results!! What story can you tell using this plot? 
+:::
+
+
+## A Second Lexicon
+
+The first lexicon we looked at, the AFINN lexicon, assigned scores to positive and negative sentiments. However, what if we want to have more than just "negative" or "positive" as our sentiments? 
+
+There is a different kind of lexicon that assigns words to sentiments. For instance, "happy" might be assigned the sentiment "joy". One such lexicon is called the NRC lexicon. 
+
+```r
+# Load the lexicon
+get_sentiments("nrc")
+```
+:::{.question}
+#### Question 14
+How many different sentiments are assigned to the word "abandon"? 
+:::
+
+Here, we see that the same word can have multiple sentiments! 
+
+When people write airline reviews, one sentiment they often feel is anger or frustration. Let's see what words in the NRC lexicon are classified as "anger" terms. To create a list of "anger" terms, use the code below. 
+
+```r
+nrc_anger <- get_sentiments("nrc") %>% 
+  filter(sentiment == "anger")
+```
+
+:::{.question}
+#### Question 15
+How many anger terms are in the lexicon?
+:::
+
+:::{.question}
+#### Question 16
+What is the 12th anger term in the lexicon? 
+:::
+
+The next step is to see how many of these "anger" words show up in our flight reviews. 
+
+```r
+angertext <- tidy_Tweets %>%
+  inner_join(nrc_anger) %>%
+  count(word, sort = TRUE)
+```
+
+:::{.question}
+#### Question 17
+How many anger terms show up in our data? And what do you think the second column in `angertext` represents? 
+:::
+
+Now this is cool, but what we probably want to do is determine the sentiment of all the words contained in each Tweet. So let's do that!
+
+```r
+nrc_word_counts <- tidy_Tweets %>%
+  inner_join(get_sentiments("nrc")) %>%
+  count(word, sentiment, sort = TRUE) %>%
+  ungroup()
+```
+
+:::{.question}
+#### Question 18
+How many unique sentiments are in our Twitter data? 
+:::
+
+Let's try creating a plot of the top 10 words in each category. 
+
+```r
+nrc_word_counts %>%
+  group_by(sentiment) %>%
+  slice_max(n, n = 10) %>% 
+  ungroup() %>%
+  mutate(word = reorder(word, n)) %>%
+  ggplot(aes(n, word, fill = sentiment)) +
+  geom_col(show.legend = FALSE) +
+  facet_wrap(~sentiment, scales = "free_y") +
+  labs(x = "Contribution to sentiment",
+       y = NULL)
+```
+
+:::{.question}
+#### Question 19
+What information about the Tweets can you obtain from this graph? Note: This is the key part of DataFest - communicating your results!! What story can you tell using this plot? 
+:::
+
+
+<div id="license">
+<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/4.0/88x31.png" /></a><br />This work was created by Nicole Dalzell and is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">Creative Commons Attribution-NonCommercial 4.0 International License</a>. Last updated 2023 February 28. 
+</div>
+
+### Citation
+
+The data used in this lab came from: 
+
+Figure Eight. *Twitter US Airline Sentiment*. 2020. Kaggle. Data Set [.csv], accessed day February 20, 2023 from <https://www.kaggle.com/datasets/crowdflower/twitter-airline-sentiment>.
