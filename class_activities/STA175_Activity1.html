@@ -7,7 +7,7 @@
 
     
     
-    <title>Loading Data in RStudio</title>
+    <title>STA 175 Activity 1</title>
 
         <script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
 // be compatible with the behavior of Pandoc < 2.8).
@@ -1356,6 +1356,72 @@ src: url(data:font/ttf;base64,AAEAAAARAQAABAAQR0RFRgs+Cz8AAjwQAAAAQEdQT1MXWeoAAA
 </script>
     
     
+        <style type="text/css">code{white-space: pre;}</style>
+    <style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+{ counter-reset: source-line 0; }
+pre.numberSource code > span
+{ position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+{ content: counter(source-line);
+position: relative; left: -1em; text-align: right; vertical-align: baseline;
+border: none; display: inline-block;
+-webkit-touch-callout: none; -webkit-user-select: none;
+-khtml-user-select: none; -moz-user-select: none;
+-ms-user-select: none; user-select: none;
+padding: 0 4px; width: 4em;
+color: #aaaaaa;
+}
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; padding-left: 4px; }
+div.sourceCode
+{ }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } 
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.at { color: #7d9029; } 
+code span.bn { color: #40a070; } 
+code span.bu { color: #008000; } 
+code span.cf { color: #007020; font-weight: bold; } 
+code span.ch { color: #4070a0; } 
+code span.cn { color: #880000; } 
+code span.co { color: #60a0b0; font-style: italic; } 
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.do { color: #ba2121; font-style: italic; } 
+code span.dt { color: #902000; } 
+code span.dv { color: #40a070; } 
+code span.er { color: #ff0000; font-weight: bold; } 
+code span.ex { } 
+code span.fl { color: #40a070; } 
+code span.fu { color: #06287e; } 
+code span.im { color: #008000; font-weight: bold; } 
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.kw { color: #007020; font-weight: bold; } 
+code span.op { color: #666666; } 
+code span.ot { color: #007020; } 
+code span.pp { color: #bc7a00; } 
+code span.sc { color: #4070a0; } 
+code span.ss { color: #bb6688; } 
+code span.st { color: #4070a0; } 
+code span.va { color: #19177c; } 
+code span.vs { color: #4070a0; } 
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } 
+</style>
     
         <style type="text/css">
 @font-face {
@@ -1575,21 +1641,32 @@ margin-left: 0 !important;
    <div class="book with-summary">
       <div class="book-summary">
         <ul>
-          <li class="title">Loading Data in RStudio</li>
+          <li class="title">STA 175 Activity 1</li>
           <li class="divider"></li>
         </ul>
         <nav role="navigation" id="toc">
           <ul>
           <li><a href="#the-goal" id="toc-the-goal">The Goal</a></li>
-          <li><a href="#the-data" id="toc-the-data">The Data</a></li>
-          <li><a href="#getting-the-data" id="toc-getting-the-data">Getting the Data</a></li>
-          <li><a href="#moving-the-data-into-rstudio" id="toc-moving-the-data-into-rstudio">Moving the data into
-          RStudio</a>
+          <li><a href="#the-data" id="toc-the-data">The Data</a>
           <ul>
-          <li><a href="#option-1-for-folks-using-rstudio-on-their-laptops" id="toc-option-1-for-folks-using-rstudio-on-their-laptops">Option
-          1: For Folks Using RStudio on their Laptops</a></li>
-          <li><a href="#option-2-for-folks-using-rstudio-cloud" id="toc-option-2-for-folks-using-rstudio-cloud">Option 2: For
-          Folks Using RStudio Cloud</a></li>
+          <li><a href="#data-citation" id="toc-data-citation">Data
+          Citation</a></li>
+          </ul></li>
+          <li><a href="#client-request" id="toc-client-request">Client
+          Request</a>
+          <ul>
+          <li><a href="#first-steps-the-plan" id="toc-first-steps-the-plan">First Steps: The Plan</a></li>
+          <li><a href="#installing-ggplot2" id="toc-installing-ggplot2">Installing ggplot2</a></li>
+          <li><a href="#eda-one-numeric-variable" id="toc-eda-one-numeric-variable">EDA: One Numeric
+          Variable</a></li>
+          <li><a href="#plotting-two-numeric-variables" id="toc-plotting-two-numeric-variables">Plotting Two Numeric
+          Variables</a></li>
+          <li><a href="#stacking-graphs" id="toc-stacking-graphs">Stacking Graphs</a></li>
+          <li><a href="#changing-themes" id="toc-changing-themes">Changing Themes</a></li>
+          <li><a href="#making-tables" id="toc-making-tables">Making
+          Tables</a></li>
+          <li><a href="#next-steps" id="toc-next-steps">Next
+          Steps</a></li>
           </ul></li>
           </ul>
         </nav>
@@ -1607,7 +1684,7 @@ margin-left: 0 !important;
       
    
         
-      <h1 class="title">Loading Data in RStudio</h1>
+      <h1 class="title">STA 175 Activity 1</h1>
       
         
 
@@ -1617,174 +1694,520 @@ margin-left: 0 !important;
 <!-- Don't indent these lines or it will mess pre blocks indentation --> 
 <div id="the-goal" class="section level1">
 <h1>The Goal</h1>
-<p>The first step in most statistics competitions is loading the data
-into R. Typically, the data is in the form of a CSV file. Today, we are
-going to talk about how to load data from such a file into R.</p>
+<p>At the start of DataFest in April, you will be given a data set and
+provided with the research questions your client would like you to
+explore - and that’s it! How you approach the problem, what model you
+choose…everything is completely up to you.</p>
+<p>Throughout this course, we are going to practice some of the skills
+that will help you tackle these sorts of open ended problems. For today,
+we are going to start with exploring how to visualize data in R. We will
+also see some best practices for visualizations (like adding appropriate
+labels and titles to graphs) that your team should use for DataFest and
+indeed any formal report or presentation!</p>
+<p>As you work through this activity, feel free to use RMarkdown, R
+scripts, or whatever you prefer. We strongly recommend storing your work
+in a folder you can find later, so you can refer to it during
+DataFest!</p>
 </div>
 <div id="the-data" class="section level1">
 <h1>The Data</h1>
-<p>The data we will be using for many of our activities was created by
-Climate Change AI (CCAI) and Lawrence Berkeley National Laboratory
-(Berkeley Lab). This is a large data set and was used in March 2022 for
-the 5th Annual Women in Data Science (WiDS)
-<a href="https://www.kaggle.com/c/widsdatathon2022">Datathon</a>. We
-encourage you to explore the <a href="https://www.widsconference.org/">resources offered by
-WiDS</a>!</p>
-<p><strong>Data Citation</strong></p>
-<p>Climate Change AI (CCAI) and Lawrence Berkeley National Laboratory
-(Berkeley Lab). (2022 January). WiDS Datathon 2022, Version 1. Retrieved
-January 10, 2022 from <a href="https://www.kaggle.com/competitions/widsdatathon2022/overview" class="uri">https://www.kaggle.com/competitions/widsdatathon2022/overview</a>.</p>
-</div>
-<div id="getting-the-data" class="section level1">
-<h1>Getting the Data</h1>
-<p>The first thing we need to do is get the data. Because the data set
-is very large, it is contained in a Google Drive file
+<p>For our first activity, the data is contained in a Google Drive file
 <a href="https://drive.google.com/file/d/1hM08da1DH21P5I126FyEoKJ0OwIElFUo">linked
 here</a>. It is very common during DataFest for data to be shared in
 this way, so it is good to get some practice downloading data from
-Google Drive.</p>
-<p>If the Drive link does not work, you can copy and paste the following
-into your browser: <a href="https://drive.google.com/file/d/1hM08da1DH21P5I126FyEoKJ0OwIElFUo" class="uri">https://drive.google.com/file/d/1hM08da1DH21P5I126FyEoKJ0OwIElFUo</a></p>
-<p>Because the data set is so large, it is housed in a ZIP file.
-Download the ZIP file, and then extract the files that are inside of it.
-The one your are looking for is called <code>train.csv</code></p>
-<p>Create a folder on your computer called DataFestPrep, and store this
-csv file inside the folder.</p>
+Google Drive. If the link does not work, you can copy and paste the
+following into your browser: <a href="https://drive.google.com/file/d/1hM08da1DH21P5I126FyEoKJ0OwIElFUo" class="uri">https://drive.google.com/file/d/1hM08da1DH21P5I126FyEoKJ0OwIElFUo</a></p>
+<p>Because the data is so large, it is housed in a ZIP file. Download
+the ZIP file, and then extract the file that is inside of it, which
+should be called <code>train.csv</code>. For instructions on how to load
+this data in R, look
+<a href="https://sta175.github.io/slides/loadingData.html">here</a>.</p>
+<div id="data-citation" class="section level2">
+<h2>Data Citation</h2>
+<p>The data was created by Climate Change AI (CCAI) and Lawrence
+Berkeley National Laboratory (Berkeley Lab). This is a large data set
+and was used in March 2022 for the 5th Annual Women in Data Science
+(WiDS)
+<a href="https://www.kaggle.com/c/widsdatathon2022">Datathon</a>.</p>
 </div>
-<div id="moving-the-data-into-rstudio" class="section level1">
-<h1>Moving the data into RStudio</h1>
-<p>There are two ways that you can choose to access RStudio - on your
-own computer, or on RStudio Cloud. There are instructions below for each
-of these two options.</p>
-<div id="option-1-for-folks-using-rstudio-on-their-laptops" class="section level2">
-<h2>Option 1: For Folks Using RStudio on their Laptops</h2>
+</div>
+<div id="client-request" class="section level1">
+<h1>Client Request</h1>
+<p>Our data today is provided by a client who is interested in exploring
+how existing buildings can be updated to improve their energy efficiency
+and reduce their carbon foot print. They are interested in identifying
+traits associated with high energy usage, and recommendations on how
+buildings can improve their energy efficiency.They have provided us with
+information on over 70,000 buildings.</p>
+<p>Our response variable (outcome variable) is:</p>
 <div>
 <ul>
 <li>
-<strong>Step 1</strong> Open RStudio.
-</li>
-<li>
-<strong>Step 2</strong> Look at the upper right hand panel of your
-screen.
-</li>
-<li>
-<strong>Step 3</strong> Find “Import Dataset” or “Import” and click on
-it.
-</li>
-<li>
-<strong>Step 4</strong> Choose “Text (base)” or “From CSV” (it will
-depend on your computer).
-</li>
-<li>
-<strong>Step 5</strong> Find your data (train.csv) in the list that
-comes up. Choose it!
+<code>site_eui</code> - Site Energy Usage Intensity (Site EUI). This is
+the amount of heat and electricity consumed by a building. This is
+recorded from utility bills for the building over the last year. It has
+no units.
 </li>
 </ul>
 </div>
-<p>The above 5 steps will allow you to load the data into RStudio.
-However, if you are using Markdown, you need a few more steps.</p>
+<p>There are other columns in the data set. These represent identifying
+information about the building and possible <strong>features</strong>
+that we can use to help us build a model for Site EUI.</p>
 <div>
 <ul>
 <li>
-<strong>Step 6</strong> Now, look the bottom right hand panel of your
-screen. You should see a line of code with something like <code>train
-&lt;- read.csv(“train.csv”)</code> or <code>train &lt;-
-read_csv(“train.csv”)`</code>.
+<code>id</code> - building id.
 </li>
 <li>
-<strong>Step 7</strong> Copy that ENTIRE line of code.
+<code>Year_Factor</code> - anonymized year in which the weather and
+energy usage factors were observed.
 </li>
 <li>
-<strong>Step 8</strong> Open a Markdown file.
+<code>State_Factor</code> - anonymized state in which the building is
+located.
 </li>
 <li>
-<strong>Step 9</strong> Insert a code chunk (Look to the upper right
-corner of the file and find the little green C icon. Find “R” on the
-drop down menu, and click it!)
+<code>building_class</code> - building classification.
 </li>
 <li>
-<strong>Step 10</strong> You will notice a gray box appears on your
-Markdown file. This is called a chunk, and is basically a spot where we
-can type code.
+<code>facility_type</code>- building usage type.
 </li>
 <li>
-<strong>Step 11</strong> Paste the line from Step 7 into this gray code
-chunk, and press the green arrow (the play button).
+<code>floor_area</code> - floor area (in square feet) of the building.
+</li>
+<li>
+<code>year_built</code> - year in which the building was constructed.
+</li>
+<li>
+<code>energy_star_rating</code> - the energy star rating of the
+building.
+</li>
+<li>
+<code>ELEVATION</code> - elevation of the building location.
+</li>
+<li>
+<code>january_min_temp</code> - minimum temperature in January (in
+Fahrenheit) at the location of the building. NOTE: The data contain
+information for additional months, such as
+<code>february_min_temp</code>.
+</li>
+<li>
+<code>january_avg_temp</code> - average temperature in January (in
+Fahrenheit) at the location of the building. NOTE: The data contain
+information for additional months, such as
+<code>february_avg_temp</code>.
+</li>
+<li>
+<code>january_max_temp</code> - maximum temperature in January (in
+Fahrenheit) at the location of the building. NOTE: The data contain
+information for additional months, such as
+<code>february_max_temp</code>.
+</li>
+<li>
+<code>cooling_degree_days</code> - cooling degree day for a given day is
+the number of degrees where the daily average temperature exceeds 65
+degrees Fahrenheit. Each month is summed to produce an annual total at
+the location of the building.
+</li>
+<li>
+<code>heating_degree_days</code> - heating degree day for a given day is
+the number of degrees where the daily average temperature falls under 65
+degrees Fahrenheit. Each month is summed to produce an annual total at
+the location of the building.
+</li>
+<li>
+<code>precipitation_inches</code> - annual precipitation in inches at
+the location of the building.
+</li>
+<li>
+<code>snowfall_inches</code> - annual snowfall in inches at the location
+of the building.
+</li>
+<li>
+<code>snowdepth_inches</code> - annual snow depth in inches at the
+location of the building.
+</li>
+<li>
+<code>avg_temp</code> - average temperature over a year at the location
+of the building.
+</li>
+<li>
+<code>days_below_30F</code> - total number of days below 30 degrees
+Fahrenheit at the location of the building.
+</li>
+<li>
+<code>days_below_20F</code> - total number of days below 20 degrees
+Fahrenheit at the location of the building.
+</li>
+<li>
+<code>days_below_10F</code> - total number of days below 10 degrees
+Fahrenheit at the location of the building.
+</li>
+<li>
+<code>days_below_0F</code> - total number of days below 0 degrees
+Fahrenheit at the location of the building.
+</li>
+<li>
+<code>days_above_80F</code> - total number of days above 80 degrees
+Fahrenheit at the location of the building.
+</li>
+<li>
+<code>days_above_90F</code> - total number of days above 90 degrees
+Fahrenheit at the location of the building.
+</li>
+<li>
+<code>days_above_100F</code> - total number of days above 100 degrees
+Fahrenheit at the location of the building.
+</li>
+<li>
+<code>days_above_110F</code> - total number of days above 110 degrees
+Fahrenheit at the location of the building.
+</li>
+<li>
+<code>direction_max_wind_speed</code> - wind direction for maximum wind
+speed at the location of the building. Given in 360-degree compass point
+directions (e.g. 360 = north, 180 = south, etc.).
+</li>
+<li>
+<code>direction_peak_wind_speed</code> - wind direction for peak wind
+gust speed at the location of the building. Given in 360-degree compass
+point directions (e.g. 360 = north, 180 = south, etc.).
+</li>
+<li>
+<code>max_wind_speed</code> - maximum wind speed at the location of the
+building.
+</li>
+<li>
+<code>days_with_fog</code> - number of days with fog at the location of
+the building.
 </li>
 </ul>
 </div>
-<p>And you are ready to go!! You now have the data loaded and you can
-work with it!</p>
+<div id="first-steps-the-plan" class="section level2">
+<h2>First Steps: The Plan</h2>
+<p>Now, we have a lot of rows, and a LOT of possible features in this
+data set. The data at DataFest may be even bigger. Sometimes the hardest
+part is figuring out how to get started, so let’s talk about that.</p>
+<p>The first question to ask yourselves: What is the goal? Are we
+building a model to help predict something? If so, then our goal is
+<strong>prediction</strong>. Is our goal to understand relationships
+among some of the features and our response? If so, then our goal is
+<strong>association</strong>.</p>
+<p>There are other types of goals, like establishing causal
+relationships, but generally with DataFest we have either prediction or
+association.</p>
+<div id="question-1" class="section level4 question">
+<h4>Question 1</h4>
+<p>Based on what we have seen so far, is this a prediction or an
+association task?</p>
 </div>
-<div id="option-2-for-folks-using-rstudio-cloud" class="section level2">
-<h2>Option 2: For Folks Using RStudio Cloud</h2>
-<div>
+<p>Why does this matter? Well, if our goal is only prediction, we can
+use really complicated models, and as long as they predict well, we are
+probably fine with that. However, if our goal is association, we have to
+choose a model that allows us to actually interpret the relationships
+going on in the data. Really complex models may not allow this. This
+means we need to be aware of the goal of the analysis from the very
+start.</p>
+<p>Now that we know the goal, the next step is to start digging in to
+the data. Characteristics of the data themselves (yes, data is a plural
+term!) can also help us decide on modeling techniques. In the real
+competition, this is a good time to split up the features you might want
+to visualize among your team - it’s more efficient to split up the
+work.</p>
+<p>To make visualizations, we will be working with a group of functions
+in the ggplot2 package in R. If you have already installed ggplot2, skip
+the next section.</p>
+</div>
+<div id="installing-ggplot2" class="section level2">
+<h2>Installing ggplot2</h2>
+<p>The package ggplot2 is a powerful collection of R functions for
+creating flexible, professional graphics. A <strong>package</strong> is
+collection of R codes that relate to one another. When you load a
+package into R, you give R access to all of the functions within the
+package. We will be using several packages as we move through this
+course.</p>
+<p>The first step to using ggplot2 is to install the
+<code>ggplot2</code> package. Go to the top of your RStudio window and
+find “Tools”. From there, click on “Install Packages.” In the blank box,
+type in ggplot2, and hit install. The computer should automatically
+begin to load in the packages that you need, but this may take a
+minute.</p>
+<p>Now, some of you may see an error about language parsing, or an error
+involving <code>rlang</code>. If you do, go ahead and install the
+<code>rlang</code> package. Then, copy and paste the following into a
+chunk and hit play. Nothing will seem to happen, and that’s okay.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">library</span>(rlang)</span></code></pre></div>
+<p><strong>Note that this process of installing a package is one you
+need to do only once.</strong> Think of this as teaching R a new set of
+skills. Once it knows the skills, you don’t have to teach it again.</p>
+<p>Once you have installed the ggplot2 package, you need to tell R that
+you would like to begin using the function by <strong>loading the
+library</strong>. Remember that we said installing a package is like
+teaching R a skill? <strong>Loading a library</strong> is how we tell we
+R we want it to use those skills. To do this, create a chunk in your
+RMarkdown and copy and paste the following, and hit play.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="fu">suppressMessages</span>(<span class="fu">library</span>(ggplot2))</span></code></pre></div>
+<p><strong>Note that this process of loading a library is one you have
+to do ONCE each time we start a lab or project</strong>.This tells R
+“Hey, remember those skills we taught you? Use them.”</p>
+<p>You are now ready to begin EDA.</p>
+</div>
+<div id="eda-one-numeric-variable" class="section level2">
+<h2>EDA: One Numeric Variable</h2>
+<p>To start off with, let’s create a visual to explore the distribution
+the response variable, site EUI. What are we looking for? Things like
+modality, outliers, spread, etc.</p>
+<div id="question-2" class="section level4 question">
+<h4>Question 2</h4>
+<p>What types of variable is site EUI, and based on that, what kinds of
+plots could we create to explore it? List at least two.</p>
+</div>
+<p>We are going to start off with a histogram.To create the histogram of
+site EUI, paste the following code in a chunk and hit play.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="fu">ggplot</span>(train, <span class="fu">aes</span>(<span class="at">x=</span>site_eui)) <span class="sc">+</span>  <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">20</span>, <span class="at">fill=</span><span class="st">&#39;blue&#39;</span>, <span class="at">col =</span> <span class="st">&#39;black&#39;</span>)</span></code></pre></div>
+<p>The creation of plots in ggplot2 requires building the plot in
+layers. First, we build the background, the grid on which we will be
+building our graph. This is the job of the <code>ggplot()</code> part of
+the code. Once we have built the background, we are ready to plot our
+data. The command we will use for this depends upon the data type we are
+working with. In this case, we want a histogram. The command we use to
+build a histogram is <code>geom_histogram()</code>. In this same layer,
+we specify that we want the bars to be filled (<code>&#39;fill&#39;</code>) in
+blue and we want them outlined (<code>&#39;col&#39;</code>) in black. The only
+other part of the command is <code>bins=20</code>. We need this because
+for histograms, we have to specify how many bins we want.</p>
+<p>Notice that to add each layer to the graph, in the code we use a plus
+sign. We add the background AND THEN the bars to make the final graph.
+Let’s break that down in more detail:</p>
 <ul>
 <li>
-<strong>Step 1</strong> Open RStudio Cloud.
+<code>ggplot (train, aes(x=site_eui))</code>: This part of the code
+creates the background of the plot. The two arguments are the data set
+we are using (<code>train</code>) and the variable(s) that will be used
+to define the axis/axes(<code>aes</code>). In this case, we defined only
+that the x-axis would contain information on site EUI
+(<code>aes(x=site_eui)</code>).
 </li>
 <li>
-<strong>Step 2</strong> Look at the lower right hand quadrant of your
-RStudio screen./li&gt;
-<li>
-<strong>Step 3</strong> At the top of that square, look for “Upload”.
-</li>
-<li>
-<strong>Step 4</strong> Click Upload, and then browse for where you have
-stored the train.csv data on your computer.
-</li>
-<li>
-<strong>Step 5</strong> Once you have found the file, hit “Import”. This
-moves the data into RStudio Cloud, but you can’t work with it yet.
-</li>
-<li>
-<strong>Step 6</strong> Now, look at the upper right hand panel of your
-screen.
-</li>
-<li>
-<strong>Step 7</strong> Find “Import Dataset” and click on it.
-</li>
-<li>
-<strong>Step 8</strong> - Choose “Text (base)” or “From CSV” (it will
-depend on your computer).
-</li>
-<li>
-<strong>Step 9</strong> Find the data you want (train.csv) in the list
-that comes up. Choose it!
+<code>geom_histogram (fill=&#39;blue&#39;, col = &#39;black&#39;)</code>: Once the axes
+are set, we are adding on (<code>+</code>) the actual data. In this
+case, we want a histogram, so we add bars (<code>geom_histogram</code>).
+We also specify that we want 20 bars, and those bars should colored blue
+and outlined in black.
 </li>
 </ul>
+<p>Let’s try it.</p>
+<div id="question-3" class="section level4 question">
+<h4>Question 3</h4>
+<p>Create a histogram of average temperatures in March, using 15 bins.
+Make the bars of the histogram cyan and outline them in white. Show your
+result.</p>
 </div>
-<p>The above 5 steps will allow you to load the data into RStudio.
-However, if you are using Markdown, you need a few more steps.</p>
-<div>
-<ul>
-<li>
-<strong>Step 10</strong> Now, look the bottom right hand panel of your
-screen. You should see a line of code with something like <code>train
-&lt;- read.csv(“train.csv”)</code> or <code>train &lt;-
-read_csv(“train.csv”)`</code>.
-</li>
-<li>
-<strong>Step 11</strong> Copy that ENTIRE line of code.
-</li>
-<li>
-<strong>Step 12</strong> Open a Markdown file.
-</li>
-<li>
-<strong>Step 13</strong> Insert a code chunk (Look to the upper right
-corner of the file and find the little green C icon. Find “R” on the
-drop down menu, and click it!)
-</li>
-<li>
-<strong>Step 14</strong> You will notice a gray box appears on your
-Markdown file. This is called a chunk, and is basically a spot where we
-can type code.
-</li>
-<li>
-<strong>Step 15</strong> Paste the line from Step 11 into this gray code
-chunk, and press the green arrow (the play button).
-</li>
-</ul>
+<h3>
+First Rule of Graphs: Labels and Titles
+</h3>
+<p>We mentioned at the start of this lab that we would cover some best
+practices for visualizations. Here is the first - <strong>always label
+your graphs appropriately.</strong></p>
+<p>What does that mean? It means every graph you create needs a title
+(like Figure 1, Figure 2, etc.) and your axes need to be labelled in
+such a way that a person looking at your graph can tell what information
+is being displayed on each axis.</p>
+<p>The command <code>labs</code>, which stands for labels, is used for
+this.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a><span class="fu">ggplot</span>(train, <span class="fu">aes</span>(<span class="at">x=</span>site_eui)) <span class="sc">+</span>  <span class="fu">geom_histogram</span>(<span class="at">fill=</span><span class="st">&#39;blue&#39;</span>, <span class="at">col =</span> <span class="st">&#39;black&#39;</span>, <span class="at">bins =</span> <span class="dv">20</span>) <span class="sc">+</span>  <span class="fu">labs</span>(<span class="at">title=</span><span class="st">&quot;Figure 1:&quot;</span>, <span class="at">x =</span> <span class="st">&quot;Site EUI&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Frequency&quot;</span>)</span></code></pre></div>
+<p>This ggplot syntax actually mimics the ways humans would draw a graph
+by hand. First, you draw the axes. Then, you add on your data. Finally,
+you add a label. Thinking through the steps in this manner will help you
+understand the syntax of this package.</p>
+<p>You can also add captions to the bottom of graphs:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="fu">ggplot</span>(train, <span class="fu">aes</span>(<span class="at">x=</span>site_eui)) <span class="sc">+</span>  <span class="fu">geom_histogram</span>(<span class="at">fill=</span><span class="st">&#39;blue&#39;</span>, <span class="at">col =</span> <span class="st">&#39;black&#39;</span>, <span class="at">bins =</span> <span class="dv">20</span>) <span class="sc">+</span>  <span class="fu">labs</span>(<span class="at">title=</span><span class="st">&quot;Figure 1:&quot;</span>, <span class="at">x =</span> <span class="st">&quot;Site EUI&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Frequency&quot;</span>, <span class="at">caption =</span> <span class="st">&quot;A histogram of site EUI.&quot;</span>)</span></code></pre></div>
+<div id="question-4" class="section level4 question">
+<h4>Question 4</h4>
+<p>Copy the code you used to make the graph from Question 3. Now, add
+the title “Figure 2:” and add appropriate labels to the x and y axis,
+and add a caption.</p>
+</div>
+<p>One VERY important thing to remember when we make plots is to make
+sure the axes are easily interpretable by your reader. You do not want
+to use default variable names, like “march_avg_temp”. Instead, we want
+clear labels like “March Average Temperature”. This is important for any
+plots you make in statistics - label your axes appropriately and title
+your graphs.</p>
+<p>Now let’s try a new plot: a box plot.</p>
+<div id="question-5" class="section level4 question">
+<h4>Question 5</h4>
+<p>Create a box plot of site EUI. Fill the plot in gold and outline it
+in black. Title your plot Figure 3, and label the x axis “Site EUI”. The
+y axis does not matter in this box plot (it literally gives us no
+information), so we want a blank axis label ” ” . Hint: Instead of a
+<code>geom_bar</code>, we want <code>geom_boxplot</code>, and box plots
+do not have bins.</p>
+</div>
+<p>Now that we have our graphs, let’s think about what information they
+yield.</p>
+<div id="question-6" class="section level4 question">
+<h4>Question 6</h4>
+<p>Based on Figure 1 and Figure 3, describe the distribution of site
+EUI. Do you see any outliers? Does the distribution seem unimodal or
+multimodal? Symmetric or skewed? Etc.</p>
+</div>
+<p>All of these questions can help us determine the type of model we
+might want to consider.</p>
+</div>
+<div id="plotting-two-numeric-variables" class="section level2">
+<h2>Plotting Two Numeric Variables</h2>
+<p>Once we have explored our response variable, we will likely want to
+get some idea of how some of the features relate to the response
+variable. This means that we want to create a graph to examine the
+relationship between two variables.</p>
+<p>Let’s start with the amount of square feet in the building. This
+means we have two numeric variables, so we need a scatter plot. We could
+create the necessary plot using the following code:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a><span class="fu">ggplot</span>(train, <span class="fu">aes</span>(<span class="at">x=</span>floor_area, <span class="at">y =</span> site_eui)) <span class="sc">+</span>  <span class="fu">geom_point</span>()</span></code></pre></div>
+<p>Just as before, we have two layers. The first draws the background
+and the second adds on the graph. Here, in the first layer, we specify
+both the x and y axis of the graph, as we have two variables that we are
+working with.</p>
+<div id="question-7" class="section level4 question">
+<h4>Question 7</h4>
+<p>Start with the code above to create a scatter plot for the year the
+building was constructed (X) vs site EUI (Y). Color the dots
+purple.(Hint: This time we are not specifying a <code>fill</code>, but a
+<code>color</code>). Title your plot Figure 4, and label the x axis and
+the y axis.</p>
+</div>
+<p>In the figure you have just constructed, you should notice something
+unusual. There are 5 buildings which were built in year 0!</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a><span class="fu">which</span>(train<span class="sc">$</span>year_built <span class="sc">==</span><span class="dv">0</span>)</span></code></pre></div>
+<p>This is part of why we do EDA when we work with real data. We can see
+data quality issues, like missing or incorrect data.</p>
+<div id="question-8" class="section level4 question">
+<h4>Question 8</h4>
+<p>What do you think a 0 for year built is supposed to indicate? And how
+would you suggest dealing with these 5 buildings? Explain your
+choice.</p>
+</div>
+</div>
+<div id="stacking-graphs" class="section level2">
+<h2>Stacking Graphs</h2>
+<p>Okay, so we have seen how to make a few different kinds of graphs.
+Great. However, we have a lot of features to explore, so we have the
+potential for a lot of plots. That starts to take up a lot of space in a
+report. One nice way to present multiple graphs is to stack them.</p>
+<p>Suppose I want to make a histogram of site EUI (as we have already
+done). The code I need for that is:</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a><span class="fu">ggplot</span>(train, <span class="fu">aes</span>(<span class="at">x=</span>site_eui)) <span class="sc">+</span>  <span class="fu">geom_histogram</span>(<span class="at">fill=</span><span class="st">&#39;blue&#39;</span>, <span class="at">col =</span> <span class="st">&#39;black&#39;</span>, <span class="at">bins =</span> <span class="dv">20</span>) <span class="sc">+</span>  <span class="fu">labs</span> (<span class="at">title=</span><span class="st">&quot;Figure 1:&quot;</span>, <span class="at">x =</span> <span class="st">&quot;Site EUI&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Frequency&quot;</span>)</span></code></pre></div>
+<p>If I put that in a chunk and press play, one histogram will appear on
+my screen. Let’s suppose I want to show a box plot along with this
+histogram. I can create both graphs and have them both print out
+separately in my knit document. However, I can also tell the computer to
+print more than one graph at once to save space. Try the following:</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a>g1 <span class="ot">&lt;-</span>  <span class="fu">ggplot</span>(train, <span class="fu">aes</span>(<span class="at">x=</span>site_eui)) <span class="sc">+</span>  <span class="fu">geom_histogram</span>(<span class="at">fill=</span><span class="st">&#39;blue&#39;</span>, <span class="at">col =</span> <span class="st">&#39;black&#39;</span>, <span class="at">bins =</span> <span class="dv">20</span>) <span class="sc">+</span>  <span class="fu">labs</span> (<span class="at">title=</span><span class="st">&quot;Figure 1:&quot;</span>, <span class="at">x =</span> <span class="st">&quot;Site EUI&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Frequency&quot;</span>)</span>
+<span id="cb9-2"><a href="#cb9-2" tabindex="-1"></a>g2 <span class="ot">&lt;-</span>  <span class="fu">ggplot</span>(train, <span class="fu">aes</span>(<span class="at">x=</span>site_eui)) <span class="sc">+</span>  <span class="fu">geom_boxplot</span>(<span class="at">fill=</span><span class="st">&#39;gold&#39;</span>) <span class="sc">+</span>  <span class="fu">labs</span> (<span class="at">title=</span><span class="st">&quot;Figure 2:&quot;</span>, <span class="at">x =</span> <span class="st">&quot;Site EUI&quot;</span>, <span class="at">y =</span> <span class="st">&quot;&quot;</span>)</span>
+<span id="cb9-3"><a href="#cb9-3" tabindex="-1"></a>gridExtra<span class="sc">::</span><span class="fu">grid.arrange</span>(g1,g2, <span class="at">ncol =</span> <span class="dv">2</span>)</span></code></pre></div>
+<p>If you get a warning message about not having <code>gridExtra</code>,
+this means you will need to install the package using the same steps we
+did above to install <code>ggplot2</code>. We have to install packages
+all the time with R, depending on the version of R you have and your
+computer system.</p>
+<p>What you will notice is that we have stored each of the two graphs
+under a name. Our histogram is stored under <code>g1</code> and our box
+plot is stored under <code>g2</code>. Then, we use a special code called
+<code>gridExtra::grid.arrange</code> to help us arrange the graphs in a
+grid. In our case, we have to graphs, and we want them side by side.
+This means we want the graphs in a 1 (row) by 2 (column) grid.</p>
+<p>To create the 1 by 2 grid, we feed the computer our two graphs, and
+then tell it we want the figures in 2 columns (next to each other) by
+specifying <code>ncol = 2</code>. In other words, the number of columns
+we want is 2!</p>
+<div id="question-9" class="section level4 question">
+<h4>Question 9</h4>
+<p>Create a (1) box plot for site EUI, (2) histogram for site EUI, (3)
+box plot for the average temperature in March and (4) histogram for the
+average temperature in March. Stack 4 graphs in a 2 x 2 grid (2 rows and
+2 columns). You have already made some of the graphs you need!</p>
+</div>
+</div>
+<div id="changing-themes" class="section level2">
+<h2>Changing Themes</h2>
+<p>When using ggplot2, you also have an option to change the theme of
+your graphs. Consider these:</p>
+<p><strong>The Light Theme</strong></p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" tabindex="-1"></a><span class="fu">ggplot</span>(train, <span class="fu">aes</span>(<span class="at">x=</span>site_eui)) <span class="sc">+</span>  <span class="fu">geom_histogram</span>(<span class="at">fill=</span><span class="st">&#39;blue&#39;</span>, <span class="at">col =</span> <span class="st">&#39;black&#39;</span>, <span class="at">bins =</span> <span class="dv">20</span>) <span class="sc">+</span>  <span class="fu">labs</span> (<span class="at">title=</span><span class="st">&quot;Figure 1:&quot;</span>, <span class="at">x =</span> <span class="st">&quot;Site EUI&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Frequency&quot;</span>, <span class="at">caption =</span> <span class="st">&quot;A histogram of site EUI.&quot;</span>) <span class="sc">+</span> <span class="fu">theme_light</span>()</span></code></pre></div>
+<p><strong>The BW Theme</strong></p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a><span class="fu">ggplot</span> (train, <span class="fu">aes</span>(<span class="at">x=</span>site_eui)) <span class="sc">+</span>  <span class="fu">geom_histogram</span> (<span class="at">fill=</span><span class="st">&#39;blue&#39;</span>, <span class="at">col =</span> <span class="st">&#39;black&#39;</span>, <span class="at">bins =</span> <span class="dv">20</span>) <span class="sc">+</span>  <span class="fu">labs</span> (<span class="at">title=</span><span class="st">&quot;Figure 1:&quot;</span>, <span class="at">x =</span> <span class="st">&quot;Site EUI&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Frequency&quot;</span>, <span class="at">caption =</span> <span class="st">&quot;A histogram of site EUI.&quot;</span>) <span class="sc">+</span> <span class="fu">theme_bw</span>()</span></code></pre></div>
+<p><strong>The Minimal Theme</strong></p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" tabindex="-1"></a><span class="fu">ggplot</span> (train, <span class="fu">aes</span>(<span class="at">x=</span>site_eui)) <span class="sc">+</span>  <span class="fu">geom_histogram</span> (<span class="at">fill=</span><span class="st">&#39;blue&#39;</span>, <span class="at">col =</span> <span class="st">&#39;black&#39;</span>, <span class="at">bins =</span> <span class="dv">20</span>) <span class="sc">+</span>  <span class="fu">labs</span> (<span class="at">title=</span><span class="st">&quot;Figure 1:&quot;</span>, <span class="at">x =</span> <span class="st">&quot;Site EUI&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Frequency&quot;</span>, <span class="at">caption =</span> <span class="st">&quot;A histogram of site EUI.&quot;</span>) <span class="sc">+</span> <span class="fu">theme_minimal</span>()</span></code></pre></div>
+<p>Take a look and, as a team, decide what you like!</p>
+</div>
+<div id="making-tables" class="section level2">
+<h2>Making Tables</h2>
+<p>While we are thinking about EDA, we don’t only focus on numeric
+variables. What if we have categories? With categorical variables, we
+can make tables or bar plots. We make bar plots just like we made
+histograms, except there are no bins and we use <code>geom_bar</code>
+instead of <code>geom_histogram</code>.</p>
+<div id="question-10" class="section level4 question">
+<h4>Question 10</h4>
+<p>Make a bar plot to display the building class. Make sure you title
+your graphs appropriately!</p>
+</div>
+<p>There are several ways to make tables in R, but we will discuss two.
+The first is very direct. We tell R we want to use the
+<code>train</code> data set and the variable
+<code>building_class</code>, by using the code
+<code>train$building_class</code> (dataset$variable). Then, we use the
+<code>table(whatWeWantToMakeATableWith)</code> command to actually make
+the table.</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" tabindex="-1"></a><span class="fu">table</span> (train<span class="sc">$</span>building_class)</span></code></pre></div>
+<p>However, this makes a table that is not particularly pretty or
+professional when you knit. A second option that does create
+professional tables is:</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>( <span class="fu">table</span> (train<span class="sc">$</span>building_class),  <span class="at">col.names =</span><span class="fu">c</span>(<span class="st">&quot;Building Type&quot;</span>, <span class="st">&quot;Count&quot;</span>) )</span></code></pre></div>
+<p>The code is more complex, but the heart of it is the same table. This
+table will not look very pretty when you press play, but go ahead and
+knit. See how nicely the table gets formatted?</p>
+<p>Luckily, you only have to adapt a few things in this code to make
+different tables. You need need to specify what you want to make a table
+of (<code>train$building_class</code>) and you need to change the column
+names accordingly (“Building Type”).</p>
+<div id="question-11" class="section level4 question">
+<h4>Question 11</h4>
+<p>Create a table, using the second way to make a table, for the
+facility type. Make sure your columns are labelled Facility Type and
+Count. (Hint: The <code>col.names</code> part of the code above will
+help with that.)</p>
+</div>
+</div>
+<div id="next-steps" class="section level2">
+<h2>Next Steps</h2>
+<p>Now that we know some basics of visualization, think about if this
+was the real DataFest. What would you do now?</p>
+<div id="question-12" class="section level4 question">
+<h4>Question 12</h4>
+<p>Discuss as a team how you would proceed with exploring and
+visualizing this data set. This is called making a plan, and is critical
+to success in applied statistics/data science work.</p>
+</div>
+<div id="question-13" class="section level4 question">
+<h4>Question 13</h4>
+<p>Take a look at the variables (features) you are given. Are there any
+that you think it would not make sense to graph? If so, explain why.</p>
+</div>
+<p>We will keep working with this data set for future activities.</p>
+<div id="instructions">
+<p>The <a href="https://www.kaggle.com/c/widsdatathon2022">data</a>
+referenced in this lab was retrieved from the
+<a href="https://www.kaggle.com/c/widsdatathon2022">here</a> on January
+10, 2022.</p>
+</div>
+<div id="license">
+<p><a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/"><img alt="Creative Commons License" style="border-width:0" src="data:image/png;base64,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" /></a><br />This
+work was created by Nicole Dalzell is licensed under a
+<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">Creative
+Commons Attribution-NonCommercial 4.0 International License</a>. Last
+updated 2024 January 17.</p>
 </div>
 </div>
 </div>
