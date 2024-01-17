@@ -1,5 +1,5 @@
 ---
-title: "STA 175: WiDS Datathon"
+title: "STA 175: Level 2 competition options"
 output: 
   rmdformats::robobook:
     css: "homework.css"
@@ -9,12 +9,23 @@ link-citations: yes
 
 # Overview
 
+For our Level 2 teams, your class time will be spent competing in a second competition, to help prepare for DataFest. There are several suggested options below. Please note that if you or your team would rather compete the Level 1 activities for practice, just let Dr. Dalzell or Dr. Evans know and you can switch.
+
+Each week, you will submit a short progress report on what your group has done so far, and what your next steps will be. You will attend the class meetings as usual, and you are welcome to ask Dr. Dalzell and Dr. Evans for guidance on your analysis.
+
+# Option 1: WiDS Datathon
+
 The [WiDS Datathon](https://www.widsworldwide.org/learn/datathon/) is an annual statistics competition that runs every year. Like DataFest, participants work in teams to analyze a complex dataset and address a researcher question. And like DataFest, each team submits a final report at the end of the competition, and their work is judged to award prizes. Unlike DataFest, however, the WiDS datathon takes place over several months, which makes it an excellent opportunity for Level 2 teams to practice data analysis while participating in a second competition.
 
 This year, the datathon runs from January to March 1. More information is available at the [datathon website](https://www.widsworldwide.org/learn/datathon), and the data and competition instructions are available on [Kaggle](https://www.kaggle.com/competitions/widsdatathon2024-challenge1). 
 
-# The assignment
+**Note:** At least half the team members must identify as "female"
 
-For our Level 2 teams, your class time will be spent competing in WiDS 2024, a statistics and data science competition that opens in early January and finishes in mid March. This means that during your time in STA 175, you will actually be able to compete in two competitions! Please note that if you or your team would rather compete the Level 1 activities for practice rather than competing in WiDS, just let Dr. Dalzell or Dr. Evans know and you can switch. After WiDS concludes, you will be completing class activities for the last few weeks specifically designed to help you prepare as a team for DataFest. 
+# Option 2: Kaggle Competition: Text Data
 
-Each week, you will submit a short progress report on what your group has done so far, and what your next steps will be. You will attend the class meetings as usual, and you are welcome to ask Dr. Dalzell and Dr. Evans for guidance on your analysis.
+**Competition link:** [https://www.kaggle.com/competitions/pii-detection-removal-from-educational-data/](https://www.kaggle.com/competitions/pii-detection-removal-from-educational-data/)
+
+# Option 3: Kaggle Competition: Stock Trading
+
+**Competition link:** [https://www.kaggle.com/competitions/optiver-trading-at-the-close](https://www.kaggle.com/competitions/optiver-trading-at-the-close)
+

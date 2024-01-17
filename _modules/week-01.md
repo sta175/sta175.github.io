@@ -9,5 +9,5 @@ January 17
 : EDA and R refresher
   : [ggplot2 cheat sheet](https://raw.githubusercontent.com/rstudio/cheatsheets/master/data-visualization.pdf), [dplyr cheat sheet](https://raw.githubusercontent.com/rstudio/cheatsheets/master/data-transformation.pdf), [data exploration cheat sheet](https://sta175.github.io/data_visualization_summary_cheat_sheet.html)
   
-: WiDS Datathon
-  : [Datathon introduction](https://sta175.github.io/class_activities/STA175_wids.html)
+: Level 2 competition options
+  : [Competition options](https://sta175.github.io/class_activities/STA175_wids.html)
