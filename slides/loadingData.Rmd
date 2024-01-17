@@ -25,7 +25,7 @@ The first thing we need to do is get the data. Because the data set is very larg
 
 If the Drive link does not work, you can copy and paste the following into your browser: https://drive.google.com/file/d/1hM08da1DH21P5I126FyEoKJ0OwIElFUo
 
-Because the data set is so large, it is housed in a ZIP file. Download the ZIP file, and then extract the files that are inside of it. The one your are looking for is called <code>train.csv</code>
+Because the data set is so large, it is housed in a ZIP file. Download the ZIP file, and then extract the files that are inside of it. The one your are looking for is called `train.csv`
 
 Create a folder on your computer called DataFestPrep, and store this csv file inside the folder. 
 
@@ -49,7 +49,7 @@ The above 5 steps will allow you to load the data into RStudio. However, if you 
 
 <div>
 <ul>
-<li><strong>Step 6</strong> Now, look the bottom right hand panel of your screen. You should see a line of code with something like <code>train <- read.csv("train.csv")</code> or <code>train <- read_csv("train.csv")`</code>.</li>
+<li><strong>Step 6</strong> Now, look the bottom right hand panel of your screen. You should see a line of code with something like `train <- read.csv("train.csv")` or `train <- read_csv("train.csv")`.</li>
 <li><strong>Step 7</strong> Copy that ENTIRE line of code.</li>
 <li><strong>Step 8</strong> Open a Markdown file.</li>
 <li><strong>Step 9</strong> Insert a code chunk (Look to the upper right corner of the file and find the little green C icon. Find "R" on the drop down menu, and click it!)</li>
@@ -80,7 +80,7 @@ The above 5 steps will allow you to load the data into RStudio. However, if you 
 
 <div>
 <ul>
-<li><strong>Step 10</strong> Now, look the bottom right hand panel of your screen. You should see a line of code with something like <code>train <- read.csv("train.csv")</code> or <code>train <- read_csv("train.csv")`</code>.</li>
+<li><strong>Step 10</strong> Now, look the bottom right hand panel of your screen. You should see a line of code with something like `train <- read.csv("train.csv")` or `train <- read_csv("train.csv")`</li>
 <li><strong>Step 11</strong> Copy that ENTIRE line of code.</li>
 <li><strong>Step 12</strong> Open a Markdown file.</li>
 <li><strong>Step 13</strong> Insert a code chunk (Look to the upper right corner of the file and find the little green C icon. Find "R" on the drop down menu, and click it!)</li>

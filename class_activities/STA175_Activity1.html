@@ -1657,11 +1657,17 @@ margin-left: 0 !important;
           <ul>
           <li><a href="#first-steps-the-plan" id="toc-first-steps-the-plan">First Steps: The Plan</a></li>
           <li><a href="#installing-ggplot2" id="toc-installing-ggplot2">Installing ggplot2</a></li>
+          </ul></li>
           <li><a href="#eda-one-numeric-variable" id="toc-eda-one-numeric-variable">EDA: One Numeric
-          Variable</a></li>
+          Variable</a>
+          <ul>
+          <li><a href="#first-rule-of-graphs-labels-and-titles" id="toc-first-rule-of-graphs-labels-and-titles">First Rule of
+          Graphs: Labels and Titles</a></li>
+          </ul></li>
           <li><a href="#plotting-two-numeric-variables" id="toc-plotting-two-numeric-variables">Plotting Two Numeric
           Variables</a></li>
-          <li><a href="#stacking-graphs" id="toc-stacking-graphs">Stacking Graphs</a></li>
+          <li><a href="#stacking-graphs" id="toc-stacking-graphs">Stacking Graphs</a>
+          <ul>
           <li><a href="#changing-themes" id="toc-changing-themes">Changing Themes</a></li>
           <li><a href="#making-tables" id="toc-making-tables">Making
           Tables</a></li>
@@ -1717,10 +1723,10 @@ here</a>. It is very common during DataFest for data to be shared in
 this way, so it is good to get some practice downloading data from
 Google Drive. If the link does not work, you can copy and paste the
 following into your browser: <a href="https://drive.google.com/file/d/1hM08da1DH21P5I126FyEoKJ0OwIElFUo" class="uri">https://drive.google.com/file/d/1hM08da1DH21P5I126FyEoKJ0OwIElFUo</a></p>
-<p>Because the data is so large, it is housed in a ZIP file. Download
-the ZIP file, and then extract the file that is inside of it, which
-should be called <code>train.csv</code>. For instructions on how to load
-this data in R, look
+<p>Because the data set is so large, it is housed in a ZIP file.
+Download the ZIP file, and then extract the file that is inside of it,
+which should be called <code>train.csv</code>. For instructions on how
+to load this data in R, look
 <a href="https://sta175.github.io/slides/loadingData.html">here</a>.</p>
 <div id="data-citation" class="section level2">
 <h2>Data Citation</h2>
@@ -1737,8 +1743,8 @@ and was used in March 2022 for the 5th Annual Women in Data Science
 how existing buildings can be updated to improve their energy efficiency
 and reduce their carbon foot print. They are interested in identifying
 traits associated with high energy usage, and recommendations on how
-buildings can improve their energy efficiency.They have provided us with
-information on over 70,000 buildings.</p>
+buildings can improve their energy efficiency. They have provided us
+with information on over 70,000 buildings.</p>
 <p>Our response variable (outcome variable) is:</p>
 <div>
 <ul>
@@ -1952,9 +1958,10 @@ to do ONCE each time we start a lab or project</strong>.This tells R
 “Hey, remember those skills we taught you? Use them.”</p>
 <p>You are now ready to begin EDA.</p>
 </div>
-<div id="eda-one-numeric-variable" class="section level2">
-<h2>EDA: One Numeric Variable</h2>
-<p>To start off with, let’s create a visual to explore the distribution
+</div>
+<div id="eda-one-numeric-variable" class="section level1">
+<h1>EDA: One Numeric Variable</h1>
+<p>To start off with, let’s create a plot to explore the distribution
 the response variable, site EUI. What are we looking for? Things like
 modality, outliers, spread, etc.</p>
 <div id="question-2" class="section level4 question">
@@ -1964,7 +1971,8 @@ plots could we create to explore it? List at least two.</p>
 </div>
 <p>We are going to start off with a histogram.To create the histogram of
 site EUI, paste the following code in a chunk and hit play.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="fu">ggplot</span>(train, <span class="fu">aes</span>(<span class="at">x=</span>site_eui)) <span class="sc">+</span>  <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">20</span>, <span class="at">fill=</span><span class="st">&#39;blue&#39;</span>, <span class="at">col =</span> <span class="st">&#39;black&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="fu">ggplot</span>(train, <span class="fu">aes</span>(<span class="at">x=</span>site_eui)) <span class="sc">+</span></span>
+<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">20</span>, <span class="at">fill=</span><span class="st">&#39;blue&#39;</span>, <span class="at">col =</span> <span class="st">&#39;black&#39;</span>)</span></code></pre></div>
 <p>The creation of plots in ggplot2 requires building the plot in
 layers. First, we build the background, the grid on which we will be
 building our graph. This is the job of the <code>ggplot()</code> part of
@@ -1981,7 +1989,7 @@ sign. We add the background AND THEN the bars to make the final graph.
 Let’s break that down in more detail:</p>
 <ul>
 <li>
-<code>ggplot (train, aes(x=site_eui))</code>: This part of the code
+<code>ggplot(train, aes(x=site_eui))</code>: This part of the code
 creates the background of the plot. The two arguments are the data set
 we are using (<code>train</code>) and the variable(s) that will be used
 to define the axis/axes(<code>aes</code>). In this case, we defined only
@@ -1989,7 +1997,7 @@ that the x-axis would contain information on site EUI
 (<code>aes(x=site_eui)</code>).
 </li>
 <li>
-<code>geom_histogram (fill=&#39;blue&#39;, col = &#39;black&#39;)</code>: Once the axes
+<code>geom_histogram(fill=&#39;blue&#39;, col = &#39;black&#39;)</code>: Once the axes
 are set, we are adding on (<code>+</code>) the actual data. In this
 case, we want a histogram, so we add bars (<code>geom_histogram</code>).
 We also specify that we want 20 bars, and those bars should colored blue
@@ -2003,9 +2011,8 @@ and outlined in black.
 Make the bars of the histogram cyan and outline them in white. Show your
 result.</p>
 </div>
-<h3>
-First Rule of Graphs: Labels and Titles
-</h3>
+<div id="first-rule-of-graphs-labels-and-titles" class="section level2">
+<h2>First Rule of Graphs: Labels and Titles</h2>
 <p>We mentioned at the start of this lab that we would cover some best
 practices for visualizations. Here is the first - <strong>always label
 your graphs appropriately.</strong></p>
@@ -2015,13 +2022,18 @@ such a way that a person looking at your graph can tell what information
 is being displayed on each axis.</p>
 <p>The command <code>labs</code>, which stands for labels, is used for
 this.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a><span class="fu">ggplot</span>(train, <span class="fu">aes</span>(<span class="at">x=</span>site_eui)) <span class="sc">+</span>  <span class="fu">geom_histogram</span>(<span class="at">fill=</span><span class="st">&#39;blue&#39;</span>, <span class="at">col =</span> <span class="st">&#39;black&#39;</span>, <span class="at">bins =</span> <span class="dv">20</span>) <span class="sc">+</span>  <span class="fu">labs</span>(<span class="at">title=</span><span class="st">&quot;Figure 1:&quot;</span>, <span class="at">x =</span> <span class="st">&quot;Site EUI&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Frequency&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a><span class="fu">ggplot</span>(train, <span class="fu">aes</span>(<span class="at">x=</span>site_eui)) <span class="sc">+</span></span>
+<span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">fill=</span><span class="st">&#39;blue&#39;</span>, <span class="at">col =</span> <span class="st">&#39;black&#39;</span>, <span class="at">bins =</span> <span class="dv">20</span>) <span class="sc">+</span>  </span>
+<span id="cb4-3"><a href="#cb4-3" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title=</span><span class="st">&quot;Figure 1:&quot;</span>, <span class="at">x =</span> <span class="st">&quot;Site EUI&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Frequency&quot;</span>)</span></code></pre></div>
 <p>This ggplot syntax actually mimics the ways humans would draw a graph
 by hand. First, you draw the axes. Then, you add on your data. Finally,
 you add a label. Thinking through the steps in this manner will help you
 understand the syntax of this package.</p>
 <p>You can also add captions to the bottom of graphs:</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="fu">ggplot</span>(train, <span class="fu">aes</span>(<span class="at">x=</span>site_eui)) <span class="sc">+</span>  <span class="fu">geom_histogram</span>(<span class="at">fill=</span><span class="st">&#39;blue&#39;</span>, <span class="at">col =</span> <span class="st">&#39;black&#39;</span>, <span class="at">bins =</span> <span class="dv">20</span>) <span class="sc">+</span>  <span class="fu">labs</span>(<span class="at">title=</span><span class="st">&quot;Figure 1:&quot;</span>, <span class="at">x =</span> <span class="st">&quot;Site EUI&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Frequency&quot;</span>, <span class="at">caption =</span> <span class="st">&quot;A histogram of site EUI.&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="fu">ggplot</span>(train, <span class="fu">aes</span>(<span class="at">x=</span>site_eui)) <span class="sc">+</span></span>
+<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">fill=</span><span class="st">&#39;blue&#39;</span>, <span class="at">col =</span> <span class="st">&#39;black&#39;</span>, <span class="at">bins =</span> <span class="dv">20</span>) <span class="sc">+</span></span>
+<span id="cb5-3"><a href="#cb5-3" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title=</span><span class="st">&quot;Figure 1:&quot;</span>, <span class="at">x =</span> <span class="st">&quot;Site EUI&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Frequency&quot;</span>, </span>
+<span id="cb5-4"><a href="#cb5-4" tabindex="-1"></a>  <span class="at">caption =</span> <span class="st">&quot;A histogram of site EUI.&quot;</span>)</span></code></pre></div>
 <div id="question-4" class="section level4 question">
 <h4>Question 4</h4>
 <p>Copy the code you used to make the graph from Question 3. Now, add
@@ -2040,9 +2052,9 @@ your graphs.</p>
 <p>Create a box plot of site EUI. Fill the plot in gold and outline it
 in black. Title your plot Figure 3, and label the x axis “Site EUI”. The
 y axis does not matter in this box plot (it literally gives us no
-information), so we want a blank axis label ” ” . Hint: Instead of a
-<code>geom_bar</code>, we want <code>geom_boxplot</code>, and box plots
-do not have bins.</p>
+information), so we want a blank axis label <code>&quot; &quot;</code> . Hint:
+Instead of a <code>geom_bar</code>, we want <code>geom_boxplot</code>,
+and box plots do not have bins.</p>
 </div>
 <p>Now that we have our graphs, let’s think about what information they
 yield.</p>
@@ -2055,8 +2067,9 @@ multimodal? Symmetric or skewed? Etc.</p>
 <p>All of these questions can help us determine the type of model we
 might want to consider.</p>
 </div>
-<div id="plotting-two-numeric-variables" class="section level2">
-<h2>Plotting Two Numeric Variables</h2>
+</div>
+<div id="plotting-two-numeric-variables" class="section level1">
+<h1>Plotting Two Numeric Variables</h1>
 <p>Once we have explored our response variable, we will likely want to
 get some idea of how some of the features relate to the response
 variable. This means that we want to create a graph to examine the
@@ -2064,7 +2077,8 @@ relationship between two variables.</p>
 <p>Let’s start with the amount of square feet in the building. This
 means we have two numeric variables, so we need a scatter plot. We could
 create the necessary plot using the following code:</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a><span class="fu">ggplot</span>(train, <span class="fu">aes</span>(<span class="at">x=</span>floor_area, <span class="at">y =</span> site_eui)) <span class="sc">+</span>  <span class="fu">geom_point</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a><span class="fu">ggplot</span>(train, <span class="fu">aes</span>(<span class="at">x=</span>floor_area, <span class="at">y =</span> site_eui)) <span class="sc">+</span></span>
+<span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code></pre></div>
 <p>Just as before, we have two layers. The first draws the background
 and the second adds on the graph. Here, in the first layer, we specify
 both the x and y axis of the graph, as we have two variables that we are
@@ -2089,23 +2103,27 @@ would you suggest dealing with these 5 buildings? Explain your
 choice.</p>
 </div>
 </div>
-<div id="stacking-graphs" class="section level2">
-<h2>Stacking Graphs</h2>
+<div id="stacking-graphs" class="section level1">
+<h1>Stacking Graphs</h1>
 <p>Okay, so we have seen how to make a few different kinds of graphs.
 Great. However, we have a lot of features to explore, so we have the
 potential for a lot of plots. That starts to take up a lot of space in a
 report. One nice way to present multiple graphs is to stack them.</p>
 <p>Suppose I want to make a histogram of site EUI (as we have already
 done). The code I need for that is:</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a><span class="fu">ggplot</span>(train, <span class="fu">aes</span>(<span class="at">x=</span>site_eui)) <span class="sc">+</span>  <span class="fu">geom_histogram</span>(<span class="at">fill=</span><span class="st">&#39;blue&#39;</span>, <span class="at">col =</span> <span class="st">&#39;black&#39;</span>, <span class="at">bins =</span> <span class="dv">20</span>) <span class="sc">+</span>  <span class="fu">labs</span> (<span class="at">title=</span><span class="st">&quot;Figure 1:&quot;</span>, <span class="at">x =</span> <span class="st">&quot;Site EUI&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Frequency&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a><span class="fu">ggplot</span>(train, <span class="fu">aes</span>(<span class="at">x=</span>site_eui)) <span class="sc">+</span>  </span>
+<span id="cb8-2"><a href="#cb8-2" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">fill=</span><span class="st">&#39;blue&#39;</span>, <span class="at">col =</span> <span class="st">&#39;black&#39;</span>, <span class="at">bins =</span> <span class="dv">20</span>) <span class="sc">+</span></span>
+<span id="cb8-3"><a href="#cb8-3" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title=</span><span class="st">&quot;Figure 1:&quot;</span>, <span class="at">x =</span> <span class="st">&quot;Site EUI&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Frequency&quot;</span>)</span></code></pre></div>
 <p>If I put that in a chunk and press play, one histogram will appear on
 my screen. Let’s suppose I want to show a box plot along with this
 histogram. I can create both graphs and have them both print out
 separately in my knit document. However, I can also tell the computer to
 print more than one graph at once to save space. Try the following:</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a>g1 <span class="ot">&lt;-</span>  <span class="fu">ggplot</span>(train, <span class="fu">aes</span>(<span class="at">x=</span>site_eui)) <span class="sc">+</span>  <span class="fu">geom_histogram</span>(<span class="at">fill=</span><span class="st">&#39;blue&#39;</span>, <span class="at">col =</span> <span class="st">&#39;black&#39;</span>, <span class="at">bins =</span> <span class="dv">20</span>) <span class="sc">+</span>  <span class="fu">labs</span> (<span class="at">title=</span><span class="st">&quot;Figure 1:&quot;</span>, <span class="at">x =</span> <span class="st">&quot;Site EUI&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Frequency&quot;</span>)</span>
-<span id="cb9-2"><a href="#cb9-2" tabindex="-1"></a>g2 <span class="ot">&lt;-</span>  <span class="fu">ggplot</span>(train, <span class="fu">aes</span>(<span class="at">x=</span>site_eui)) <span class="sc">+</span>  <span class="fu">geom_boxplot</span>(<span class="at">fill=</span><span class="st">&#39;gold&#39;</span>) <span class="sc">+</span>  <span class="fu">labs</span> (<span class="at">title=</span><span class="st">&quot;Figure 2:&quot;</span>, <span class="at">x =</span> <span class="st">&quot;Site EUI&quot;</span>, <span class="at">y =</span> <span class="st">&quot;&quot;</span>)</span>
-<span id="cb9-3"><a href="#cb9-3" tabindex="-1"></a>gridExtra<span class="sc">::</span><span class="fu">grid.arrange</span>(g1,g2, <span class="at">ncol =</span> <span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a>g1 <span class="ot">&lt;-</span>  <span class="fu">ggplot</span>(train, <span class="fu">aes</span>(<span class="at">x=</span>site_eui)) <span class="sc">+</span></span>
+<span id="cb9-2"><a href="#cb9-2" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">fill=</span><span class="st">&#39;blue&#39;</span>, <span class="at">col =</span> <span class="st">&#39;black&#39;</span>, <span class="at">bins =</span> <span class="dv">20</span>) <span class="sc">+</span></span>
+<span id="cb9-3"><a href="#cb9-3" tabindex="-1"></a>  <span class="fu">labs</span> (<span class="at">title=</span><span class="st">&quot;Figure 1:&quot;</span>, <span class="at">x =</span> <span class="st">&quot;Site EUI&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Frequency&quot;</span>)</span>
+<span id="cb9-4"><a href="#cb9-4" tabindex="-1"></a>g2 <span class="ot">&lt;-</span>  <span class="fu">ggplot</span>(train, <span class="fu">aes</span>(<span class="at">x=</span>site_eui)) <span class="sc">+</span> <span class="fu">geom_boxplot</span>(<span class="at">fill=</span><span class="st">&#39;gold&#39;</span>) <span class="sc">+</span>  <span class="fu">labs</span> (<span class="at">title=</span><span class="st">&quot;Figure 2:&quot;</span>, <span class="at">x =</span> <span class="st">&quot;Site EUI&quot;</span>, <span class="at">y =</span> <span class="st">&quot;&quot;</span>)</span>
+<span id="cb9-5"><a href="#cb9-5" tabindex="-1"></a>gridExtra<span class="sc">::</span><span class="fu">grid.arrange</span>(g1,g2, <span class="at">ncol =</span> <span class="dv">2</span>)</span></code></pre></div>
 <p>If you get a warning message about not having <code>gridExtra</code>,
 this means you will need to install the package using the same steps we
 did above to install <code>ggplot2</code>. We have to install packages
@@ -2128,17 +2146,25 @@ box plot for the average temperature in March and (4) histogram for the
 average temperature in March. Stack 4 graphs in a 2 x 2 grid (2 rows and
 2 columns). You have already made some of the graphs you need!</p>
 </div>
-</div>
 <div id="changing-themes" class="section level2">
 <h2>Changing Themes</h2>
 <p>When using ggplot2, you also have an option to change the theme of
 your graphs. Consider these:</p>
 <p><strong>The Light Theme</strong></p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" tabindex="-1"></a><span class="fu">ggplot</span>(train, <span class="fu">aes</span>(<span class="at">x=</span>site_eui)) <span class="sc">+</span>  <span class="fu">geom_histogram</span>(<span class="at">fill=</span><span class="st">&#39;blue&#39;</span>, <span class="at">col =</span> <span class="st">&#39;black&#39;</span>, <span class="at">bins =</span> <span class="dv">20</span>) <span class="sc">+</span>  <span class="fu">labs</span> (<span class="at">title=</span><span class="st">&quot;Figure 1:&quot;</span>, <span class="at">x =</span> <span class="st">&quot;Site EUI&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Frequency&quot;</span>, <span class="at">caption =</span> <span class="st">&quot;A histogram of site EUI.&quot;</span>) <span class="sc">+</span> <span class="fu">theme_light</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" tabindex="-1"></a><span class="fu">ggplot</span>(train, <span class="fu">aes</span>(<span class="at">x=</span>site_eui)) <span class="sc">+</span></span>
+<span id="cb10-2"><a href="#cb10-2" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">fill=</span><span class="st">&#39;blue&#39;</span>, <span class="at">col =</span> <span class="st">&#39;black&#39;</span>, <span class="at">bins =</span> <span class="dv">20</span>) <span class="sc">+</span> </span>
+<span id="cb10-3"><a href="#cb10-3" tabindex="-1"></a>  <span class="fu">labs</span> (<span class="at">title=</span><span class="st">&quot;Figure 1:&quot;</span>, <span class="at">x =</span> <span class="st">&quot;Site EUI&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Frequency&quot;</span>, <span class="at">caption =</span> <span class="st">&quot;A histogram of site EUI.&quot;</span>) <span class="sc">+</span></span>
+<span id="cb10-4"><a href="#cb10-4" tabindex="-1"></a>  <span class="fu">theme_light</span>()</span></code></pre></div>
 <p><strong>The BW Theme</strong></p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a><span class="fu">ggplot</span> (train, <span class="fu">aes</span>(<span class="at">x=</span>site_eui)) <span class="sc">+</span>  <span class="fu">geom_histogram</span> (<span class="at">fill=</span><span class="st">&#39;blue&#39;</span>, <span class="at">col =</span> <span class="st">&#39;black&#39;</span>, <span class="at">bins =</span> <span class="dv">20</span>) <span class="sc">+</span>  <span class="fu">labs</span> (<span class="at">title=</span><span class="st">&quot;Figure 1:&quot;</span>, <span class="at">x =</span> <span class="st">&quot;Site EUI&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Frequency&quot;</span>, <span class="at">caption =</span> <span class="st">&quot;A histogram of site EUI.&quot;</span>) <span class="sc">+</span> <span class="fu">theme_bw</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a><span class="fu">ggplot</span> (train, <span class="fu">aes</span>(<span class="at">x=</span>site_eui)) <span class="sc">+</span></span>
+<span id="cb11-2"><a href="#cb11-2" tabindex="-1"></a>  <span class="fu">geom_histogram</span> (<span class="at">fill=</span><span class="st">&#39;blue&#39;</span>, <span class="at">col =</span> <span class="st">&#39;black&#39;</span>, <span class="at">bins =</span> <span class="dv">20</span>) <span class="sc">+</span></span>
+<span id="cb11-3"><a href="#cb11-3" tabindex="-1"></a>  <span class="fu">labs</span> (<span class="at">title=</span><span class="st">&quot;Figure 1:&quot;</span>, <span class="at">x =</span> <span class="st">&quot;Site EUI&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Frequency&quot;</span>, <span class="at">caption =</span> <span class="st">&quot;A histogram of site EUI.&quot;</span>) <span class="sc">+</span></span>
+<span id="cb11-4"><a href="#cb11-4" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code></pre></div>
 <p><strong>The Minimal Theme</strong></p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" tabindex="-1"></a><span class="fu">ggplot</span> (train, <span class="fu">aes</span>(<span class="at">x=</span>site_eui)) <span class="sc">+</span>  <span class="fu">geom_histogram</span> (<span class="at">fill=</span><span class="st">&#39;blue&#39;</span>, <span class="at">col =</span> <span class="st">&#39;black&#39;</span>, <span class="at">bins =</span> <span class="dv">20</span>) <span class="sc">+</span>  <span class="fu">labs</span> (<span class="at">title=</span><span class="st">&quot;Figure 1:&quot;</span>, <span class="at">x =</span> <span class="st">&quot;Site EUI&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Frequency&quot;</span>, <span class="at">caption =</span> <span class="st">&quot;A histogram of site EUI.&quot;</span>) <span class="sc">+</span> <span class="fu">theme_minimal</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" tabindex="-1"></a><span class="fu">ggplot</span> (train, <span class="fu">aes</span>(<span class="at">x=</span>site_eui)) <span class="sc">+</span></span>
+<span id="cb12-2"><a href="#cb12-2" tabindex="-1"></a>  <span class="fu">geom_histogram</span> (<span class="at">fill=</span><span class="st">&#39;blue&#39;</span>, <span class="at">col =</span> <span class="st">&#39;black&#39;</span>, <span class="at">bins =</span> <span class="dv">20</span>) <span class="sc">+</span></span>
+<span id="cb12-3"><a href="#cb12-3" tabindex="-1"></a>  <span class="fu">labs</span> (<span class="at">title=</span><span class="st">&quot;Figure 1:&quot;</span>, <span class="at">x =</span> <span class="st">&quot;Site EUI&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Frequency&quot;</span>, <span class="at">caption =</span> <span class="st">&quot;A histogram of site EUI.&quot;</span>) <span class="sc">+</span></span>
+<span id="cb12-4"><a href="#cb12-4" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div>
 <p>Take a look and, as a team, decide what you like!</p>
 </div>
 <div id="making-tables" class="section level2">
@@ -2160,11 +2186,11 @@ The first is very direct. We tell R we want to use the
 <code>train$building_class</code> (dataset$variable). Then, we use the
 <code>table(whatWeWantToMakeATableWith)</code> command to actually make
 the table.</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" tabindex="-1"></a><span class="fu">table</span> (train<span class="sc">$</span>building_class)</span></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" tabindex="-1"></a><span class="fu">table</span>(train<span class="sc">$</span>building_class)</span></code></pre></div>
 <p>However, this makes a table that is not particularly pretty or
 professional when you knit. A second option that does create
 professional tables is:</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>( <span class="fu">table</span> (train<span class="sc">$</span>building_class),  <span class="at">col.names =</span><span class="fu">c</span>(<span class="st">&quot;Building Type&quot;</span>, <span class="st">&quot;Count&quot;</span>) )</span></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>( <span class="fu">table</span>(train<span class="sc">$</span>building_class),  <span class="at">col.names =</span><span class="fu">c</span>(<span class="st">&quot;Building Type&quot;</span>, <span class="st">&quot;Count&quot;</span>) )</span></code></pre></div>
 <p>The code is more complex, but the heart of it is the same table. This
 table will not look very pretty when you press play, but go ahead and
 knit. See how nicely the table gets formatted?</p>
