@@ -31,16 +31,16 @@ Now, we have stated that RStudio Pro has more storage space than most of your co
 Spaces in R are called **working directories**; this is where all your files are stored. When you initially log in to RStudio Pro, your working directory is set to /home/your_username. However, we
 want to store all of our data and files for class under a different working directory: 
 
-/deac/sta/classes/sta175-sp-2023/your_username
+/deac/sta/classes/sta175-sp-2024/your_username
 
 where `your_username` should be replaced with your actual username (so your Wake Forest email without the @wfu.edu. Dr. Dalzell's is dalzelnm). 
 
 Okay, so how do we get to that working directory that has all the special storage space for the competition? Well, to change your working directory…
 
 - Click on Console at the bottom left hand panel of your RStudio screen.  
-- Run the command `setwd("/deac/sta/classes/sta175-sp-2023/your_username")`
+- Run the command `setwd("/deac/sta/classes/sta175-sp-2024/your_username")`
 - **NOTE: Make sure you replace `your_username` with your actual user name!!!!** 
-- Now, look at the top left hand panel of RStudio, and find R 4.0.2 on the top of the Console tab. Next to it you should see something that looks like /deac/sta/classes/sta175-sp-2023/your_username
+- Now, look at the top left hand panel of RStudio, and find R 4.0.2 on the top of the Console tab. Next to it you should see something that looks like /deac/sta/classes/sta175-sp-2024/your_username
 - Click the white arrow next to this. This changes your working directory in the right panel.
 - Now, look at the bottom right hand panel of your screen. Click on Files. 
 - At the top of this tab, you should see something that includes sta175 and your user name. 
@@ -52,7 +52,7 @@ If you get stuck at any point during this process, let us know.
 
 Now that we are ready to start working with RStudio Pro, we need data. The process of loading the data into RStudio Pro requires one more step than loading data onto your computer. 
 
-We will continue using the energy efficiency data from last week. If you haven't already, load the `train.csv` dataset into R (see [Activity 1](https://sta175.github.io/class_activities/ca_1.html) for full instructions).
+We will continue using the energy efficiency data from last week. If you haven't already, load the `train.csv` dataset into R (see [Activity 1](https://sta175.github.io/class_activities/STA175_Activity1.html) for full instructions).
 
 Let's go ahead and upload our `train` data that we need for our activity today. 
 
