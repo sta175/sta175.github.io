@@ -15,9 +15,7 @@ Today, we'll start on modeling, and work on describing some of those relationshi
 
 ## Setup
 
-Log in to RStudio Pro, and have one person in the team create a new file called `Master_Activity4`. This should be an R script or a Markdown file where you will all put your final code. The person who creates the file should create a section with each team members name by using `## Name Here`. This helps show everyone where it is safe to type.
-
-Each team member will work on a separate part of the analysis, and add their results to the master file.
+In this class activity, we will practice dividing the analysis between different team members. Each team member will work on a separate part of the analysis, and will submit their work separately on Canvas.
 
 ## Exploring Regression
 
@@ -40,7 +38,7 @@ While we will ultimately build a model with multiple predictors, it is useful to
 :::{.question}
 #### Question 2
 
-Have each member of your team choose one feature (explanatory variable) that they want to explore. Each member will work on regression modeling, starting with the relationship between their chosen feature and EUI, **in their own file**.
+Choose one feature (explanatory variable) that you want to explore. You will work on regression modeling, starting with the relationship between your chosen feature and EUI, **in your own file**.
 :::
 
 Let's start by fitting a simple linear regression model with your chosen feature. For example, if I start with age as an explanatory variable, I can fit linear regression with the `lm` function:
@@ -109,7 +107,7 @@ In general, we need more than one predictor to do a good job predicting the resp
 :::{.question}
 #### Question 7
 
-Work with your team members to combine your chosen variables into a regression model. Think carefully about whether to include interactions between your variables, and whether to transform any variables (and if so, which transformations to use). Make sure to check diagnostics for your models.
+Explore additional explanatory variables, and combine them into a multiple linear regression model. Think carefully about whether to include interactions between your variables, and whether to transform any variables (and if so, which transformations to use). Make sure to check diagnostics for your models.
 
 Which of the variables you examined seem most useful for predicting EUI?
 :::
@@ -120,6 +118,3 @@ Which of the variables you examined seem most useful for predicting EUI?
 Your client is particularly interested in building age as an explanatory variable. Examine the relationship between building age and EUI, after accounting for the other variables in your model. Is the relationship what you expect? Does the relationship depend on other variables -- that is, does age interact with other predictors?
 :::
 
-## Next steps
-
-Exploring relationships by hand is important, but we probably can't investigate every variable in the data this way. A linear relationship might also not be an appropriate choice for our data. In our next steps, we'll talk about model selection techniques, and consider other types of regression.
