@@ -1,7 +1,7 @@
 ---
-title: Week 6 - Model selection (best subset and stepwise)
+title: Week 5 - Linear regression
 ---
 
-February 21
-: Model selection 
-  : [Class Activity](https://sta175.github.io/class_activities/STA175_Activity5_New.html)
+February 14
+: Linear regression 
+  : [Class Activity](https://sta175.github.io/class_activities/STA175_Activity4_New.html)

@@ -1,9 +1,8 @@
 ---
-title: Week 8 - Text Analysis
+title: Week 8 - Classification
 ---
 
 March 6
-: Text Analysis, Part II
-  : [Class Activity](https://sta175.github.io/class_activities/STA175_TextAnalysis2.html)
-
+: Classification
+  : [Class Activity](https://sta175.github.io/class_activities/STA175_Classification.html)
   
