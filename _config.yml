@@ -13,7 +13,7 @@
 # you will see them accessed via {{ site.title }}, {{ site.github_repo }}, and so on.
 # You can create any custom variable you would like, and they will be accessible
 # in the templates via {{ site.myvariable }}.
-title: STA 175, Spring 2024
+title: STA 175, Spring 2025
 tagline: STA 175 
 description: Course materials
 author: Ciaran Evans
