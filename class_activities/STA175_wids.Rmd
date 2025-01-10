@@ -1,0 +1,28 @@
+---
+title: "STA 175: Level 2 competition options"
+output: 
+  rmdformats::robobook:
+    css: "homework.css"
+    highlight: pygments
+link-citations: yes
+---
+
+# Overview
+
+For our Level 2 teams, your class time will be spent competing in a second competition, to help prepare for DataFest. There are several suggested options below. Please note that if you or your team would rather compete the Level 1 activities for practice, just let Dr. Dalzell or Dr. Evans know and you can switch.
+
+Each week, you will submit a short progress report on what your group has done so far, and what your next steps will be. You will attend the class meetings as usual, and you are welcome to ask Dr. Dalzell and Dr. Evans for guidance on your analysis.
+
+# Option 1: WiDS Datathon
+
+The [WiDS Datathon](https://www.widsworldwide.org/learn/datathon/) is an annual statistics competition that runs every year. Like DataFest, participants work in teams to analyze a complex dataset and address a researcher question. And like DataFest, each team submits a final report at the end of the competition, and their work is judged to award prizes. Unlike DataFest, however, the WiDS datathon takes place over several months, which makes it an excellent opportunity for Level 2 teams to practice data analysis while participating in a second competition.
+
+This year, the datathon runs from January to April 30. More information is available at the [datathon website](https://www.widsworldwide.org/learn/datathon), and the data and competition instructions are available on [Kaggle](https://www.kaggle.com/competitions/widsdatathon2025). 
+
+**Note:** WiDS caps team sizes at 4, and at least half the team members must identify as women
+
+# Option 2: Kaggle Competition: Equity in Survival Predictions
+
+**Competition link:** [https://www.kaggle.com/competitions/equity-post-HCT-survival-predictions](https://www.kaggle.com/competitions/equity-post-HCT-survival-predictions)
+
+
