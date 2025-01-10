@@ -1,5 +1,6 @@
 ---
 title: Week 2 - Using RStudio Pro
+nav_exclude: true
 ---
 
 January 24

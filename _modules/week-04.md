@@ -1,5 +1,6 @@
 ---
 title: Week 4 - Data wrangling with dplyr
+nav_exclude: true
 ---
 
 February 7
