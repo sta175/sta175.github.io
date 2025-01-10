@@ -17,13 +17,15 @@ Each week, you will submit a short progress report on what your group has done s
 
 The [WiDS Datathon](https://www.widsworldwide.org/learn/datathon/) is an annual statistics competition that runs every year. Like DataFest, participants work in teams to analyze a complex dataset and address a researcher question. And like DataFest, each team submits a final report at the end of the competition, and their work is judged to award prizes. Unlike DataFest, however, the WiDS datathon takes place over several months, which makes it an excellent opportunity for Level 2 teams to practice data analysis while participating in a second competition.
 
-This year, the datathon runs from January to April 30. More information is available at the [datathon website](https://www.widsworldwide.org/learn/datathon), and the data and competition instructions are available on [Kaggle](https://www.kaggle.com/competitions/widsdatathon2025). 
+This year, the datathon runs from January to March 1. More information is available at the [datathon website](https://www.widsworldwide.org/learn/datathon), and the data and competition instructions are available on [Kaggle](https://www.kaggle.com/competitions/widsdatathon2024-challenge1). 
 
-**Note:** WiDS caps team sizes at 4, and at least half the team members must identify as women
+**Note:** At least half the team members must identify as "female"
 
-# Option 2: Kaggle Competition: Equity in Survival Predictions
+# Option 2: Kaggle Competition: Text Data
 
-**Competition link:** [https://www.kaggle.com/competitions/equity-post-HCT-survival-predictions/overview](https://www.kaggle.com/competitions/equity-post-HCT-survival-predictions/overview)
+**Competition link:** [https://www.kaggle.com/competitions/pii-detection-removal-from-educational-data/](https://www.kaggle.com/competitions/pii-detection-removal-from-educational-data/)
 
+# Option 3: Kaggle Competition: Stock Trading
 
+**Competition link:** [https://www.kaggle.com/competitions/optiver-trading-at-the-close](https://www.kaggle.com/competitions/optiver-trading-at-the-close)
 
