@@ -6,7 +6,7 @@ description: The weekly event schedule.
 
 # DataFest Schedule: Overview 
 
-DataFest begins on Friday March April 5 at 5:30 PM and continues until Sunday April 7 at 1 PM. 
+DataFest begins on Friday April 4 at 5:30 PM and continues until Sunday April 6 at 1 PM. 
 
 - Friday: Getting Started
 - Saturday: Work Day
@@ -14,7 +14,7 @@ DataFest begins on Friday March April 5 at 5:30 PM and continues until Sunday Ap
 
 ---
 
-# Friday April 5: 
+# Friday April 4: 
 
 ## Location: TBA
 
@@ -33,7 +33,7 @@ At 6 PM, we will open the competition. We will share information about the data 
 
 ---
 
-# Saturday April 6
+# Saturday April 5
 
 ## Location: Manchester/Kirby
 
@@ -41,7 +41,7 @@ Saturday is entirely for working. There will be folks available to help you to (
 
 ---
 
-# Sunday April 7
+# Sunday April 6
 
 ## Judging Location: 
 
