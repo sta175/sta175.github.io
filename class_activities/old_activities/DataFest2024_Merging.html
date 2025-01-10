@@ -7,7 +7,7 @@
 
     
     
-    <title>STA 175: Level 2 competition options</title>
+    <title>DataFest 2024: Merging Data</title>
 
         <script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
 // be compatible with the behavior of Pandoc < 2.8).
@@ -1356,6 +1356,72 @@ src: url(data:font/ttf;base64,AAEAAAARAQAABAAQR0RFRgs+Cz8AAjwQAAAAQEdQT1MXWeoAAA
 </script>
     
     
+        <style type="text/css">code{white-space: pre;}</style>
+    <style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+{ counter-reset: source-line 0; }
+pre.numberSource code > span
+{ position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+{ content: counter(source-line);
+position: relative; left: -1em; text-align: right; vertical-align: baseline;
+border: none; display: inline-block;
+-webkit-touch-callout: none; -webkit-user-select: none;
+-khtml-user-select: none; -moz-user-select: none;
+-ms-user-select: none; user-select: none;
+padding: 0 4px; width: 4em;
+color: #aaaaaa;
+}
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; padding-left: 4px; }
+div.sourceCode
+{ }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } 
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.at { color: #7d9029; } 
+code span.bn { color: #40a070; } 
+code span.bu { color: #008000; } 
+code span.cf { color: #007020; font-weight: bold; } 
+code span.ch { color: #4070a0; } 
+code span.cn { color: #880000; } 
+code span.co { color: #60a0b0; font-style: italic; } 
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.do { color: #ba2121; font-style: italic; } 
+code span.dt { color: #902000; } 
+code span.dv { color: #40a070; } 
+code span.er { color: #ff0000; font-weight: bold; } 
+code span.ex { } 
+code span.fl { color: #40a070; } 
+code span.fu { color: #06287e; } 
+code span.im { color: #008000; font-weight: bold; } 
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.kw { color: #007020; font-weight: bold; } 
+code span.op { color: #666666; } 
+code span.ot { color: #007020; } 
+code span.pp { color: #bc7a00; } 
+code span.sc { color: #4070a0; } 
+code span.ss { color: #bb6688; } 
+code span.st { color: #4070a0; } 
+code span.va { color: #19177c; } 
+code span.vs { color: #4070a0; } 
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } 
+</style>
     
         <style type="text/css">
 @font-face {
@@ -1575,16 +1641,21 @@ margin-left: 0 !important;
    <div class="book with-summary">
       <div class="book-summary">
         <ul>
-          <li class="title">STA 175: Level 2 competition options</li>
+          <li class="title">DataFest 2024: Merging Data</li>
           <li class="divider"></li>
         </ul>
         <nav role="navigation" id="toc">
           <ul>
-          <li><a href="#overview" id="toc-overview">Overview</a></li>
-          <li><a href="#option-1-wids-datathon" id="toc-option-1-wids-datathon">Option 1: WiDS
-          Datathon</a></li>
-          <li><a href="#option-2-kaggle-competition-equity-in-survival-predictions" id="toc-option-2-kaggle-competition-equity-in-survival-predictions">Option
-          2: Kaggle Competition: Equity in Survival Predictions</a></li>
+          <li><a href="#goal" id="toc-goal">Goal</a></li>
+          <li><a href="#merging-example" id="toc-merging-example">Merging Example</a>
+          <ul>
+          <li><a href="#using-tidyr" id="toc-using-tidyr">Using
+          tidyR</a></li>
+          <li><a href="#using-base-r" id="toc-using-base-r">Using base
+          R</a></li>
+          </ul></li>
+          <li><a href="#next-steps" id="toc-next-steps">Next
+          Steps</a></li>
           </ul>
         </nav>
         <ul class="authors">
@@ -1601,7 +1672,7 @@ margin-left: 0 !important;
       
    
         
-      <h1 class="title">STA 175: Level 2 competition options</h1>
+      <h1 class="title">DataFest 2024: Merging Data</h1>
       
         
 
@@ -1609,39 +1680,100 @@ margin-left: 0 !important;
       
    
 <!-- Don't indent these lines or it will mess pre blocks indentation --> 
-<div id="overview" class="section level1">
-<h1>Overview</h1>
-<p>For our Level 2 teams, your class time will be spent competing in a
-second competition, to help prepare for DataFest. There are several
-suggested options below. Please note that if you or your team would
-rather compete the Level 1 activities for practice, just let Dr. Dalzell
-or Dr. Evans know and you can switch.</p>
-<p>Each week, you will submit a short progress report on what your group
-has done so far, and what your next steps will be. You will attend the
-class meetings as usual, and you are welcome to ask Dr. Dalzell and
-Dr. Evans for guidance on your analysis.</p>
+<div id="goal" class="section level2">
+<h2>Goal</h2>
+<p>For DataFest, we have 5 different data sets. These data sets contain
+<strong>identifiers</strong>, which are values that can be used to
+locate the same individual in two different data sets.</p>
+<p>We have three such identifiers in the data:</p>
+<ul>
+<li><ol style="list-style-type: decimal">
+<li><code>student_id</code>: this identifies which student the row
+represents.</li>
+</ol></li>
+<li><ol start="2" style="list-style-type: decimal">
+<li><code>class_id</code>: this identifies the class a student is
+in.</li>
+</ol></li>
+<li><ol start="3" style="list-style-type: decimal">
+<li><code>institution_id</code>: this identifies the school the student
+is enrolled in.</li>
+</ol></li>
+</ul>
+<p>Because we have multiple data sets with information on the same
+individuals, one goal might be to <strong>merge</strong> together two or
+more data sets. In this brief tutorial, we will illustrate how to do
+this with the <code>checkpoints_pulse</code> and
+<code>checkpoints_eoc</code> data sets.</p>
 </div>
-<div id="option-1-wids-datathon" class="section level1">
-<h1>Option 1: WiDS Datathon</h1>
-<p>The <a href="https://www.widsworldwide.org/learn/datathon/">WiDS
-Datathon</a> is an annual statistics competition that runs every year.
-Like DataFest, participants work in teams to analyze a complex dataset
-and address a researcher question. And like DataFest, each team submits
-a final report at the end of the competition, and their work is judged
-to award prizes. Unlike DataFest, however, the WiDS datathon takes place
-over several months, which makes it an excellent opportunity for Level 2
-teams to practice data analysis while participating in a second
-competition.</p>
-<p>This year, the datathon runs from January to April 30. More
-information is available at the <a href="https://www.widsworldwide.org/learn/datathon">datathon
-website</a>, and the data and competition instructions are available on
-<a href="https://www.kaggle.com/competitions/widsdatathon2025">Kaggle</a>.</p>
-<p><strong>Note:</strong> WiDS caps team sizes at 4, and at least half
-the team members must identify as women</p>
+<div id="merging-example" class="section level1">
+<h1>Merging Example</h1>
+<p>The <code>checkpoints_pulse</code> data set has information on each
+of 4 “constructs”, which are questions about how a student feels about
+the material in each chapter.</p>
+<p>The <code>checkpoints_eoc</code> data set has information on the end
+of chapter exam score.</p>
+<p>It might be helpful to add the end of chapter exam score from the
+<code>checkpoints_eoc</code> data set to the
+<code>checkpoints_pulse</code> data set. Doing this requites
+<strong>merging</strong>.</p>
+<div id="using-tidyr" class="section level2">
+<h2>Using tidyR</h2>
+<p>If you are a tidy user in R, you can use the following code to
+merge:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a>checkpoints_eoc_and_pulse_tidy <span class="ot">&lt;-</span> <span class="fu">left_join</span>(checkpoints_pulse,</span>
+<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a>checkpoints_eoc, <span class="at">by =</span> <span class="fu">join_by</span>(student_id, chapter_number,</span>
+<span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a>class_id,book))</span></code></pre></div>
+<p>This code has 3 inputs:</p>
+<ul>
+<li><code>checkpoints_pulse</code> is the first data set you want to
+merge; this is the data set you want to add new rows onto.</li>
+<li><code>checkpoints_eoc</code> is the second data set you want to
+merge; this is the data set that contains the new columns we want to add
+to the first data set.</li>
+<li><code>by</code> tells R which columns to look for in the data sets
+for the identifier it will use for merging. In this case, we are merging
+on student id, class id, chapter number, and book.</li>
+</ul>
+<p>When we are done, you will notice that our new data set has the same
+number of rows as the <code>checkpoints_pulse</code> data set, but it
+has 4 more columns. This because <code>checkpoints_eoc</code> has 4
+columns that are not in <code>checkpoints_pulse</code>
+(<code>EOC</code>,
+<code>n_possible</code>,<code>n_correct</code>,<code>n_attempt</code>).
+These columns have now been added on to the
+<code>checkpoints_pulse</code> data set.</p>
 </div>
-<div id="option-2-kaggle-competition-equity-in-survival-predictions" class="section level1">
-<h1>Option 2: Kaggle Competition: Equity in Survival Predictions</h1>
-<p><strong>Competition link:</strong> <a href="https://www.kaggle.com/competitions/equity-post-HCT-survival-predictions/overview">https://www.kaggle.com/competitions/equity-post-HCT-survival-predictions/overview</a></p>
+<div id="using-base-r" class="section level2">
+<h2>Using base R</h2>
+<p>We can also use a different function, called <code>merge</code>, and
+obtain the same results.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a>checkpoints_eoc_and_pulse<span class="ot">&lt;-</span> <span class="fu">merge</span>( checkpoints_pulse, checkpoints_eoc, </span>
+<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a><span class="at">by =</span> <span class="fu">c</span>(<span class="st">&quot;student_id&quot;</span>, <span class="st">&quot;chapter_number&quot;</span>, <span class="st">&quot;book&quot;</span>, <span class="st">&quot;class_id&quot;</span>),</span>
+<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a><span class="at">all.x =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<p>This code has 3 inputs:</p>
+<ul>
+<li><code>checkpoints_pulse</code> is the first data set you want to
+merge; this is the data set you want to add new rows onto.</li>
+<li><code>checkpoints_eoc</code> is the second data set you want to
+merge; this is the data set that contains the new columns we want to add
+to the first data set.</li>
+<li><code>by</code> tells R which columns to look for in the data sets
+for the identifier it will use for merging. In this case, we are merging
+on student id, class id, chapter number, and book.</li>
+<li><code>all.x</code> tells us to keep all the rows in the original
+data set (<code>checkpoints_pulse</code>) even if they do not have any
+rows present in the <code>checkpoints_eoc</code> data set; hint: not
+every student has an EOC for every chapter!</li>
+</ul>
+</div>
+</div>
+<div id="next-steps" class="section level1">
+<h1>Next Steps</h1>
+<p>You can merge together more than two data sets, and you are not
+limited to just these two data sets. Happy analyzing!</p>
 </div>
 
    

@@ -25,8 +25,8 @@ schedule:
     events:
       - name: STA 175
         start: 3:30 PM
-        end: 4:40 PM
-        location: Kirby 104
+        end: 4:45 PM
+        location: Carswell 101
   - name: Thursday
   - name: Friday
 ---

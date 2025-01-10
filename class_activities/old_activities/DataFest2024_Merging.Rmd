@@ -1,0 +1,71 @@
+---
+title: "DataFest 2024: Merging Data"
+output: 
+  rmdformats::robobook:
+    css: "homework.css"
+    highlight: pygments
+link-citations: yes
+---
+
+## Goal
+
+For DataFest, we have 5 different data sets. These data sets contain **identifiers**, which are values that can be used to locate the same individual in two different data sets. 
+
+We have three such identifiers in the data:
+
+- 1) `student_id`: this identifies which student the row represents.
+- 2) `class_id`: this identifies the class a student is in. 
+- 3) `institution_id`: this identifies the school the student is enrolled in. 
+
+Because we have multiple data sets with information on the same individuals, one goal might be to **merge** together two or more data sets. In this brief tutorial, we will illustrate how to do this with the `checkpoints_pulse` and `checkpoints_eoc` data sets. 
+
+# Merging Example
+
+The `checkpoints_pulse` data set has information on each of 4 "constructs", which are questions about how a student feels about the material in each chapter. 
+
+The `checkpoints_eoc` data set has information on the end of chapter exam score. 
+
+It might be helpful to add the end of chapter exam score from the `checkpoints_eoc` data set to the `checkpoints_pulse` data set. Doing this requites **merging**. 
+
+## Using tidyR
+
+If you are a tidy user in R, you can use the following code to merge: 
+
+```r
+library(dplyr)
+
+checkpoints_eoc_and_pulse_tidy <- left_join(checkpoints_pulse,
+checkpoints_eoc, by = join_by(student_id, chapter_number,
+class_id,book))
+```
+
+This code has 3 inputs:
+
+- `checkpoints_pulse` is the first data set you want to merge; this is the data set you want to add new rows onto. 
+- `checkpoints_eoc` is the second data set you want to merge; this is the data set that contains the new columns we want to add to the first data set. 
+- `by` tells R which columns to look for in the data sets for the identifier it will use for merging. In this case, we are merging on student id, class id, chapter number, and book. 
+
+When we are done, you will notice that our new data set has the same number of rows as the `checkpoints_pulse` data set, but it has 4 more columns. This because `checkpoints_eoc` has 4 columns that are not in `checkpoints_pulse` (`EOC`, `n_possible`,`n_correct`,`n_attempt`). These columns have now been added on to the `checkpoints_pulse` data set. 
+
+
+## Using base R 
+
+We can also use a different function, called `merge`, and obtain the same results. 
+
+```r
+checkpoints_eoc_and_pulse<- merge( checkpoints_pulse, checkpoints_eoc, 
+by = c("student_id", "chapter_number", "book", "class_id"),
+all.x = TRUE)
+```
+
+This code has 3 inputs:
+
+- `checkpoints_pulse` is the first data set you want to merge; this is the data set you want to add new rows onto. 
+- `checkpoints_eoc` is the second data set you want to merge; this is the data set that contains the new columns we want to add to the first data set. 
+- `by` tells R which columns to look for in the data sets for the identifier it will use for merging. In this case, we are merging on student id, class id, chapter number, and book.
+- `all.x` tells us to keep all the rows in the original data set (`checkpoints_pulse`) even if they do not have any rows present in the `checkpoints_eoc` data set; hint: not every student has an EOC for every chapter!  
+
+# Next Steps
+
+You can merge together more than two data sets, and you are not limited to just these two data sets. Happy analyzing! 
+
