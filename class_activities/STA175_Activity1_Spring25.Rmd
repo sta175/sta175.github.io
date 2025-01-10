@@ -1,0 +1,405 @@
+---
+title: "STA 175 Activity 1"
+output: 
+  rmdformats::robobook:
+    css: "homework.css"
+    highlight: pygments
+link-citations: yes
+---
+
+# The Goal
+
+This course is designed to help you develop your coding skills and your analysis skills in order to prepare you for DataFest in April 2025. At the start of DataFest, you will be given a data set and provided with the general research goals your client would like you to explore - and that's it! How you approach the problem, what model you choose...everything is completely up to you.
+
+Throughout this course, we are going to practice some of the skills that will help you tackle these sorts of open ended problems. For today, we are going to start with exploring how to visualize data in R. We will also see some best practices for visualizations (like adding appropriate labels and titles to graphs) that your team should use for DataFest and indeed any formal report or presentation!  
+
+As you work through this activity, please use RMarkdown so it's easy to submit your work. We strongly recommend storing your work in a folder you can find later, so you can refer to it during DataFest!
+
+# The Data
+
+For our first activity, the data can be downloaded from dropbox. We'll practice with different ways of loading data as we go through the semester, but for today, all you need to do is create a <strong>chunk</strong> in RMarkdown, paste in the code below, and press <strong>play</strong>. 
+
+```r
+checkpoints_eoc <-read.csv("https://www.dropbox.com/scl/fi/3xda6hny48ojknoifupul/checkpoints_eoc.csv?rlkey=q6rksum9wc91pkte2qdg31s33&st=fr0rynut&dl=1")
+```
+
+<strong>Note: If any of those terms were unfamiliar to you, just let us know!</strong>
+
+## Data Citation
+
+The data we are working with are provided by <a href="https://coursekata.org">CourseKata</a>, creators of an online interactive statistics textbook. 
+
+CourseKata provided the data for DataFest 2024, and we are now working with a publicly available version of these data downloaded from <a href = "https://github.com/coursekata/data"> https://github.com/coursekata/data</a>
+
+- Citation for the Book: Son, J.Y. & Stigler, J.W. (2017-2024). Statistics and data science: A modeling approach. Los Angeles: CourseKata, <a href = "https://coursekata.org/preview/default/program"> https://coursekata.org/preview/default/program </a>. Currently available in 7 versions.
+
+
+# Client Request 
+
+Our data today is provided by a client who is interested in exploring how students engage with their statistics textbook and how successfully students are performing using the different books. We are provided a data set of 10570 rows and 13 columns. 
+
+<strong>Note:</strong> Our client actually gave us multiple data files, and we will bring in the rest soon! For today, we are just going to focus on this one. DataFest data is either (1) huge, (2) messy, or (3) contained in multiples files - or sometimes a mixture of all 3. The CourseKata data will allow us to practice with merging multiple files a little later in the course. 
+
+Because this is an online textbook, students have online tests at the end of each chapter. Each row in our dataset represents the performance of a certain student in the year 2023 on a certain chapter of the book. Our 13 columns are: 
+
+<div>
+<ul>
+<li>`book` - The title of the specific book used by the student. CourseKata releases multiple books, generally each targeting a specific age or skill level.</li>
+<li>`release` - The release of the specific book used by the student. Think of this like a version number, as some versions of the textbook are newer than others.</li>
+<li>`class_id` -  The class the student was enrolled in; this is as specific as Dr. Dalzell's STA 279 class in Spring 2025, but recorded as a number. </li>
+<li>`student_id` -  The unique ID number of the student.</li>
+<li>`chapter_num` - The chapter of the book</li>
+<li>`page_num`- The page number the end of chapter test is found on.</li>
+<li>`eoc` -  The student's score on the end of chapter test, recorded such that .85 = 85%</li>
+<li>`n_submit` -The number of questions on the end of chapter test the student attempted</li>
+<li>`n_correct` -  The number of questions on the end of chapter test the student got correct.</li>
+<li>`n_code` -  The number of questions on the end of chapter test that were related to coding.</li>
+<li>`n_lrn_q` - The total number of questions on the end of chapter test that were Learning Questions.</li>
+<li>`lrn_auto` - The number of questions on the end of chapter test that were automatically graded.</li>
+<li>`plaintext` - The number of open ended questions on the end of chapter test.</li>
+</ul>
+</div>
+
+## First Steps: The Plan  
+
+We have a lot of rows and multiple columns in this data set. The data at DataFest may be even bigger. Sometimes the hardest part is figuring out how to get started, so let's talk about that. 
+
+The first question to ask yourselves is: What is the goal of this analysis? Are we building a model to help predict something? If so, then our goal is <strong>prediction</strong>. Is our goal to understand relationships among some of the variables in the data set? If so, then our goal is <strong>association</strong>. 
+
+There are other types of goals, like establishing causal relationships, but generally with DataFest we have either prediction or association. 
+
+<strong>Recall</strong>: Our client has asked us to (1) explore how students engage with their online statistics textbook and (2) explore how successfully students are performing.
+ 
+:::{.question}
+#### Question 1
+Based on what the client requests, are we going to be dealing with  prediction or association?
+:::
+
+Why does this matter? Well, if our goal is only prediction, we can use really complicated models, and as long as they predict well, we are probably fine with that. 
+
+However, if our goal is association, we have to choose a model that allows us to actually interpret the relationships going on in the data. Really complex models may not allow this. This means we need to be aware of the goal of the analysis from the very start. For association tasks, we may not even use a model at all!! Sometimes careful and thorough <strong>exploratory data analysis (EDA)</strong> is a strong way forward with association tasks. 
+
+# EDA
+
+Today, we are going to focus on EDA, which means using graphs, tables, and other visualization tools to see what is going on in the data. We have had people win DataFest with no models at all if they do EDA really well and present it well!! 
+
+In the real competition, we often need to explore multiple variables as we get to know the data set. This is a good time to split up the variables you might want to visualize among your team - it's more efficient to split up the work!! 
+
+## Book
+
+Let's start with the first variable in the data set: book. We are told that this represents the specific book each student worked with. However, we are not told how many different books there are in the data set. Recall that our client wants us to explore student success, so one possible thing we can do is explore whether student performance on the end of chapter (EOC) tests is different depending on the book they used. In other words, are certain books associated with higher or lower scores than others?
+
+With this in mind, we need to start by determining how many different books there are in the dataset.
+
+:::{.question}
+#### Question 2
+Book title is a categorical variable. What plot(s) do you know that we can make using a single categorical variable? 
+:::
+
+We are going to start with making a table. To create a table in R, we use:
+
+```r
+table( checkpoints_eoc$book )
+```
+
+The command is `table`, which tells R we want to make a table. Inside the parentheses () we put the name of the specific variable we want to make a table of: the `book` column in the `checkpoints_eoc` dataset. We use `$` to tell R to find a specific column in a specific dataset. So, `checkpoints_eoc$book` means "go into the `checkpoints_eoc` dataset and use the `book` column. 
+
+:::{.question}
+#### Question 3
+How many different books are in this data set? 
+:::
+
+:::{.question}
+#### Question 4
+Do we have the same amount of rows for each book? If not, which book do we have the most rows for and which book do we have the least rows for? 
+:::
+
+Why do we care about all this? 
+
+- (1) The fact that there are different books allows us to explore whether EOC scores tend to be different across different textbooks. 
+- (2) Knowing that we have more information about certain books allows use to be clear that some conclusions we draw may be based on limited information. This is important stuff to note during DataFest.  
+
+Once we know how to make tables, we can apply them to other categorical variables as well.
+
+:::{.question}
+#### Question 5
+Make a table for `release`.
+:::
+
+:::{.question}
+#### Question 6
+Make a table for `class_id`.
+:::
+
+Hmm. The table in Question 6 is kind of huge. This is because there are lot more classes in this dataset than there are books or releases. To see how many classes, we can use:
+
+```r
+length(  unique(  checkpoints_eoc$class_id) )
+```
+
+This counts (`length`) how many unique (`unique`) class ids there are in this data set. 
+
+:::{.question}
+#### Question 7
+How many unique <strong>students</strong> are in the dataset? 
+:::
+
+Okay, so far we have only made tables, which seem pretty simple, but we've already gained a lot of information: 
+
+- (1) There are 3 books. 
+- (2) There are 5 different releases  (so some of the books have more than one version!) 
+- (3) There are 46 unique classes
+- (4) There are 1475 students, which is much less than the 10570 rows we have, so we have multiple rows per student!! 
+
+This is why we take such careful time with EDA. It allows us to see and understand the structure of the data, and that will drive all of the rest of your work at DataFest. <strong>If you skip this step, it will be very difficult to be successful at DataFest!!</strong>
+
+# Making Plots
+
+So far, we have used tables to explore a few of our variables. Now we are going to consider using graphs instead. To make visualizations, we will be working with a group of functions in the ggplot2 package in R. If you have already installed ggplot2, skip to the next section. 
+
+## Installing ggplot2  
+
+ The package ggplot2 is a powerful collection of R functions for creating flexible, professional graphics. A <strong>package</strong> is collection of R codes that relate to one another. When you load a package into R, you give R access to all of the functions within the package. We will be using several packages as we move through this course. 
+
+ The first step to using ggplot2 is to install the `ggplot2` package. Go to the top of your RStudio window and find "Tools". From there, click on "Install Packages." In the blank box, type in ggplot2, and hit install. The computer should automatically begin to load in the packages that you need, but this may take a minute. 
+
+ Now, some of you may see an error about language parsing, or an error involving `rlang`. If you do, go ahead and install the `rlang` package. Then, copy and paste the following into a chunk and hit play. Nothing will seem to happen, and that's okay. 
+
+```r
+library(rlang)
+```
+
+ <strong>Note that this process of installing a package is one you need to do only once.</strong> Think of this as teaching R a new set of skills. Once it knows the skills, you don't have to teach it again. 
+
+ Once you have installed the ggplot2 package, you need to tell R that you would like to begin using the function by <strong>loading the library</strong>. Remember that we said installing a package is like teaching R a skill? <strong>Loading a library</strong> is how we tell we R we want it to use those skills. To do this, create a chunk in your RMarkdown and copy and paste the following, and hit play. 
+
+```r
+suppressMessages(library(ggplot2))
+```
+
+<strong>Note that this process of loading a library is one you have to do ONCE each time we start a lab or project</strong>.This tells R "Hey, remember those skills we taught you? Use them." 
+
+# EDA: Categorical Variables 
+
+We have seen that we can use a table to see the distribution of a categorical variable like book, but we have also seen that tables can sometimes be hard to read. Instead of a table, we can use <strong>bar plots</strong>. 
+
+To create a bar plot of `release`, for instance, paste the following code in a chunk and hit play. 
+
+```r
+ggplot(checkpoints_eoc, aes(x=release)) +
+  geom_bar(fill='blue', col = 'black')
+```
+
+The creation of plots in ggplot2 requires building the plot in layers. First, we build the background, the grid on which we will be building our graph. This is the job of the ` ggplot() ` part of the code. Once we have built the background, we are ready to plot our data. The command we will use for this depends upon the data type we are working with. In this case, we want a bar plot. The command we use to build a bar plot is ` geom_bar() `. In this same layer, we specify that we want the bars to be filled (`'fill'`) in blue and we want them outlined (`'col'`) in black. 
+
+Notice that to add each layer to the graph, in the code we use a plus sign. We add the background AND THEN the bars to make the final graph. Let's break that down in more detail: 
+ 
+<ul>
+<li>`ggplot(checkpoints_eoc, aes(x=release))`: This part of the code creates the background of the plot. The two arguments are the data set we are using (`checkpoints_eoc`) and the variable(s) that will be used to define the axis/axes(`aes`). In this case, we defined only that the x-axis would contain information on release (`aes(x=release)`).</li>
+<li>` geom_bar(fill='blue', col = 'black')`: Once the axes are set, we are adding on (`+`) the actual data. In this case, we want a bar plot, so we add bars (`geom_bar `). We also specify those bars should colored blue and outlined in black.</li>
+</ul>
+ 
+
+:::{.question}
+#### Question 8
+Create a bar plot of the number of plain text questions. Make the bars of the bar plot cyan and outline them in white. Show your result.
+:::
+
+## First Rule of Graphs: Labels and Titles
+
+We mentioned at the start of this lab that we would cover some best practices for visualizations. Here is the first - <strong>always label your graphs appropriately.</strong> 
+
+ What does that mean? It means every graph you create needs a title (like Figure 1, Figure 2, etc.) and your axes need to be labelled in such a way that a person looking at your graph can tell what information is being displayed on each axis. 
+
+ The command `labs`, which stands for labels, is used for this. 
+
+```r
+ggplot(checkpoints_eoc, aes(x=release)) +
+  geom_bar(fill='blue', col = 'black') +  
+  labs(title="Figure 1:", x = "Release", y = "Number of Rows")
+```
+
+This ggplot syntax actually mimics the ways humans would draw a graph by hand. First, you draw the axes. Then, you add on your data. Finally, you add a label. Thinking through the steps in this manner will help you understand the syntax of this package. 
+
+You can also add captions to the bottom of graphs: 
+
+```r
+ggplot(checkpoints_eoc, aes(x=release)) +
+  geom_bar(fill='blue', col = 'black') +  
+  labs(title="Figure 1:", x = "Release", y = "Number of Rows",
+  caption = "A bar plot of release number.")
+```
+
+:::{.question}
+#### Question 9
+Copy the code you used to make the graph from Question 8. Now, (1) add the title "Figure 2:", (2) add appropriate labels to the x and y axis, and (3) add a caption.
+:::
+
+One VERY important thing to remember when we make plots is to make sure the axes are easily interpretable by your reader. You do not want to use default variable names, like "class_id". Instead, we want clear labels like "Class ID". This is important for any plots you make in statistics or data science - label your axes appropriately and title your graphs. 
+
+Now let's try a new plot: a box plot. 
+
+:::{.question}
+#### Question 10
+Create a box plot of EOC score. Fill the plot in gold and outline it in black. Title your plot Figure 3, and label the x axis "EOC score". The y axis does not matter in this box plot (it literally gives us no information), so we want a blank axis label `" "` . 
+
+Hint: Instead of a `geom_bar`, we want `geom_boxplot`.
+:::
+
+## Changing Themes  
+
+ When using ggplot2, you also have an option to change the theme of your graphs. Consider these: 
+
+ <strong>The Light Theme</strong> 
+
+```r
+ggplot(checkpoints_eoc, aes(x=eoc)) +
+  geom_histogram(fill='blue', col = 'black', bins = 20) + 
+  labs (title="Figure 1:", x = "EOC score", y = "Frequency", caption = "A histogram of EOC score.") +
+  theme_light()
+```
+
+ <strong>The BW Theme</strong> 
+
+```r 
+ggplot (checkpoints_eoc, aes(x=eoc)) +
+  geom_histogram (fill='blue', col = 'black', bins = 20) +
+  labs (title="Figure 1:", x = "EOC score", y = "Frequency", caption = "A histogram of EOC score.") +
+  theme_bw()
+```
+
+ <strong>The Minimal Theme</strong> 
+
+```r 
+ggplot (checkpoints_eoc, aes(x=eoc)) +
+  geom_histogram (fill='blue', col = 'black', bins = 20) +
+  labs (title="Figure 1:", x = "EOC score", y = "Frequency", caption = "A histogram of EOC score.") +
+  theme_minimal()
+```
+
+ Take a look and, as a team, decide what you like! 
+
+# Plotting Two Variables  
+
+Our client has asked us to explore student success, so one thing we may want to do is see if student EOC scores tend to be different depending on the book being used, or the version of the book. This means that we want to create a graph to examine the relationship between two variables. 
+
+Let's say we want to explore whether EOC scores differ from release to release. We know that we can use a box plot to visualize EOC score and a bar plot to visualize book...but how can we visualize both?? 
+
+We can actually create something called a side-by-side boxplot. 
+
+```r
+ggplot(checkpoints_eoc, aes(release, eoc)) + 
+  geom_boxplot(fill = "gold", col = "blue") 
+```
+
+You'll notice that this is the same as a standard boxplot except that we added a categorical variable on the x axis. 
+
+:::{.question}
+#### Question 11
+Create a side by box plot of EOC score and book. Fill the box plots in with white and outline them in green. Title your plot Figure 4, and label the x axis "Book" and the y-axis "ECO Score". 
+:::
+
+In this plot, you will notice that the x axis is really hard to read!! This is because the book titles are really long. This means we need to change the book titles to something shorter. This kind of <strong> data cleaning</strong> is also a big part of DataFest! 
+
+There are a lot of ways we can do this, but let's start with a simple one. 
+
+```r
+checkpoints_eoc$book <- ifelse(checkpoints_eoc$book == "College / Statistics and Data Science (ABC)", "College", checkpoints_eoc$book)
+```
+
+This command says that `if` the book is College / Statistics and Data Science (ABC), we want to rename the book College. This is shorter and easier for us to work with! If the book is named something else, do not change the name. 
+
+:::{.question}
+#### Question 12
+
+Rename the "College / Advanced Statistics and Data Science (ABCD)" book as "Advanced College" and the "High School / Advanced Statistics and Data Science I (ABC)" book as "High School". 
+
+Create a side by box plot of EOC score and book (using your new names!). Fill the box plots in yellow and outline them in purple. Title your plot Figure 5, and label the x axis "Book" and the y-axis "ECO Score". 
+:::
+
+Now that we have a graph, we want to use it to try to relate back to the client's request. They wanted us to explore student success. We now have a plot that shows how EOC scores differ across different textbooks. 
+
+:::{.question}
+#### Question 13
+
+Using your Figure 5, describe to your client whether or not EOC score seems to be the same across all textbooks, or if some textbooks seem to have higher / lower scores than others. 
+:::
+
+Question 13 is exactly the kind of thing you will do at the DataFest competition - you will be explaining your graphs and results to a panel of judges. Being clear here is key! 
+
+Okay, so we can look at EOC scores across different books. What if we want to look at how it differs by book and version at the same time? We also have the ability to use <strong>faceted</strong> plots to do this. 
+
+```r
+ggplot(checkpoints_eoc, aes(release, eoc)) + 
+  geom_boxplot(fill = "gold", col = "blue") +
+  facet_wrap( ~ book , ncol = 3)
+```
+
+You'll notice that we know have three sets of side by side box plots grouped together by the textbook. This is what faceting by a categorical variable means! 
+
+If you feel the plot is too compressed, you can change `ncol = 3` to `ncol = 2`. Try it and see what you think! 
+
+:::{.question}
+#### Question 14
+
+Based on the faceted side by side box plots, does it look like within a textbook, EOC scores differ across releases? Explain. 
+:::
+
+:::{.question}
+#### Question 15
+
+Based on the plot, does it look every book has the same number of releases? Explain. 
+:::
+
+# Stacking Graphs  
+
+W have seen how to make a few different kinds of graphs so far. Great. However, we have a lot of variables to explore, so we have the potential for a lot of plots. That starts to take up a lot of space in a report. One nice way to present multiple graphs is to stack them. 
+
+Suppose I want to make a histogram of EOC score. The code I need for that is: 
+
+```r
+ggplot(checkpoints_eoc, aes(x=eoc)) +  
+  geom_histogram(fill='blue', col = 'black', bins = 20) +
+  labs(title="Figure 1:", x = "EOC score", y = "Frequency")
+```
+
+If I put that in a chunk and press play, one histogram will appear on my screen. Let's suppose I want to show a box plot along with this histogram. I can create both graphs and have them both print out separately in my knit document. However, I can also tell the computer to print more than one graph at once to save space. Try the following: 
+
+```r
+# Create the histogram 
+g1 <-  ggplot(checkpoints_eoc, aes(x=eoc)) +
+  geom_histogram(fill='blue', col = 'black', bins = 20) +
+  labs (title="Figure 1:", x = "EOC score", y = "Frequency")
+  
+# Create the boxplot 
+g2 <-  ggplot(checkpoints_eoc, aes(x=eoc)) + geom_boxplot(fill='gold') +  labs (title="Figure 2:", x = "EOC score", y = "")
+
+# Show both plots 
+gridExtra::grid.arrange(g1,g2, ncol = 2)
+ ```
+
+If you get a warning message about not having `gridExtra`, this means you will need to install the package using the same steps we did above to install `ggplot2`. We have to install packages all the time with R, depending on the version of R you have and your computer system. 
+
+What you will notice is that we have stored each of the two graphs under a name. Our histogram is stored under `g1` and our box plot is stored under `g2`. Then, we use a special code called `gridExtra::grid.arrange` to help us arrange the graphs in a grid. In our case, we have to graphs, and we want them side by side. This means we want the graphs in a 1 (row) by 2 (column) grid. 
+
+To create the 1 by 2 grid, we feed the computer our two graphs, and then tell it we want the figures in 2 columns (next to each other) by specifying `ncol = 2`. In other words, the number of columns we want is 2! 
+ 
+:::{.question}
+#### Question 16
+Create (1) a box plot for EOC score, (2) a histogram for EOC score, (3) a bar plot for the number of plain text questions and (4) a bar plot for the total number of questions (`n_lrn_q`). Stack 4 graphs in a 2 x 2 grid (2 rows and 2 columns). 
+:::
+
+We have made a good start with exploring the data! We will keep working with this data set in future activities. 
+
+# Submitting your assignment
+
+For today, everyone is going to submit their own assignment. Knit your Markdown (or Quarto if you prefer) file and submit either a PDF or html. Welcome to STA 175!!! 
+
+
+<div id="instructions">
+  The <a href="https://github.com/coursekata/data">data</a> referenced in this lab were retrieved from the <a href="https://github.com/coursekata/data">here</a> on January 10, 2025.
+</div>
+
+<div id="license">
+<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/4.0/88x31.png" /></a><br />This work was created by Nicole Dalzell is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">Creative Commons Attribution-NonCommercial 4.0 International License</a>. Last updated 2025 January 10.
+</div>
