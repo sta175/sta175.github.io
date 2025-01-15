@@ -9,7 +9,7 @@ link-citations: yes
 
 # Overview
 
-For our Level 2 teams, your class time will be spent competing in a second competition, to help prepare for DataFest. There are several suggested options below. Please note that if you or your team would rather compete the Level 1 activities for practice, just let Dr. Dalzell or Dr. Evans know and you can switch.
+For our Level 2 teams, your class time will be spent competing in a second competition, to help prepare for DataFest. There are several suggested options below. Please note that if you or your team would rather complete the Level 1 activities for practice, just let Dr. Dalzell or Dr. Evans know and you can switch.
 
 Each week, you will submit a short progress report on what your group has done so far, and what your next steps will be. You will attend the class meetings as usual, and you are welcome to ask Dr. Dalzell and Dr. Evans for guidance on your analysis.
 
@@ -25,4 +25,8 @@ This year, the datathon runs from January to April 30. More information is avail
 
 **Competition link:** [https://www.kaggle.com/competitions/equity-post-HCT-survival-predictions](https://www.kaggle.com/competitions/equity-post-HCT-survival-predictions)
 
+# Submitting to the Undergraduate Statistics Project Competition
 
+The [Undergraduate Statistics Project Competition (USPROC)](https://www.causeweb.org/usproc/) is a national statistics competition to which you can consider submitting the work that you do during STA 175, regardless of whether you submit to WiDS or Kaggle. This also provides a venue for you to submit your work if you would like a bit more time working with the data, or if your team does not meet the entry requirements for the WiDS datathon.
+
+Submissions to USPROC will be due on June 18, and will consist of a short written report describing the data, the questions you are trying to answer, and your analysis and results. More details can be found on the competition website linked above. Dr. Evans and Dr. Dalzell have a lot of experience with this competition, and we are happy to chat with you about preparing and submitting a report.
