@@ -1,0 +1,202 @@
+---
+title: "STA 175 Activity 2"
+output: 
+  rmdformats::robobook:
+    css: "homework.css"
+    highlight: pygments
+link-citations: yes
+---
+
+# The goal
+
+In the first activity last week, you began to use visualizations to explore the CourseKata data, focusing on the student responses to the end-of-chapter questions. Exploratory data analysis (EDA) is an important step in your workflow; it is crucial for understanding the variables that are available in the data before choosing a hypothesis test or model, and indeed sometimes EDA on its own will answer the research questions that you have.
+
+In today's activity, you will continue practicing EDA with the CourseKata data. This time, the questions will be a bit more open-ended, to give you more experience with the open-ended nature of DataFest. You will have to decide in your team the most appropriate visualizations to answer today's research questions!
+
+# The data
+
+Today we will use both the `checkpoints_eoc` dataset from last week, and another dataset from CourseKata called `checkpoints_pulse`.
+
+## Loading the data
+
+Recall from last week that you can download the `checkpoints_eoc` data with the following:
+
+```r
+checkpoints_eoc <-read.csv("https://www.dropbox.com/scl/fi/3xda6hny48ojknoifupul/checkpoints_eoc.csv?rlkey=q6rksum9wc91pkte2qdg31s33&st=fr0rynut&dl=1")
+```
+
+You can download the `checkpoints_pulse` data with
+
+```{r, eval=F}
+load("https://sta175.github.io/class_activities/data/checkpoints_pulse.Rdata")
+```
+
+The first part of today's activity will focus on the new `checkpoints_pulse` data. In the second part, you will combine the two datasets.
+
+## Data citation
+
+The data we are working with are provided by <a href="https://coursekata.org">CourseKata</a>, creators of an online interactive statistics textbook. 
+
+CourseKata provided the data for DataFest 2024, and we are now working with a publicly available version of these data downloaded from <a href = "https://github.com/coursekata/data"> https://github.com/coursekata/data</a>
+
+- Citation for the Book: Son, J.Y. & Stigler, J.W. (2017-2024). Statistics and data science: A modeling approach. Los Angeles: CourseKata, <a href = "https://coursekata.org/preview/default/program"> https://coursekata.org/preview/default/program </a>. Currently available in 7 versions.
+
+## Data description
+
+The `checkpoints_pulse` dataset consists of 76848 rows and 8 columns, and the data records student responses to four "pulse" questions which are asked at the start of each chapter (except chapter 1), and which are designed to measure how students feel about the course, material, and textbook. Each question is scored on a scale of 1 (strongly disagree) to 6 (strongly agree).  These questions are:
+
+* **Cost:** I was unable to put in the time needed to do well in the previous chapter
+* **Expectancy:** I am confident about what I learned in the previous chapter
+* **Intrinsic Value:** I think this class is interesting
+* **Utility Value:** I think what I have learned in the previous chapter is useful
+ 
+
+The columns are:
+
+* `book` - The title of the specific book used by the student. CourseKata releases multiple books, generally each targeting a specific age or skill level
+* `release` - The release of the specific book used by the student. Think of this like a version number, as some versions of the textbook are newer than others.
+* `instituion_id` - The institution at which the student was enrolled; this is as specific as Wake Forest, but recorded as a number
+* `class_id` -  The class the student was enrolled in; this is as specific as Dr. Dalzell's STA 279 class in Spring 2025, but recorded as a number. 
+* `student_id` -  The unique ID number of the student.
+* `chapter_num` - The chapter of the book
+* `construct` - The question the student is responding to (Cost, Expectancy, Intrinsic Value, Utility Value)
+* `response` - The student's response (an integer between 1 and 6, or `NA` if missing)
+
+# Client Request
+
+Like last time, our client is interested in understanding how students experience and engage with the material in their textbooks. For today, they have provided us with several guiding research questions about the "pulse" questions that they want you to answer:
+
+1. Do students tend to respond differently to the different "pulse" questions? (e.g., is there a difference between the utility value and the intrinsic utility that students see in the material?)
+2. Does there seem to be a difference in responses across different chapters? The client is unsure whether students will become more or less invested in the material over the course of the semester.
+3. Does the rate of missing responses change across chapters? The client suspects that more students will answer the questions in earlier chapters, and they want you to see if that is true.
+4. What is the relationship between the different constructs? For example, do students who find the material interesting also tend to find it useful?
+5. How are the "pulse" questions related to student performance in the end-of-chapter questions (in the `checkpoints_eoc` file)?
+
+Research questions 1--3 can be explored using the data in its current state. Research question 4 will require us to reformat the data, and research question 5 will require us to combine the `checkpoints_pulse` and `checkpoints_eoc` datasets. We will therefore begin with research questions 1--3, before tackling the others.
+
+# Research questions 1--3
+
+It will be up to you to choose appropriate visualizations to answer the research questions from your client. Typically, there is no one right answer, and there are multiple ways you could approach the question. See the [activity from last week](https://sta175.github.io/class_activities/STA175_Activity1_Spring25.html), the [data exploration cheat sheet](https://sta175.github.io/data_visualization_summary_cheat_sheet.html), and the [ggplot help sheet](https://raw.githubusercontent.com/rstudio/cheatsheets/master/data-visualization.pdf) for possible plots you could make.
+
+Here are some things you may want to consider as you answer the research questions:
+
+* Some variables are treated by R as numeric, but may work better as categorical variables for certain visualizations. You can change variables to categorical in R with `as.factor`. For example, to make `chapter_num` categorical:
+
+```{r, eval=F}
+library(tidyverse)
+
+checkpoints_pulse <- checkpoints_pulse |>
+  mutate(chapter_num = as.factor(chapter_num))
+```
+
+* You may wish to focus on certain chapters or constructs. This could be done by subsetting the data, and one way to subset is with `filter`. For example, to focus only on chapter 2:
+
+```{r, eval=F}
+library(tidyverse)
+
+pulse_ch2 <- checkpoints_pulse |>
+  filter(chapter_num == 2)
+```
+
+* You can identify missing values with `is.na`. For example, to find the total number of missing responses in the dataset:
+
+```{r, eval=F}
+sum(is.na(checkpoints_pulse$response))
+```
+
+* To answer questions about different books, chapters, or constructs, you may also find it helpful to `facet` when making a plot, as introduced in last week's activity
+
+## Dividing work between team members
+
+When you have several different research questions you are trying to answer, you may wish to divide them between your different team members. Each team member can tackle a different question, and share their results with the group. If you find anything interesting or unusual about the data, make sure to tell your teammate -- it may be important for them to know too!
+
+## Questions
+
+:::{.question}
+#### Question 1
+Create at least one figure or visualization to answer Research Question 1 from the client.
+:::
+
+:::{.question}
+#### Question 2
+Create at least one figure or visualization to answer Research Question 2 from the client.
+:::
+
+:::{.question}
+#### Question 3
+Create at least one figure or visualization to answer Research Question 3 from the client.
+:::
+
+# Research question 4
+
+## Reshaping data
+
+The fourth question from the client asks us to explore the relationship between different constructs. This is usually easiest when we have a column for each construct (cost, expectancy, etc) in the data. Right now, however, we have a *single* column for construct, with different rows for the different constructs.
+
+In order to answer the fourth research question, it may be helpful to change the shape of the data, by converting the single `construct` column into separate columns for each construct. In R, this is called *pivoting*, and the `tidyr` package provides two pivoting functions: `pivot_wider` and `pivot_longer`. We want to make "long" data "wider" by adding columns, so we will use the `pivot_wider` function.
+
+You will see more data wrangling in a later activity. For now, here is the code that allows us to pivot the data in this way:
+
+```{r, eval=F}
+pulse_pivot <- checkpoints_pulse |>
+  pivot_wider(id_cols = c(book, release, institution_id,
+                          class_id, student_id, chapter_num),
+              names_from = construct,
+              values_from = response,
+              values_fn = function(x){mean(x, na.rm=T)})
+```
+
+## Questions
+
+:::{.question}
+#### Question 4
+Create at least one figure or visualization to answer Research Question 4 from the client.
+:::
+
+# Research question 5
+
+Finally, we need to tackle the fifth research question. The fifth research question is more open-ended than the others, and will also require us to combine the `checkpoints_eoc` and `checkpoints_pulse` data.
+
+## Joining datasets
+
+Combining multiple datasets is a common task in DataFest, in which you will often receive several different files, recording different but related pieces of information.
+
+If we examine the `checkpoints_eoc` data, we see that there is one row for each combination of student and chapter. The `checkpoints_pulse` data, however, has one row for each combination of student, chapter, and construct. Instead, we will use the `pulse_pivot` dataframe we created above, and combine it with the `checkpoints_eoc` dataframe.
+
+The two dataframes have different numbers of rows, and the rows are probably not in the same order. So how should we decide how to join them? The crucial point is that each row is identified uniquely by a set of variables: book, release, class, student, and chapter. We will match rows from `pulse_pivot` to rows from `checkpoints_eoc` using these variables.
+
+There is also one more wrinkle: questions at the beginning of a chapter really refer to student's feelings about the *previous* chapter. To match chapter experiences, we will therefore change the chapter numberings in the "pulse" questions; e.g., "pulse" questions answered in chapter 2 really refer to chapter 1.
+
+Here is the code in R:
+
+```{r, eval=F}
+checkpoints_combined <- pulse_pivot |>
+  mutate(chapter_num = as.numeric(chapter_num) - 1) |>
+  inner_join(checkpoints_eoc, join_by(book, release, class_id, student_id, 
+                                      chapter_num))
+```
+
+Now if you look at the new `checkpoints_combined` dataframe, you will see that there are the columns from the `pulse_pivot` dataframe, AND the columns from `checkpoints_eoc`.
+
+## Questions
+The fifth research question ("How are the "pulse" questions related to student performance in the end-of-chapter questions?") is quite open-ended. Before we try to answer it, we should create more specific questions to answer. For example, we could hypothesize that when students perform poorly on end-of-chapter questions, they will also report lower interest in the course material.
+
+:::{.question}
+#### Question 5
+In your teams, come up with *three* specific questions about the combined "pulse" and end-of-chapter questions that allow you to address the client's question. For each, create at least one visualization.
+:::
+
+
+# Submitting your assignment
+
+For today, everyone is going to submit their own assignment. Knit your Markdown (or Quarto if you prefer) file and submit either a PDF or html on Canvas.
+
+
+<div id="instructions">
+  The <a href="https://github.com/coursekata/data">data</a> referenced in this lab were retrieved from the <a href="https://github.com/coursekata/data">here</a> on January 10, 2025.
+</div>
+
+<div id="license">
+<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/4.0/88x31.png" /></a><br />This work was created by Ciaran Evans amd is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">Creative Commons Attribution-NonCommercial 4.0 International License</a>. Last updated 2025 January 20.
+</div>
+
