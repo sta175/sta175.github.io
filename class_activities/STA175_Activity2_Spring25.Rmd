@@ -165,6 +165,8 @@ pulse_pivot <- checkpoints_pulse |>
 :::{.question}
 #### Question 4
 Create at least one figure or visualization to answer Research Question 4 from the client.
+
+*Research Question 4: What is the relationship between the different constructs? For example, do students who find the material interesting also tend to find it useful?*
 :::
 
 # Research question 5
@@ -198,6 +200,8 @@ The fifth research question ("How are the "pulse" questions related to student p
 :::{.question}
 #### Question 5
 In your teams, come up with *three* specific questions about the combined "pulse" and end-of-chapter questions that allow you to address the client's question. For each, create at least one visualization.
+
+*Research Question 5: How are the "pulse" questions related to student performance in the end-of-chapter questions (in the `checkpoints_eoc` file)?*
 :::
 
 
@@ -211,6 +215,6 @@ For today, everyone is going to submit their own assignment. Knit your Markdown 
 </div>
 
 <div id="license">
-<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/4.0/88x31.png" /></a><br />This work was created by Ciaran Evans and is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">Creative Commons Attribution-NonCommercial 4.0 International License</a>. Last updated 2025 January 20.
+<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/4.0/88x31.png" /></a><br />This work was created by Ciaran Evans and is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">Creative Commons Attribution-NonCommercial 4.0 International License</a>. Last updated 2025 January 21.
 </div>
 
