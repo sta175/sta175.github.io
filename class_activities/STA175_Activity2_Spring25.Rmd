@@ -25,10 +25,10 @@ Recall from last week that you can download the `checkpoints_eoc` data with the 
 checkpoints_eoc <-read.csv("https://www.dropbox.com/scl/fi/3xda6hny48ojknoifupul/checkpoints_eoc.csv?rlkey=q6rksum9wc91pkte2qdg31s33&st=fr0rynut&dl=1")
 ```
 
-You can download the `checkpoints_pulse` data with
+Today, we are going to add a second data set from the same provider. You can download this second data set, `checkpoints_pulse`, using:
 
 ```{r, eval=F}
-load("https://sta175.github.io/class_activities/data/checkpoints_pulse.Rdata")
+checkpoints_pulse <- read.csv("https://sta175.github.io/class_activities/data/checkpoints_pulse.csv")
 ```
 
 The first part of today's activity will focus on the new `checkpoints_pulse` data. In the second part, you will combine the two datasets.
@@ -41,7 +41,7 @@ CourseKata provided the data for DataFest 2024, and we are now working with a pu
 
 - Citation for the Book: Son, J.Y. & Stigler, J.W. (2017-2024). Statistics and data science: A modeling approach. Los Angeles: CourseKata, <a href = "https://coursekata.org/preview/default/program"> https://coursekata.org/preview/default/program </a>. Currently available in 7 versions.
 
-## Data description
+## New Data Description
 
 The `checkpoints_pulse` dataset consists of 76848 rows and 8 columns, and the data records student responses to four "pulse" questions which are asked at the start of each chapter (except chapter 1), and which are designed to measure how students feel about the course, material, and textbook. Each question is scored on a scale of 1 (strongly disagree) to 6 (strongly agree).  These questions are:
 
@@ -76,26 +76,32 @@ Research questions 1--3 can be explored using the data in its current state. Res
 
 # Research questions 1--3
 
-It will be up to you to choose appropriate visualizations to answer the research questions from your client. Typically, there is no one right answer, and there are multiple ways you could approach the question. See the [activity from last week](https://sta175.github.io/class_activities/STA175_Activity1_Spring25.html), the [data exploration cheat sheet](https://sta175.github.io/data_visualization_summary_cheat_sheet.html), and the [ggplot help sheet](https://raw.githubusercontent.com/rstudio/cheatsheets/master/data-visualization.pdf) for possible plots you could make.
+In DataFest, it will be up to you to choose appropriate visualizations to answer the research questions from your client. Typically, there is no one right answer, and there are multiple ways you could approach the question. Today, you are going to practice choosing and creating visualizations to answer the client's first three research questions. 
+
+It can feel a little overwhelming when the research questions are fairly open, but you've got this! See the [activity from last week](https://sta175.github.io/class_activities/STA175_Activity1_Spring25.html), the [data exploration cheat sheet](https://sta175.github.io/data_visualization_summary_cheat_sheet.html), and the [ggplot help sheet](https://raw.githubusercontent.com/rstudio/cheatsheets/master/data-visualization.pdf) for possible plots you could make. And let us know if you get stuck!
 
 Here are some things you may want to consider as you answer the research questions:
 
 * Some variables are treated by R as numeric, but may work better as categorical variables for certain visualizations. You can change variables to categorical in R with `as.factor`. For example, to make `chapter_num` categorical:
 
 ```{r, eval=F}
+# Option 1: If you've used tidyverse before
 library(tidyverse)
 
 checkpoints_pulse <- checkpoints_pulse |>
   mutate(chapter_num = as.factor(chapter_num))
+
+# Option 2: If you have not used tidyverse before
+checkpoints_pulse$chapter_num <- as.factor(checkpoints_pulse$chapter_num)
 ```
 
-* You may wish to focus on certain chapters or constructs. This could be done by subsetting the data, and one way to subset is with `filter`. For example, to focus only on chapter 2:
+* You may wish to focus on certain chapters or constructs. For instance, you may only want to look at the rows in the data set that relate to Chapter 2. To do this, you want to `filter` to Chapter 2, which means choose only rows which belong to Chapter 2. You can do this using the following code: 
 
 ```{r, eval=F}
 library(tidyverse)
 
 pulse_ch2 <- checkpoints_pulse |>
-  filter(chapter_num == 2)
+  filter(chapter_num == 2) # Choose only row relating to Chapter 2
 ```
 
 * You can identify missing values with `is.na`. For example, to find the total number of missing responses in the dataset:
@@ -112,19 +118,27 @@ When you have several different research questions you are trying to answer, you
 
 ## Questions
 
+Okay, now that we've talked about the tips, it's time to answer the client's research questions. Remember, there is more than one correct way to answer, so explore a bit. 
+
 :::{.question}
 #### Question 1
-Create at least one figure or visualization to answer Research Question 1 from the client.
+Create at least one figure or visualization to answer Research Question 1 from the client. Use that visualization to try to answer Research Question 1 for the client. 
+
+*Research Question 1: Do students tend to respond differently to the different "pulse" questions? (e.g., is there a difference between the utility value and the intrinsic utility that students see in the material?)*
 :::
 
 :::{.question}
 #### Question 2
-Create at least one figure or visualization to answer Research Question 2 from the client.
+Create at least one figure or visualization to answer Research Question 2 from the client. Use that visualization to try to answer Research Question 2 for the client. 
+
+*Research Question 2: Does there seem to be a difference in responses across different chapters? The client is unsure whether students will become more or less invested in the material over the course of the semester.*
 :::
 
 :::{.question}
 #### Question 3
-Create at least one figure or visualization to answer Research Question 3 from the client.
+Create at least one figure or visualization to answer Research Question 3 from the client. Use that visualization to try to answer Research Question 3 for the client. 
+
+*Research Question 3: Does the rate of missing responses change across chapters? The client suspects that more students will answer the questions in earlier chapters, and they want you to see if that is true.*
 :::
 
 # Research question 4
@@ -197,6 +211,6 @@ For today, everyone is going to submit their own assignment. Knit your Markdown 
 </div>
 
 <div id="license">
-<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/4.0/88x31.png" /></a><br />This work was created by Ciaran Evans amd is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">Creative Commons Attribution-NonCommercial 4.0 International License</a>. Last updated 2025 January 20.
+<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/4.0/88x31.png" /></a><br />This work was created by Ciaran Evans and is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">Creative Commons Attribution-NonCommercial 4.0 International License</a>. Last updated 2025 January 20.
 </div>
 
