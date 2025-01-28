@@ -1,0 +1,244 @@
+---
+title: "STA 175 DataFest Activity 3"
+output: 
+  rmdformats::robobook:
+    css: "homework.css"
+    highlight: pygments
+link-citations: yes
+---
+
+# The Goal
+
+In our last activity, we saw a few examples of the sorts of open-ended questions we might see at DataFest. As we noticed, it can be challenging to know exactly how to approach these sorts of questions. Today, we are going to learn and practice some key coding that can be helpful. 
+
+We generally begin an analysis by exploring basic characteristics of the data: how large is the data, what types of observations are recorded, are there any missing data, etc. We can also do some summaries and visualizations of variables we know or expect to be important.
+
+Doing this kind of data exploration requires some data wrangling tools. [These slides](https://sta175.github.io/slides/data_wrangling.html) summarize some useful data wrangling functions from the `dplyr` package. In this activity, we will review these functions using the data on penguins, then use them to explore the CourseKata data.
+
+
+# Setup
+
+### R packages
+
+For this activity you will need the `dplyr`, `ggplot2`, and `tidyr` packages. Each of these packages is part of the tidyverse. If you don't have `tidyverse` installed, go to your R console and install it first with `install.packages("tidyverse")` (remember you only need to do this once).
+
+Once the `tidyverse` package is installed, load it into R with 
+
+```{r, message=F, warning=F}
+library(tidyverse)
+```
+
+The example data wrangling code shown in this activity also uses the `penguins` data from the `palmerpenguins` package.
+
+
+```{r, message=F, warning=F}
+library(palmerpenguins)
+```
+
+### Data
+
+Recall that you can download the `checkpoints_eoc` data with the following:
+
+```r
+checkpoints_eoc <-read.csv("https://www.dropbox.com/scl/fi/3xda6hny48ojknoifupul/checkpoints_eoc.csv?rlkey=q6rksum9wc91pkte2qdg31s33&st=fr0rynut&dl=1")
+```
+
+# Activity Part 1
+
+The first part of the activity contains some guided practice with the `dplyr` functions which are really useful when we are working with data! The second part of the activity is more open-ended and will let us practice what we learn! 
+
+## Filtering 
+
+As we know from our first activity, there is more than one book present in the `checkpoints_eoc` data set. Specifically, there are three books. 
+
+What if we only want to focus on just one of the books? In that case, we would like to **filter** our data to contain only the rows that pertain to a certain group. 
+
+**Example:** For example, if we only want to keep the Chinstrap penguins in the `penguins` data, we would use
+
+```{r, eval=F}
+penguins |>
+  filter(species == "Chinstrap")
+```
+
+**Example 2:** If we want to store this subset, we go a step further using `<-`. **Note: We assume you have seen this code in STA 112. If you have not, ask us!!**
+
+```{r, eval=F}
+ChinstrapOnly <- penguins |>
+  filter(species == "Chinstrap")
+```
+
+:::{.question}
+#### Question 1
+
+Create a subset of `checkpoints_eoc` called `CollegeABC`, which only contains the rows pertaining to the College / Statistics and Data Science (ABC) book. Show your code. 
+
+:::
+
+:::{.question}
+#### Question 2
+
+Create a subset of `checkpoints_eoc` called `CollegeABC_Ch7` which only contains the rows pertaining to Chapter 7 in the College / Statistics and Data Science (ABC) book.
+
+:::
+
+Okay, so `filter` helps us choose only certain rows to work with. Great. What's next? 
+
+## Counting 
+
+Now that we know how to get information on the College ABC book, let's **count** how many rows of information we have on each chapter. This might help us decide on a chapter to focus on, or see if the amount of engagement is the same across all the chapters. 
+
+**Example:** The `count` function counts the number of rows for each level of one or more variables. For example, to calculate the number of penguins of each species in the `penguins` data:
+
+```{r}
+penguins |>
+  count(species)
+```
+
+:::{.question}
+#### Question 3
+
+Count the number of rows of information we have on each chapter in the `CollegeABC` data set. Which chapter has the least rows of data? 
+:::
+
+## Summarizing 
+
+Now, we know that there are different chapter in the College ABC book. One thing our client might want to know is whether the EOC (end of chapter exam) scores differ across the chapters in the College ABC`book. we could use a plot to see this, but we can also use summary statistics. 
+
+So far, when we want to filter rows we have used `filter`, and when we wanted to count things we used `count`. Let's see what happens if we use `summarize` when we want to make a summary! 
+
+:::{.question}
+#### Question 4
+
+Run the following code. What does this output represent? In other words, what does the number you get mean? 
+
+```r
+CollegeABC |>
+  summarize(AvgEOC = mean(eoc))
+```
+:::
+
+:::{.question}
+#### Question 5
+
+Write and run the code needed to find the median EOC score in the College ABC book.
+
+:::
+
+## Group By
+
+Now, this wasn't quite what we wanted. We wanted to find the average EOC score in each chapter, not across the whole book. In order to tell R we want to find the average in each chapter, we need to **group by** chapter before summarizing. 
+
+**Example**: Suppose we want to calculate the mean body mass for each species of penguins. This calculation involves two steps: first we *group* the penguins by their species, then we *summarize* each species with their mean body mass. 
+
+```{r}
+penguins |>
+  group_by(species) |>
+  summarize(avg_mass = mean(body_mass_g,
+                            na.rm=T))
+```
+
+:::{.question}
+#### Question 6
+
+Adapt the code from Question 4 to find the average EOC score in each chapter in the College ABC book.  
+
+:::
+
+:::{.question}
+#### Question 7
+
+Adapt the code from Question 5 to find the average **and** median EOC score in each chapter in the College ABC book. 
+
+**Hint**: To make more than one thing in a summary, you just need a comma: 
+
+```r
+penguins |>
+  group_by(species) |>
+  summarize(avg_mass = mean(body_mass_g),
+            standard_deviation = sd(body_mass_g))
+```
+
+:::
+
+## Mutate 
+
+Okay, so we can filter, summarize, group, and count. The last key code we will work with today will allow us to create new columns in our data set. 
+
+Let's suppose we want to see if the average number of questions students get wrong changes from chapter to chapter. In our data set, we do not have a column that counts the number of questions a student gets wrong...but we do have the number of questions that there are in total and the number of questions a student gets right. That means to get the number of questions a student got wrong, we want to find: Total Questions - Number Correct.
+
+To add a column to a data set, we use `mutate`.
+
+**Example**: In the penguins data set, suppose we want to create a column which is bill length in centimeters rather than millimeters. We can do that using: 
+
+```r
+penguins <- penguins |>
+  mutate( bill_depth_cm = bill_depth_mm / 10 )
+```
+
+This adds a new column called `bill_depth_cm` to the `penguins` data set which is obtained by dividing the `bill_depth_mm` column by 10. 
+
+:::{.question}
+#### Question 8
+
+Add a new column to the `CollegeABC` data set which counts the number of questions wrong in each row. Call it `n_wrong`.   
+
+:::
+
+
+# Activity Part II
+
+Now that we have some new commands we can use, let's try them out. 
+
+:::{.question}
+#### Question 9
+
+In the High School book, create a summary of the median EOC test scores across different chapters. Does it seem like performance changes across chapters?
+
+:::
+
+:::{.question}
+#### Question 10
+
+The client is curious whether the EOC scores differ on average across the different classes using the high school book. Does this seem to be the case? 
+:::
+
+The class id numbers are really long! Since there are only two of them, it would be really nice to name them Class 1 and Class 2. We can again use mutate for this! 
+
+```r
+HighSchool <- HighSchool |>
+    mutate(ClassID = ifelse(class_id == "95370fbf-5008-435f-b801-8214285f251b" , "Class 1", "Class 2"))
+
+```
+
+This code takes all the rows with class id of 95370fbf-5008-435f-b801-8214285f251b and assigns the label Class 1. All other rows (so the other class) is then labelled Class 2.
+
+:::{.question}
+#### Question 11
+
+Is there a difference in performance on EOC exams across the two classes from chapter to chapter? **Hint**: Use the new `ClassID` variable!
+:::
+
+:::{.question}
+#### Question 12
+
+Fill in the code below to create a box plot showing the relationship between EOC score and chapter number for each class. Change the color to reflect the chapter number. Add good labels, a title, and a caption. Feel free to change the theme too.
+
+**Hint: For this plot, you want to make sure chapter number is treated as a categorical variable!**
+
+```r
+ggplot(HighSchool, aes(x = ClassID,
+                       y = ....,
+                       color = ....)) +
+  geom_....() +
+  theme_bw() + 
+  facet_wrap(~chapter_num)
+```
+:::
+
+## Data citation
+
+The data we are working with are provided by <a href="https://coursekata.org">CourseKata</a>, creators of an online interactive statistics textbook. 
+
+CourseKata provided the data for DataFest 2024, and we are now working with a publicly available version of these data downloaded from <a href = "https://github.com/coursekata/data"> https://github.com/coursekata/data</a>
+
+- Citation for the Book: Son, J.Y. & Stigler, J.W. (2017-2024). Statistics and data science: A modeling approach. Los Angeles: CourseKata, <a href = "https://coursekata.org/preview/default/program"> https://coursekata.org/preview/default/program </a>. Currently available in 7 versions.
