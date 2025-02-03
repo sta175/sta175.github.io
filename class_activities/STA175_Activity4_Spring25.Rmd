@@ -1,0 +1,265 @@
+---
+title: "STA 175 DataFest Activity 4"
+output: 
+  rmdformats::robobook:
+    css: "homework.css"
+    highlight: pygments
+link-citations: yes
+---
+
+# The Goal
+
+In the previous activities, we have seen how to perform some of the key steps in exploratory data analysis, including some fundamental data wrangling tools: creating new columns (mutating), choosing subsets of rows and columns (filtering and selecting, respectively), and calculating summary statistics (grouping and summarizing).
+
+In the process, we have mostly focused on working with data from a single table (in our case, the `checkpoints_eoc` data). Most years, however, the data for DataFest involves multiple different files. The CourseKata data, for example, includes the following tables:
+
+* `checkpoints_eoc`: end-of-chapter assessment information
+* `checkpoints_pulse`: check-in "pulse" questions to see how students feel about the book and material
+* `responses`: student responses to individual questions throughout the chapters
+* `page_views`: information about student activity and engagement on each textbook page
+
+When we have information spread across multiple tables, we often need to *combine* datasets to effectively answer research questions. In today's activity, you will explore information in the `page_views` dataset. You will begin by practicing some of the data wrangling steps from last week on the new `page_views` table, then you will combine the `page_views` information with the `checkpoints_eoc` information and answer questions about the combined data.
+
+# Setup
+
+### R packages
+
+For this activity you will need the `dplyr`, `ggplot2`, and `tidyr` packages. Each of these packages is part of the tidyverse. If you don't have `tidyverse` installed, go to your R console and install it first with `install.packages("tidyverse")` (remember you only need to do this once).
+
+Once the `tidyverse` package is installed, load it into R with 
+
+```{r, message=F, warning=F}
+library(tidyverse)
+```
+
+### Data
+
+Recall that you can download the `checkpoints_eoc` data with the following:
+
+```r
+checkpoints_eoc <-read.csv("https://www.dropbox.com/scl/fi/3xda6hny48ojknoifupul/checkpoints_eoc.csv?rlkey=q6rksum9wc91pkte2qdg31s33&st=fr0rynut&dl=1")
+```
+
+### `page_views` data
+
+Each row in the `page_views` data represents a student's access to a particular page within a chapter, with the following variables:
+
+* `instituion_id` - The institution at which the student was enrolled; this is as specific as Wake Forest, but recorded as a number
+* `class_id` -  The class the student was enrolled in; this is as specific as Dr. Dalzell's STA 279 class in Spring 2025, but recorded as a number. 
+* `student_id` -  The unique ID number of the student.
+* `chapter` - The name of the chapter in the book. Note that some are main chapters in the book ("Chapter 1 - Welcome to Statistics: A Modeling Approach", e.g.), while other "chapters" are really short introductory or transition sections ("Getting Started (Don't Skip This Part)", e.g.)
+* `page` - The number of the page the student is accessing
+* `dt_accessed` - The date and time the page was accessed (in UTC)
+* `was_complete` - if set to TRUE, this indicates the page was already completed when the user accessed it. A "complete" page is one in which all of the items/questions have been answered
+* `engaged` - The amount of time (in milliseconds) that the student was engaged (i.e., doing something) on the page
+* `tried_again_dt` - On each page, the students are able to "try again": reset their answers to the questions on the page and start again. If they try again, then `tried_again_dt` is the date and time of the *latest* attempt. If they did not try again, this column will be blank
+* `tried_again_clicks` - how many times a student reset their answers on a particular page. Note that `tried_again_dt` and `tried_again_clicks` are reported at the page level and NOT the row level
+
+There are also a few other variables (`idle_brief`, `idle_long`, `off_page_brief`, `off_page_long`, and `trace`) for which the documentation is sparse. This often happens at DataFest! From the variable names, we can guess that these variables have to do with the amount of time the student spent on the page but not engaged (idle), and with a different tab open on their browser (off page), but exactly how they were measured is unclear.
+
+# Activity Part 1
+
+Before combining the `page_views` and `checkpoints_eoc` data, we need to explore them individually! You've already performed EDA on the `checkpoints_eoc` data, but we haven't seen the `page_views` data yet. In the first part of the activity, you will practice your data wrangling and visualization skills from previous activities with the `page_views` data.
+
+## Measuring total student engagement
+
+Right now, we have a row for each page, for each student. Without knowing what each page in the book represents, however, we might not know how best to use information at the page level.
+
+Instead, let's begin by measuring engagement at the *chapter* level.
+
+
+:::{.question}
+#### Question 1
+
+Create a new dataframe from `page_views` called `engagement_summary`, which summarizes the total engagement and the total number of "tried again" clicks across the different students and chapters. Each row in the summarized data should represent a student-chapter combination (as opposed to a student-chapter-page combination in the original `page_views` data).
+
+**Note:** Many of the values in the `engagement` column are missing (`NA`). You can ignore these when you sum with the `na.rm=T` argument.
+
+:::
+
+
+:::{.question}
+#### Question 2
+
+Create a plot showing the distribution of the total number of "tried again" clicks in the `engagement_summary` dataframe you created in question 1.
+
+:::
+
+:::{.question}
+#### Question 3
+
+The client is curious whether student engagement changes over the course of the book.
+
+Create a plot showing the distribution of total engagement for each chapter. Do you notice a difference for later chapters in the book?
+
+:::
+
+## Getting chapter numbers
+
+In your plot in question 3, you might notice that the chapter names are really long! Whereas the `checkpoint_eoc` dataset contains a `chapter_num` column that records chapter number, we have the full chapter names in the `page_views` data.
+
+How do we get chapter numbers from the chapter names? We will do this in two steps. First, we need to remove the short introductory/transition chapters like "Getting Started (Don't Skip This Part)", keeping only the chapters with names like "Chapter 1 - ...". In R, we can do this with the `startsWith` function:
+
+```{r}
+startsWith("Getting Started (Don't Skip This Part)", "Chapter")
+startsWith("Chapter 1 - Welcome to Statistics: A Modeling Approach", "Chapter")
+```
+
+Then, we will **extract** the chapter number from the chapter name with the `str_extract` function from the `stringr` package:
+
+```{r}
+str_extract("Chapter 1 - Welcome to Statistics: A Modeling Approach", 
+            "(?<=Chapter )\\d+")
+```
+
+The `"(?<=Chapter )\\d+"` in the code above means "find a number (`\\d+`) which comes **after** the word Chapter".
+
+
+:::{.question}
+#### Question 4
+
+Fill in the following code to keep only the chapters of interest, and extract chapter numbers:
+
+```{r, eval=F}
+engagement_summary <- engagement_summary |>
+  ...(startsWith(..., "Chapter")) |>
+  ...(chapter_num = as.numeric(str_extract(..., "(?<=Chapter )\\d+")))
+```
+
+*Hints:*
+
+* Which function from last week allows us to choose rows?
+* Which function from last week allows us to create a new column?
+:::
+
+
+:::{.question}
+#### Question 5
+
+Remake your plot from question 3, this time using the modified `engagement_summary` data from question 4 and chapter numbers instead of chapter names.
+
+:::
+
+# Activity Part II
+
+Now that we've explored the `page_views` data, we would like to combine it with the `checkpoints_eoc` data. Combining these two dataframes will allow us to answer questions about variables from each dataset -- for example, we could look at the relationship between student engagement and performance on the end-of-chapter assessments!
+
+Combining datasets in this way is called *joining*. Here we will explain how joining works, and then you will use it on the CourseKata data.
+
+## Joining datasets: Example 1
+
+Suppose you work for a local healthcare network. You have information on the doctors in your network and the patients who see them. This information is stored in two different tables, called `doctors` and `patients`. Here are the first few rows of each table:
+
+```{r, echo=F}
+patients <- data.frame(
+  age = c(23, 47, 38),
+  insurance = c("Aetna", "BCBS", "Medicaid"),
+  provider = c("Dr. Zhang", "Dr. Foyle", "Dr. Zhang")
+)
+
+doctors <- data.frame(
+  provider = c("Dr. Foyle", "Dr. Renard", "Dr. Zhang"),
+  location = c("Greensboro", "Winston-Salem", "Winston-Salem")
+)
+```
+
+```{r}
+doctors
+```
+
+```{r}
+patients
+```
+
+We notice that these tables contain some overlapping information (the provider), but also some different information (the `patients` table contains the patient's age and insurance, whereas the `doctors` table contains the doctor's location).
+
+### Linking the tables
+
+Now suppose we want to know where each patient goes to visit their doctor. We can't find this information in the `patients` table, but we *can* find if we also use the `doctors` table: we find each patient's provider, then look up that provider's location in `doctors`.
+
+The `provider` column therefore provides a key that *links* these two tables together. We can use the `provider` column to **join** the two datasets:
+
+```{r}
+patients |>
+  left_join(doctors, join_by(provider))
+```
+
+A **left join** means that we are keeping all the rows from the left-hand table (`patients`), and joining any matching rows from the right-hand table (`doctors`). You will notice that Dr. Renard does not appear in our joined dataset, because no patients have Dr. Renard listed as a provider.
+
+## Joining datasets: Example 2
+
+Now suppose we also have information about the insurance companies accepted by our network:
+
+```{r, echo=F}
+patients <- data.frame(
+  age = c(23, 47, 38, 54),
+  insurance = c("Aetna", "BCBS", "Medicaid", "Humana"),
+  provider = c("Dr. Zhang", "Dr. Foyle", "Dr. Zhang", "Dr. Renard")
+)
+
+insurance <- data.frame(
+  company = c("Anthem", "BCBS", "Kaiser", "Medicaid"),
+  phone = c("800-676-2583", "877-258-3334", "800-810-4766", "877-201-3750")
+)
+```
+
+```{r}
+patients
+```
+
+```{r}
+insurance
+```
+
+Here the information that links the two datasets is the insurance company. Note, though, that the insurance company has a different name in the two datasets. We can match these two names in the `join_by` function:
+
+```{r}
+patients |>
+  left_join(insurance, join_by(insurance == company))
+```
+
+This time we have two `NA` values for the `phone` column in the joined data. Why? Because two of the insurance companies in the `patients` table don't appear in the `insurance` table. The left join keeps all the rows in the `patients` table, and joins what it can from the `insurance` table.
+
+What if we only want to keep the rows that match in both data frames? We can use an **inner join** instead:
+
+```{r}
+patients |>
+  inner_join(insurance, join_by(insurance == company))
+```
+
+## Joining engagement and end-of-chapter performance
+
+Now let's apply this tool to combine our `engagement_summary` and `checkpoints_eoc` dataframes.
+
+:::{.question}
+#### Question 6
+
+Modify the example joining code above to join the `checkpoints_eoc` and `engagement_summary` dataframes, and save the joined data as a dataframe called `combined_data`.
+
+:::
+
+And now that we have our combined data, we can examine the relationships between variables.
+
+
+:::{.question}
+#### Question 7
+
+The client would like to know if students who engage more with a chapter do better on the end-of-chapter assessment. Using the `combined_data` table that you made in question 6, make a plot to explore this question, and write a summary of your conclusions for the client.
+
+:::
+
+:::{.question}
+#### Question 8
+
+The client would also like to know if students who "try again" on questions during the chapter do better on the end-of-chapter assessment. Using the `combined_data` table that you made in question 6, make a plot to explore this question, and write a summary of your conclusions for the client.
+
+:::
+
+
+## Data citation
+
+The data we are working with are provided by <a href="https://coursekata.org">CourseKata</a>, creators of an online interactive statistics textbook. 
+
+CourseKata provided the data for DataFest 2024, and we are now working with a publicly available version of these data downloaded from <a href = "https://github.com/coursekata/data"> https://github.com/coursekata/data</a>
+
+- Citation for the Book: Son, J.Y. & Stigler, J.W. (2017-2024). Statistics and data science: A modeling approach. Los Angeles: CourseKata, <a href = "https://coursekata.org/preview/default/program"> https://coursekata.org/preview/default/program </a>. Currently available in 7 versions.
