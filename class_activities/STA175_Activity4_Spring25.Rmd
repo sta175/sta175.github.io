@@ -40,6 +40,13 @@ Recall that you can download the `checkpoints_eoc` data with the following:
 checkpoints_eoc <-read.csv("https://www.dropbox.com/scl/fi/3xda6hny48ojknoifupul/checkpoints_eoc.csv?rlkey=q6rksum9wc91pkte2qdg31s33&st=fr0rynut&dl=1")
 ```
 
+You can download the `page_views` data with the following:
+
+```{r, eval=F}
+page_views <- read.csv("https://www.dropbox.com/scl/fi/85mvej8xfr5z5fpr02sg4/page_views.csv?rlkey=lvnrp6956unq6jikgtfarixib&st=ptbqo2w4&dl=1")
+```
+
+
 ### `page_views` data
 
 Each row in the `page_views` data represents a student's access to a particular page within a chapter, with the following variables:
