@@ -1,0 +1,275 @@
+---
+title: "STA 175 DataFest Activity 5"
+output: 
+  rmdformats::robobook:
+    css: "homework.css"
+    highlight: pygments
+link-citations: yes
+---
+
+# The Goal
+
+We have been learning about working with data using summaries and graphs, which is a really important part of DataFest. Today, we will start another key component of DataFest: modeling. Modeling means uses equations and other statistical tools to describe relationships in the data. Today, we will work on describing some of the relationships you explored visually with linear regression. Linear regression is often a good first choice for data, because it is easy to use and interpret and quick to run.
+
+# Regression with Chapter Number
+
+We are going to start with our EOC data. 
+
+```r
+checkpoints_eoc <-read.csv("https://www.dropbox.com/scl/fi/3xda6hny48ojknoifupul/checkpoints_eoc.csv?rlkey=q6rksum9wc91pkte2qdg31s33&st=fr0rynut&dl=1")
+```
+
+Recall that in the past, the client has asked us whether $Y$ = EOC scores differ from chapter to chapter. We have used plots to explore this, but we have not yet tried to build a model. 
+
+EOC is a numeric variable, so we can consider using the linear regression model:  
+
+$EOC = \beta_0 + \beta_1 ChapterNum + \epsilon$ where $\epsilon \stackrel{iid}{\sim} N(0,\sigma)$
+
+In order to use this linear model, we need to estimate the intercept $\beta_0$ and the slope $\beta_1$ using our data. We can do this in R using the following code: 
+
+```r
+model_chapternum <- lm( Y ~ X, data = dataset)
+model_chapternum
+```
+
+In this code, `Y` is the name of the column holding our Y variable, `X` is the name of the column holding our explanatory variable, and `dataset` is the data we are using to fit the model. 
+
+
+:::{.question}
+#### Question 1
+
+Adapt the code above to fit the model with $X$ = chapter number and $Y$ = EOC score.  
+
+:::
+
+:::{.question}
+#### Question 2
+
+Write down the fitted line from your output in Question 1.
+
+Hint: To format this, take the code below and copy and paste it into the WHITE SPACE (not a chunk!!!!) in RMarkdown. Anything inside the `$$` will be treated as part of the equation. 
+
+`$$\widehat{EOC} = $$`
+
+:::
+
+When we build linear models, we often use $R^2$ as a tool to let us know whether the model is doing a good job at modeling $Y$. $R^2$ values are typically between 0 and 1, and in general, the higher the $R^2$, the better our model is.
+
+:::{.question}
+#### Question 3
+
+Use the code below to find the $R^2$ of your linear regression model. Based on this, do you think the model is doing a good job of modeling $Y$?
+
+```r
+summary(model_chapeternum)$r.squared
+```
+
+:::
+
+Okay, so these are some tools we can use to build and assess liner models. However, we haven't really paused yet to consider how we have incorporated chapter number into our model. Our current model treats chapter number as a numeric variable. This means that we are assuming as a student progresses from Chapter 1 to Chapter 2 to Chapter 3 and so on, EOC scores should be steadily increasing or steadily decreasing on average. We also have to assume that the average change in EOC score is about the same as we move from Chapter 1 to Chapter 2, and Chapter 2 to Chapter 3, and so on. 
+
+:::{.question}
+#### Question 4
+
+Fill in the skeleton code below to find the average EOC score for each chapter number. Based on what you see, does it seem reasonable to assume that average scores steadily increase or steadily decrease as chapter number increases? Does it seem reasonable to assume that the change in EOC score is about the same as we move from Chapter 1 to Chapter 2, and Chapter 2 to Chapter 3, and so on? Briefly explain your reasoning. 
+
+```r
+checkpoints_eoc |>
+  group_by(...) |>
+  summarise(mean(...))
+```
+
+:::
+
+If the assumptions we need to make do not seem reasonable, then we might consider treating chapter number as a **categorical** variable rather than a numeric variable. We can't do this with every numeric variable, but while chapter number is indeed a number, it is representing a specific section of a text book. This means we can consider treating chapter number as a categorical variable. 
+
+To convert chapter number to a categorical variable, we can use: 
+
+```r
+checkpoints_eoc[, "chapter_num"] <- as.factor(checkpoints_eoc[, "chapter_num"])
+```
+
+:::{.question}
+#### Question 5
+
+Fit a linear model for $Y$ = EOC scores using chapter number (categorical!) as your explanatory variables. Call this model `model2` and show your results by using 
+
+```r
+summary(model2)
+```
+
+:::
+
+When we treat chapter number as a categorical variable, you notice we get a lot more coefficients ($\beta$ terms) than we did when we treated chapter number as a numeric variable. We will get to all of these in a second. Let's start by seeing if treating chapter number as a categorical variable has any impact on how well the model suits the data. 
+
+To compare Model 1 (chapter number as numeric) with Model 2 (chapter number as categorical), we using something called the **adjusted $R^2$**. Like $R^2$, adjusted $R^2$ values are typically between 0 and 1 with higher values indicating a model that is a better fit to the data. 
+
+Typically, we use adjusted $R^2$ when comparing two models and $R^2$ when considering how well a single model fits the data. 
+
+:::{.question}
+#### Question 6
+
+Use the code below to find the adjusted $R^2$ for both models. Based on the output, which model is a better fit to the data? 
+ 
+```r
+summary(model_chapternum)$adj.r.squared
+summary(model2)$adj.r.squared
+```
+
+:::
+
+:::{.question}
+#### Question 7
+
+Recall in Question 4 that we showed that the assumptions needed to treat chapter number as a numeric variable might not be reasonable. Based on this, is your answer to Question 6 surprising? Briefly explain your reasoning. 
+
+:::
+
+What we have just seen is that we need to think carefully when we are including variables in a model. Is the variable categorical, numeric, or could it be either depending on how we choose to use it? If it's the latter, as was the case with chapter number, it can be helpful to check assumptions before we use the variable as a number! 
+
+Written out, the fitted model with chapter number is: 
+
+$$\begin{align*} \widehat{EOC} &= .79 -.15 (Chapter=2) -.16 (Chapter=3) -.14 (Chapter=4)  \\ & -.16 (Chapter=5)  -.18 (Chapter=6) - .23 (Chapter =7) \\ & -.14 (Chapter =8) -.28 (Chapter =9)\end{align*}$$
+
+In this equation, $Chapter = 3$ means that the EOC score is from the 3rd chapter. In other words, it is an **indicator** that becomes a 1 when the EOC score is from Chapter 3 and 0 otherwise. This holds true for all the $Chapter = c$ variables; they indicate whether or not an EOC score relates to a specific chapter. 
+
+You will notice that there is no (Chapter = 1) here. This is not because there is not a Chapter 1, but rather than the intercept .79 represents the predicted average EOC in Chapter 1. In other words, the average EOC score in Chapter 1 is 79%. 
+
+Chapter 2 has a coefficient of -.16 in front of it. This means that for Chapter 2, the predicted average EOC score is $.79 - .16 = .63$, which is .16 lower than for Chapter 1. 
+
+:::{.question}
+#### Question 8
+
+Interpret the coefficient in front of Chapter 7. In other words, how much lower or higher do we predict a score in Chapter 7 to be versus a score in Chapter 1? 
+
+:::
+
+
+# Regression with Chapter Number and Book
+
+The client now asks whether we can find a relationship between how much time students engaged with the Chapter on the online textbook and $Y$ = end of chapter score. 
+
+We don't actually have information on engagement in our current `checkpoints_eoc` data set...but we did build that information in our last class!! To add engagement and tried again click totals to `checkpoints_eoc`, we will use the code below. We will go through this code in the next class so we know how it works, but for today we'll just use it. 
+
+```r
+page_views <- read.csv("https://www.dropbox.com/scl/fi/85mvej8xfr5z5fpr02sg4/page_views.csv?rlkey=lvnrp6956unq6jikgtfarixib&st=ptbqo2w4&dl=1")
+
+library(dplyr)
+library(stringr)
+
+engagement_summary <- page_views |>
+  group_by(student_id, chapter) |>
+  summarize( TotalEngagement = sum(engaged,na.rm = TRUE),
+             TotalClicks = sum(tried_again_clicks,na.rm = TRUE)) |>
+  filter(startsWith(chapter, "Chapter")) |>
+  mutate(chapter_num = as.numeric(str_extract(chapter, "(?<=Chapter )\\d+")))
+
+# Merge 
+checkpoints_eoc <- checkpoints_eoc |>
+  left_join(engagement_summary, by = c("chapter_num", "student_id"))
+  
+rm(page_views)
+```
+
+:::{.question}
+#### Question 9
+
+Fit a regression model for $Y$ = EOC score using $X$ = total engagement with the textbook. Call this `model_Engage`. Interpret the slope for total engagement. 
+
+Hint: `1e-04` = .0001, `1e-03` = .001, and `1e-02` = .01
+
+:::
+
+Now, one thing we need think about with regression models is something called **confounding variables**. These are variables that, while we may not specifically be interested in them, do relate to our response variable $Y$. If we do not include these variables in the model, it can impact our results. 
+
+For example, suppose we are interested in determining whether smaller breeds of dogs have more energy than larger breeds of dogs. So, we build a model for $Y$ = energy level using $X$ = the height of the dog. We get a negative slope, indicating that smaller dogs have more energy! 
+
+However...puppies are small. And puppies have **lots** of energy. So, do small breeds really have more energy?? Or are we seeing a **confounding** effect because some of the dogs in our data set are puppies and puppies are small with a lot energy? 
+
+To determine this, we can put a variable in our model that tells us whether or not the dog is a puppy. This is called **controlling** for age. In other words, we ultimately want to know whether small breeds have more energy, but the fact that puppies are small with lots of energy can **confound**, or mess up, our analysis. To combat this, we add a variable into the model that tells us whether the animal is a puppy, therefore **controlling** for this possible confounding effect. 
+
+:::{.question}
+#### Question 10
+
+Fit a regression model for $Y$ = EOC score using $X$ = total engagement, **controlling for** the fact that EOC scores differ from class to class. Call this `model_Engage_Class`. Show a summary of your model. 
+:::
+
+:::{.question}
+#### Question 11
+
+Is the model with total engagement a better fit to the data than the model without total engagement? Explain. 
+
+**Hint: Look back at Question 6 if you get stuck!** 
+:::
+
+:::{.question}
+#### Question 12
+
+Fit a regression model for $Y$ = EOC score using $X_1$ = total engagement with the textbook and $X_2$ = total tried again clicks per chapter, **controlling for** the fact that EOC scores differ from chapter to chapter **and** from textbook to textbook. Call this `model_all`.
+
+Is `model_all` a better fit to the data than `model_Engage_Class`? Explain. 
+
+:::
+
+
+:::{.question}
+#### Question 13
+
+Using `model_all`, which textbook has the highest average scores, after controlling for chapter, engagement, and try again clicks? 
+
+:::
+
+It can be tricky to determine what we might need to control for, and sometimes we need to ask content experts if it gets to be something where you need field specific knowledge. The key is to remember that you do need to check to make sure there aren't possible confounders present that you need to consider!! 
+
+# Checking Assumptions 
+
+Linear regression works best when some assumptions about the relationship between our predictor(s) and response are satisfied. In particular, we often make the following assumptions:
+
+* **Shape:** the true relationship is approximately linear
+* **Constant variance:** the variance of the residuals is the same for different values of the predictor(s)
+* **Normality:** the residuals are approximately normal
+
+As you may recall from STA 112, we can assess these assumptions with diagnostic plots, like residual plots and QQ plots. For example, here is some code to make a residual plot and a QQ plot for the `model_all` model above:
+
+```r
+library(ggplot2)
+
+# residual plot
+ggplot(checkpoints_eoc, aes(x = predict(model_all),
+             y = resid(model_all))) +
+  geom_point() +
+  geom_abline(slope = 0, intercept = 0, color="blue") +
+  labs(x = "Predicted EUI",
+       y = "Residual") +
+  theme_bw()
+
+# QQ plot
+ggplot(checkpoints_eoc, aes(sample = resid(model_all))) +
+  geom_qq() +
+  geom_qq_line(color="blue") +
+  labs(x = "Theoretical normal quantiles",
+       y = "Observed residual quantiles") +
+  theme_bw()
+```
+
+:::{.question}
+#### Question 14
+
+Create diagnostic plots `model_all` using the code above Do the assumptions look reasonable? 
+
+Hint: Remember that in a QQplot we are looking for a straight line made of dots, indicating that the residuals match a normal distribution, and in the residual plot, we are looking for a "cloud" shape, meaning random scatter around the line. 
+:::
+
+
+:::{.question}
+#### Question 15
+
+Your client wants to know if adding in the percent of plain text questions helps your model. Answer their question. 
+:::
+
+:::{.question}
+#### Question 16
+
+Based on the final model you have chosen (`model_all` or the model with plain text questions added), describe the relationship between engagement and EOC scores.  
+:::
+
