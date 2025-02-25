@@ -1,0 +1,262 @@
+---
+title: "STA 175 DataFest Activity 6"
+output: 
+  rmdformats::robobook:
+    css: "homework.css"
+    highlight: pygments
+link-citations: yes
+---
+
+```{r include=F}
+library(tidyverse)
+```
+
+
+# Data
+
+This week, we will be working again with the `checkpoints_eoc` data and summaries of the `page_views` data. The following code from last time will load the `checkpoints_eoc` data, and will load the `page_views` data and create a data frame called `engagement_summary` which summarizes student engagement on each chapter.
+
+```{r, eval=F}
+checkpoints_eoc <-read.csv("https://www.dropbox.com/scl/fi/3xda6hny48ojknoifupul/checkpoints_eoc.csv?rlkey=q6rksum9wc91pkte2qdg31s33&st=fr0rynut&dl=1")
+
+page_views <- read.csv("https://www.dropbox.com/scl/fi/85mvej8xfr5z5fpr02sg4/page_views.csv?rlkey=lvnrp6956unq6jikgtfarixib&st=ptbqo2w4&dl=1")
+
+engagement_summary <- page_views |>
+  group_by(student_id, chapter) |>
+  summarize( TotalEngagement = sum(engaged,na.rm = TRUE),
+             TotalClicks = sum(tried_again_clicks,na.rm = TRUE)) |>
+  filter(startsWith(chapter, "Chapter")) |>
+  mutate(chapter_num = as.numeric(str_extract(chapter, "(?<=Chapter )\\d+")))
+
+rm(page_views)
+```
+
+
+# Activity Part I: Joining
+
+In previous activities, you have explored the `page_views` data and combined it with the `checkpoints_eoc` data. For Activity 5, we provided the code used to combined these two datasets. Combining datasets in this way is called *joining*. Here we will explain how joining works, and then you will use it on the CourseKata data.
+
+## Joining datasets: Example 1
+
+Suppose you work for a local healthcare network. You have information on the doctors in your network and the patients who see them. This information is stored in two different tables, called `doctors` and `patients`. Here are the first few rows of each table:
+
+```{r, echo=F}
+patients <- data.frame(
+  age = c(23, 47, 38),
+  insurance = c("Aetna", "BCBS", "Medicaid"),
+  provider = c("Dr. Zhang", "Dr. Foyle", "Dr. Zhang")
+)
+
+doctors <- data.frame(
+  provider = c("Dr. Foyle", "Dr. Renard", "Dr. Zhang"),
+  location = c("Greensboro", "Winston-Salem", "Winston-Salem")
+)
+```
+
+```{r}
+doctors
+```
+
+```{r}
+patients
+```
+
+We notice that these tables contain some overlapping information (the provider), but also some different information (the `patients` table contains the patient's age and insurance, whereas the `doctors` table contains the doctor's location).
+
+### Linking the tables
+
+Now suppose we want to know where each patient goes to visit their doctor. We can't find this information in the `patients` table, but we *can* find if we also use the `doctors` table: we find each patient's provider, then look up that provider's location in `doctors`.
+
+The `provider` column therefore provides a key that *links* these two tables together. We can use the `provider` column to **join** the two datasets:
+
+```{r}
+patients |>
+  left_join(doctors, join_by(provider))
+```
+
+A **left join** means that we are keeping all the rows from the left-hand table (`patients`), and joining any matching rows from the right-hand table (`doctors`). You will notice that Dr. Renard does not appear in our joined dataset, because no patients have Dr. Renard listed as a provider.
+
+## Joining datasets: Example 2
+
+Now suppose we also have information about the insurance companies accepted by our network:
+
+```{r, echo=F}
+patients <- data.frame(
+  age = c(23, 47, 38, 54),
+  insurance = c("Aetna", "BCBS", "Medicaid", "Humana"),
+  provider = c("Dr. Zhang", "Dr. Foyle", "Dr. Zhang", "Dr. Renard")
+)
+
+insurance <- data.frame(
+  company = c("Anthem", "BCBS", "Kaiser", "Medicaid"),
+  phone = c("800-676-2583", "877-258-3334", "800-810-4766", "877-201-3750")
+)
+```
+
+```{r}
+patients
+```
+
+```{r}
+insurance
+```
+
+Here the information that links the two datasets is the insurance company. Note, though, that the insurance company has a different name in the two datasets. We can match these two names in the `join_by` function:
+
+```{r}
+patients |>
+  left_join(insurance, join_by(insurance == company))
+```
+
+This time we have two `NA` values for the `phone` column in the joined data. Why? Because two of the insurance companies in the `patients` table don't appear in the `insurance` table. The left join keeps all the rows in the `patients` table, and joins what it can from the `insurance` table.
+
+What if we only want to keep the rows that match in both data frames? We can use an **inner join** instead:
+
+```{r}
+patients |>
+  inner_join(insurance, join_by(insurance == company))
+```
+
+## Joining engagement and end-of-chapter performance
+
+Now let's apply this tool to combine our `engagement_summary` and `checkpoints_eoc` dataframes.
+
+:::{.question}
+#### Question 1
+
+Modify the example joining code above to join the `checkpoints_eoc` and `engagement_summary` dataframes, and save the joined data as a dataframe called `combined_data`.
+
+:::
+
+## Adding pulse questions
+
+One of the other datasets available in the CourseKata data release is the `checkpoints_pulse` data. The `checkpoints_pulse` dataset consists of 76848 rows and 8 columns, and the data records student responses to four "pulse" questions which are asked at the start of each chapter (except chapter 1), and which are designed to measure how students feel about the course, material, and textbook. Each question is scored on a scale of 1 (strongly disagree) to 6 (strongly agree).  These questions are:
+
+* **Cost:** I was unable to put in the time needed to do well in the previous chapter
+* **Expectancy:** I am confident about what I learned in the previous chapter
+* **Intrinsic Value:** I think this class is interesting
+* **Utility Value:** I think what I have learned in the previous chapter is useful
+ 
+
+The columns are:
+
+* `book` - The title of the specific book used by the student. CourseKata releases multiple books, generally each targeting a specific age or skill level
+* `release` - The release of the specific book used by the student. Think of this like a version number, as some versions of the textbook are newer than others.
+* `instituion_id` - The institution at which the student was enrolled; this is as specific as Wake Forest, but recorded as a number
+* `class_id` -  The class the student was enrolled in; this is as specific as Dr. Dalzell's STA 279 class in Spring 2025, but recorded as a number. 
+* `student_id` -  The unique ID number of the student.
+* `chapter_num` - The chapter of the book
+* `construct` - The question the student is responding to (Cost, Expectancy, Intrinsic Value, Utility Value)
+* `response` - The student's response (an integer between 1 and 6, or `NA` if missing)
+
+The following code will read in the data and reshape it so it can be combined with the `checkpoints_eoc` data and the `page_views` data.
+
+```{r}
+checkpoints_pulse <- read.csv("https://sta175.github.io/class_activities/data/checkpoints_pulse.csv")
+
+checkpoints_pulse <- checkpoints_pulse |>
+  mutate(chapter_num = chapter_num - 1) |>
+  pivot_wider(id_cols = c(book, release, institution_id,
+                          class_id, student_id, chapter_num),
+              names_from = construct,
+              values_from = response,
+              values_fn = function(x){mean(x, na.rm=T)})
+```
+
+:::{.question}
+#### Question 2
+
+Now join your the `checkpoints_pulse` data with the `combined_data` that you created above. Each row will now contain information about the end-of-chapter scores (from the original `checkpoints_eoc` data), student engagement and clicks (from the summary of the `page_views` data), and student feelings about the chapter material (from the `checkpoints_pulse` data).
+
+:::
+
+:::{.question}
+#### Question 3
+
+The client would like to know if students who see more intrinsic value in the chapter material have higher EOC scores. Using the merged data from question 2, make a plot to explore this question, and write a summary of your conclusions for the client. Note that the pulse questions, such as Intrinsic Value, only take a few discrete values, and so it may be helpful to code them as categorical.
+
+:::
+
+
+:::{.question}
+#### Question 4
+
+The client would like to know if students who were unable to put in the necessary time (high `Cost`) have lower EOC scores. Using the merged data from question 2, make a plot to explore this question, and write a summary of your conclusions for the client. Note that the pulse questions, such as `Cost`, only take a few discrete values, and so it may be helpful to code them as categorical.
+
+:::
+
+
+# Activity Part II: Further visualizations
+
+Another option is to consider visualizations at the chapter level. For example, the following code plots the mean EOC score for each chapter. Since there is a time ordering to the chapters -- students complete the chapters in order -- we can connect the points with a line to see a trend over time. This is called a *line graph*.
+
+```{r, eval=F}
+combined_data |>
+  group_by(chapter_num) |>
+  summarize(mean_eoc = mean(eoc)) |>
+  ggplot(aes(x = chapter_num,
+             y = mean_eoc)) +
+  geom_point() +
+  geom_line() +
+  labs(x = "Chapter", y = "Average EOC score") +
+  theme_bw()
+```
+
+:::{.question}
+#### Question 5
+
+Adapting the code above, create line graphs to visualize the trend in Total Engagement and Total Clicks over the chapters. What do you notice? Are there similar patterns?
+
+:::
+
+
+:::{.question}
+#### Question 6
+
+Now make line graphs to visualize the trends in the pulse measurements of `Intrinsic Value` and `Cost` over the chapters. EOC scores show a decreasing trend, suggesting students may find the material more challenging in later chapters. Do you see similar patterns for the pulse questions?
+
+:::
+
+# Activity Part III: Regression
+
+In the previous activity, you explored linear regression to model end of chapter scores with total engagement and clicks. Now let's add the `checkpoints_pulse` information to that model.
+
+:::{.question}
+#### Question 7
+
+Fit a regression model with response variable $Y =$ EOC score, and $X_1 =$ total engagement, $X_2 =$ total tried again clicks, $X_3 =$ Cost, and $X_4 =$ Intrinsic Value, **controlling for** chapter and textbook. Call this `model_all_combined`.
+
+Is `model_all_combined` a better fit to the data than the model without Cost and Intrinsic Value? Explain. 
+
+:::
+
+## Checking assumptions
+
+Linear regression works best when some assumptions about the relationship between our predictor(s) and response are satisfied. In particular, we often make the following assumptions:
+
+* **Shape:** the true relationship is approximately linear
+* **Constant variance:** the variance of the residuals is the same for different values of the predictor(s)
+* **Normality:** the residuals are approximately normal
+
+As you may recall from STA 112, we can assess these assumptions with diagnostic plots, like residual plots and QQ plots.
+
+:::{.question}
+#### Question 8
+
+Create diagnostic plots for the model you chose in question 7. Do the assumptions look reasonable? 
+:::
+
+:::{.question}
+#### Question 9
+
+Based on the final model you have chosen, describe the relationship between engagement and EOC scores.  
+:::
+
+
+## Data citation
+
+The data we are working with are provided by <a href="https://coursekata.org">CourseKata</a>, creators of an online interactive statistics textbook. 
+
+CourseKata provided the data for DataFest 2024, and we are now working with a publicly available version of these data downloaded from <a href = "https://github.com/coursekata/data"> https://github.com/coursekata/data</a>
+
+- Citation for the Book: Son, J.Y. & Stigler, J.W. (2017-2024). Statistics and data science: A modeling approach. Los Angeles: CourseKata, <a href = "https://coursekata.org/preview/default/program"> https://coursekata.org/preview/default/program </a>. Currently available in 7 versions.
