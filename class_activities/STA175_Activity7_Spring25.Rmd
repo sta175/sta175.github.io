@@ -1,0 +1,305 @@
+---
+title: "STA 175 DataFest Activity 7"
+output: 
+  rmdformats::robobook:
+    css: "homework.css"
+    highlight: pygments
+link-citations: yes
+---
+
+# The Goal
+
+Today, we are are going to learn a different technique for building models when our Y is numeric. This technique is called a **regression tree**. Regression trees are particularly useful when we have a lot of potential X variables and we are not sure which we want to use. Let's explore. 
+
+# The Data
+
+Instead of our typical data for this course, today we are going to work with a data set containing information on n = 333 penguins from three different species. To load the data, you need to use the following two lines of code: 
+
+```{r}
+library(palmerpenguins)
+data(penguins)
+penguins <- na.omit(penguins)
+```
+
+We have a client who is interested in building a model for Y = the body mass of a penguin in grams.
+
+In addition to this response variable, we have information on 7 explanatory variables. 
+
+<div>
+<ul>
+<li><code>species</code> - the type penguin.</li>
+<li><code>island</code> -  the island where the penguin lives.</li>
+<li><code>bill_length_mm</code> - the length of the penguin bill in millimeters.</li>
+<li><code>bill_depth_mm</code> - the depth of the penguin bill in millimeters.</li>
+<li><code>flipper_length_mm</code> - the flipper length of the penguin in millimeters.</li>
+<li><code>sex</code> - the biological sex of the penguin.</li>
+<li><code>year</code> -  the year the penguin was measured.</li>
+</ul>
+</div>
+
+# Correlations 
+
+Our goal at the moment is to model body mass, which is a numeric response variable. This means we might tend to reach for a least-squares regression model. However, regression works best when (1) we do not have many strong relationship among our X variables and (2) our numeric X variables have a linear relationship with Y. 
+
+Let's check for correlations among the X variables first. To do this, we need the following library: 
+
+```{r}
+suppressMessages(library(corrplot))
+```
+
+Once you have loaded the library, we need to create a correlation matrix, and then plot it. 
+
+```{r, eval= FALSE}
+# Create the correlation matrix
+M <- cor(penguins[,-c(1:2,7)])
+# Create the plot
+corrplot(M, method = "number", type = "upper")
+```
+
+:::{.question}
+#### Question 1 
+
+Why did we need to remove columns 1, 2 and 7 before building a correlation matrix? 
+:::
+
+Let's also check the shape of the relationship between bill depth and body mass. 
+
+:::{.question}
+#### Question 2
+
+Make a scatter plot exploring the relationship between X = bill depth and Y = body mass. Color the dots by species. 
+:::
+
+Do we notice in the picture that there are two defined groups in this graph? The Gentoo penguins seem to have a different group of points from the Adelie and Chinstrap penguins. 
+
+This grouping structure within the data, as well as the correlation among our potential X variables, indicates that these data might benefit from a type of model called a **regression tree**. 
+
+# Regression Tree with one Split  
+
+A regression tree is a type of model we can build for a numeric Y variable. We can use numeric or categorical X variables to help model Y. It's actually easiest to learn about these models by building one, so let's create the model first and then we will talk about what it does. 
+
+To create regression trees, you will need the following libraries: 
+
+```{r}
+suppressMessages(library(rpart))
+suppressMessages(library(rattle))
+```
+
+To build a tree in R, the function you need is `rpart`. Let's stay I want to build a tree using sex as my only X. The code I need for that is: 
+
+```{r}
+tree1 <- rpart(body_mass_g ~ sex, data = penguins)
+```
+
+To visualize the tree, use: 
+
+```{r}
+fancyRpartPlot(tree1, caption = "Tree 1")
+```
+
+Here is your first regression tree!! It's actually three green boxes connected by lines. The **root** is the box at the very top. The other two green boxes at the bottom are called **leaves**. 
+
+You will notice that under the root we have `sex = female`. Trees are built by dividing data into groups using our X variables. In this case, we have started our tree by dividing our data into female penguins (the left leaf) and male penguins (the right leaf). 
+
+
+:::{.question}
+#### Question 3
+
+How do we know the female penguins are in the left leaf and the male penguins are in the right leaf? 
+:::
+
+Inside each leaf we have three numbers. The `n = ` part tells us how many rows of data are in that leaf. For instance, in the left leaf we have `n = 165`, so there are 165 female penguins in the dataset. Right next to `n = `, we have a percentage, which just converts that count into a percent. 
+
+:::{.question}
+#### Question 4
+
+How many male penguins are there in this dataset? What percent of the total penguins are male? 
+
+Hint: The percentage is rounded to the nearest whole number. 
+:::
+
+There is one more number in the boxes, and this is perhaps the most important number. Recall that our goal is predict the body mass of the penguins. In linear regression, we do this by finding linear relationships between features and our Y variable, essentially estimating how much of a relationship each X has with Y to get our final predictions. 
+
+Trees work differently. To get our prediction for Y, all we do is average together the body masses of the penguins in each leaf. The number 3862 in the top of the left leaf tells us that the average body mass for all female penguins is 3862 grams. This means that the tree will predict a body mass of 3862 grams for any female penguins. 
+
+:::{.question}
+#### Question 5
+
+What body mass would the tree predict for any male penguin? 
+:::
+
+:::{.question}
+#### Question 6
+
+What is the average body mass for all penguins in the data set? 
+:::
+
+Let's try a second tree. 
+
+```{r}
+ tree2 <- rpart(body_mass_g ~ species, data = penguins)
+```
+
+
+:::{.question}
+#### Question 7
+
+Make a plot of tree 2.
+
+(a) What body mass would we predict for Adelie penguins? 
+
+(b) What body mass would we predict for Chinstrap penguins? 
+
+(c) What body mass would we predict for Gentoo penguins? 
+
+:::
+
+
+## Comparing Trees
+
+Now we have two trees, `tree1` with sex and `tree2` with species. Is there a way to decide which tree is "better"? 
+
+In linear regression, we build a model to minimize the residual sum of squares: 
+
+$$RSS = \sum_{i=1}^n (y_i - \hat{y}_i)^2$$
+
+In other words, we want the predictions $\hat{y}_i$ to be as close as possible to the truth $y_i$. Regression trees work the same way. We prefer trees with smaller RSS values.  
+
+Can we determine what the RSS is for a tree? Sure! RSS is the sum of the predicted body minus the actual penguin body mass, squared. 
+
+```{r, eval = FALSE}
+# Make predictions 
+predictions_tree <- predict(tree1, data = penguins)
+# Obtain the RSS
+sum( (predictions_tree - penguins$body_mass_g)^2)
+```
+
+:::{.question}
+#### Question 8
+
+What is the RSS for `tree2`? Based on this, which tree is a better fit to the data: `tree1` or `tree2`? 
+:::
+
+:::{.question}
+#### Question 9
+
+(a) What is the $R^2$ value for both trees? Hint: Remember that $R^2 = 1 - RSS/TSS$, where RSS is the residual sum of squares and TSS is the total sum of squares.  
+
+(b) Is the tree with the best $R^2$ the same as the tree you chose in Question 8?
+:::
+
+Okay, so we can now (1) build trees, (2) use them to make predictions, and (3) compare them to see which is a better fit to the data. What else can we do? 
+
+# Regression trees with more leaves
+
+So far, we have only looked at trees with exactly 2 leaves. However, trees can have more than two leaves, and generally do. The goal with trees to create leaves such that penguins in the leaves are similar to one another in terms of their body masses. In other words, we are trying to find groups of penguins with similar body masses by using the X variables we have. Once we have done this, we average together the penguins in each group (sinec we know they are similar in terms of Y) to get a predicted body mass for a new penguins with these same traits! 
+
+Let's try a tree using both sex and species. 
+
+```{r}
+tree3 <- rpart(body_mass_g ~ sex + species, data = penguins)
+```
+
+:::{.question}
+#### Question 10
+
+Make a plot of tree 3. What body mass would we predict for a female Adelie penguin? 
+:::
+
+As we can see in `tree3`, we now have more than 2 leaves! Specifically, we have 4. **We only consider boxes to be leaves if they are all the way at the bottom of the tree**. 
+
+Let's build a bigger tree: 
+
+```{r}
+tree4 <- rpart(body_mass_g ~ sex + 
+                 bill_length_mm + bill_depth_mm, 
+               data = penguins)
+```
+
+To visualize the tree, use: 
+
+```{r}
+fancyRpartPlot(tree4, caption = "Tree 4")
+```
+
+:::{.question}
+#### Question 11
+
+What body mass would the tree predict for a male penguin with a bill depth of 10 mm? 
+
+:::
+
+You will notice in Tree 4 that sex is no longer the **splitting rule** right under the root. Instead, sex has moved farther down the tree. Why???
+
+## Building a Tree
+
+We start building a tree by using one of our X variables to divide the data into two groups. For instance, we might divide the data into male penguins and female penguins, or we might divide the group into penguins with bill length less than 20 mm and penguins with bill length greater than or equal to 20 mm. 
+
+How do we decide which variable to use to split the data into these two groups?? Well...we try them all. R will literally try every single possible way we can split the data into 2 groups using the X variables available to use. This can mean that trees are a little slow on huge data sets with lots of features - just a heads up!!
+
+Our next question should be: how do we decide which of these splits is best?? In other words, how do we decide how to actually divide the data into 2 groups when we have a lot of options. It turns out that just like in regular LSLR regression, our job is to minimize the residual sum of squares. We split the data into two groups such that we get the smallest residual sum of squares (RSS or SSE). This means that whatever splitting rule we see first in the tree is the one that gave us the smallest RSS with one split. 
+
+:::{.question}
+#### Question 12
+
+In tree 3, which of these features allowed us to get the smallest RSS in one split? Hint: No code is needed to answer this!! 
+
+:::
+
+Once we have found the first split that minimizes the RSS, we then try to add a second split. Can we make the RSS even smaller if we split our male penguins into those with bill depth greater than 5 mm and those with bill depth less than or equal to 5mm? And so on. We continue the process of dividing the data into groups into we no longer see a meaningful decrease in RSS (typically at least a 5% decrease).
+
+# Exploring the Whole Tree
+
+Now that we have explored the basic structure of how a tree works, let's see what happens when we allow all of our X variables to be used in growing the tree. We do this using the `~.` notation in R. 
+
+```{r}
+treeAll <- rpart(body_mass_g ~ . , data = penguins)
+```
+
+```{r, eval = FALSE}
+fancyRpartPlot(treeAll, caption = "Tree All")
+```
+
+
+:::{.question}
+#### Question 13
+
+Did the tree use all the variables we allowed it to use? In other words, are island, species,  bill length, and  bill depth all in our tree? 
+:::
+
+If your tree does not use all the possible X variables that you gave it, this means that adding more splits to the tree was no longer decreasing the residual sum of squares enough for that reduction to be meaningful. Once splitting no longer helps improve the residual sum of squares, we stop growing the tree. 
+You will notice that even though we have allowed all the X variables to be used, only a few show up in the tree! This shows another important property of trees: **variable selection**. Trees only use the variables that give the largest reduction in the RSS. This means that when we have a lot of features to consider, trees are nice way to determine which ones might be most important for modeling Y! 
+
+If your task is prediction, we have seen that we can use the tree to help us predict body mass. However, what if our goal is association? In other words, what if we are trying to understand the relationships in the data? 
+
+:::{.question}
+#### Question 14
+
+Based on your tree, what characteristics are associated with the heaviest penguin? With the lightest? Ask if you get stuck!  
+:::
+
+:::{.question}
+#### Question 15
+
+What is the $R^2_{adj}$ of this tree? Remember that $R^2_{adj} = 1 - (\frac{RSS}{TSS} \times \frac{n - 1}{n-p-1})$, where p is the number of splitting rules in the tree and n is the number of rows in the data. 
+:::
+
+# Try it! 
+
+:::{.question}
+#### Question 16
+
+Try building a tree using all possible X variables in the data set *except** species. 
+
+(a) Which Xs are used in the tree? 
+
+(b) Which are not? 
+
+(c) What is the $R^2_{adj}$ of this tree? 
+:::
+
+:::{.question}
+#### Question 17
+
+Pretend you are at DataFest and you were asked to explain to a client what this tree tells you about the relationships between the X variables and body mass for these penguins. How would you explain this to them? 
+:::
