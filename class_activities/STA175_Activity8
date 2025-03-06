@@ -1,0 +1,286 @@
+---
+title: "STA 175 DataFest Activity 8"
+output: 
+  rmdformats::robobook:
+    css: "homework.css"
+    highlight: pygments
+link-citations: yes
+---
+
+# The Goal
+
+In our course so far, we have only worked with response variables that are numeric. However, we are often faced with tasks as statisticians where our response variables are **categorical**. Today, we are going to explore some tools that are useful when our response variable is categorical. 
+
+# The Data
+
+As we did last week, we are going to work with a data set containing information on n = 333 penguins from three different species. To load the data, you need to use the following lines of code: 
+
+```{r}
+library(palmerpenguins)
+data(penguins)
+penguins <- na.omit(penguins)
+penguins <- data.frame(penguins)
+```
+
+We have information on 8 variables in total. 
+
+<div>
+<ul>
+<li><code>body_mass_g</code> - the body mass of the penguin in grams.</li>
+<li><code>species</code> - the type penguin.</li>
+<li><code>island</code> -  the island where the penguin lives.</li>
+<li><code>bill_length_mm</code> - the length of the penguin bill in millimeters.</li>
+<li><code>bill_depth_mm</code> - the depth of the penguin bill in millimeters.</li>
+<li><code>flipper_length_mm</code> - the flipper length of the penguin in millimeters.</li>
+<li><code>sex</code> - the biological sex of the penguin.</li>
+<li><code>year</code> -  the year the penguin was measured.</li>
+</ul>
+</div>
+
+# Types of Tasks
+
+When our response variable is categorical, there are two different types of tasks we commonly see. The first is an **association** task. Suppose our response variable has two outcomes: A or B. An example association task might be to determine whether higher or lower values of some variable X are associated with outcome B. 
+
+The second type of task is **prediction**. This means that given a variable X, we want to guess whether an individual will have outcome A or outcome B as their value of $Y$. 
+
+We are going to explore both of these types of tasks today, but we will start with association. 
+
+# Association Tasks: Logistic Regression 
+
+We are interested in building a model for Y = the sex of the penguin. This is a **binary** response variable, which means that we have exactly two choices for $Y$ and $Y$ is categorical. To see this, let's make a quick table of $Y$.
+
+```r
+table( penguins$sex )
+```
+
+You will notice that we have two outcomes, female and male. The outcome `female` appears first in the table and is called our **baseline** outcome. What this means is that when we are modeling, we will be exploring what traits might be related to a penguin being male rather than female. Another way to think about this is that $Y_i = 0$ means that penguin $i$ is female, where $Y_i = 1$ means that penguins $i$ is male. 
+
+Our task for the moment is to determine how $X$ = the bill length of a penguin in millimeters is related to $Y$ = the sex of the penguin. 
+
+There are a lot of different approaches we could consider, but one that should be familiar to us from STA 112 is logistic regression. As a reminder, logistic regression models look like this:
+
+**Logistic Regression Model:**
+
+$$Y_i \sim Bernoulli(\underbrace{\pi_i}_{\text{Probability that } Y_i = 1})$$
+
+$$\underbrace{log \left( \frac{\pi_i}{1-\pi_i} \right)}_{\text{The Log Odds that} Y_i = 1} = \beta_0 + \beta_1 X_i$$ 
+
+Logistic regression is all about estimating $\pi_i$, which is the probability that penguin $i$ in the data set is a male penguin. Again, we are modeling male penguins because female is our baseline for this variable.  
+
+On the left hand side of the equation, we have a quantity called the **log odds**, which is a transformation of the probability $\pi_i$ that is easier to work with when estimating coefficients. Luckily, this transformation is reversible, so we will be able to to get back to the probabilities we want. 
+
+What is also nice about this transformation is that if we find out that higher values of $X$ are associated with higher log odds of a penguin being male, this also means that higher values of $X$ are associated with a higher probability that a penguin is male! 
+
+Recall that our goal is to explore the relationship between $X$ = bill depth in mm and $Y$ = sex. To fit a logistic regression model in R, we use the following: 
+
+```r
+modelA <- glm( sex ~ bill_depth_mm , data = penguins, family = "binomial")
+```
+
+You will notice this is very similar to the code we use for linear regression. To obtain our estimated coefficients, we use: 
+```r
+summary(modelA)$coefficients
+```
+
+:::{.question} 
+#### Question 1
+Write down the fitted model in log odds form. Round to 2 decimal places. 
+
+To do this, paste the following into the white space in RMarkdown, and adapt to reflect your fitted model : `$$log \left( \frac{\hat{\pi_i}}{ 1- \hat{\pi}_i} \right) =$$`.
+:::
+
+:::{.question} 
+#### Question 2
+Based on your fitted model, are penguins with larger bill depth or smaller bill depth more likely to be male? 
+:::
+
+## A Second Model 
+
+Now suppose that we want to add in other variables into our model. Specifically, we would like to see body mass and species are also related to sex. 
+
+:::{.question} 
+#### Question 3
+Build a logistic regression model called `modelB` using all 3 requested X variables (bill depth, body mass, and species). Based on your fitted model, describe what traits seem to be associated with a penguin being male. 
+:::
+
+:::{.question} 
+#### Question 4
+Using a cutoff of .05, do any of these relationships seem to statistically significant, meaning do we have strong evidence that these relationships would hold if we had all the data in the population rather than just in the sample? Explain. 
+:::
+
+Now we have two possible models: one with only bill depth and one with bill depth, body mass, and species. In order to compare the models, we use something called the **AIC**. Unlike $R^2$, smaller values of AIC are associated with models that are better fits to the data. 
+
+To compute the AIC, we just use the code:
+
+```r
+AIC(modelA)
+```
+
+:::{.question} 
+#### Question 5
+Based on the AIC, which of the two models is a better fit to the data?  
+:::
+
+# Prediction: Logistic Regression
+
+So far, we have been focusing on association tasks, which means we wanted to describe the relationship between certain features and sex. However, we are now going to switch our goal to prediction. If we have information about the features, can we predict if the penguin is male or female? 
+
+We will want to explore the predictive abilities of Model A (with only bill depth) and Model B (with bill depth, species, and body mass). Let's start with Model A. 
+
+Making predictions relies on our ability to use our model to estimate ${\pi}_i$, the probability that penguin $i$ is male. Right now, we have the ability to estimate the log odds that a penguins is male. Luckily, once we have fit the model in terms of the log odds, we can obtain a probability that a penguin is male using the following equation: 
+
+$$\hat{\pi}_i = \frac{e^{\hat{\beta}_0 + \hat{\beta}_1 X_i}}{1 + e^{\hat{\beta}_0 + \hat{\beta}_1 X_i}}$$
+
+We can get R to do obtain the predicted probability of being male for all $n = 333$ penguins using the following code: 
+
+```r
+probabilities <- predict( modelA, type = "resp")
+```
+If you want the probability the 2nd penguin is male, we can then use 
+
+```r
+probabilities[2]
+```
+
+:::{.question} 
+#### Question 6
+What is the probability that the 5th penguin is male? 
+:::
+
+:::{.question} 
+#### Question 7
+Is the 7th penguin more likely to be a male penguin or a female penguin, according to our model? 
+:::
+
+Now, what if we are asked to predict whether the 7th penguin in the data set is male or female. You have already answered in Question 4 whether the model suggests it is more *likely* that a penguin is male or female, but what if we were asked to actually guess if the penguin were male or female? 
+
+## Making Predictions 
+
+If we were asked to predict whether or not a penguin was male or female, we use something called a **threshold** to determine what probability is larger enough for a penguin to be declared a male. A common threshold is any probability above .5. 
+
+To convert probabilities into predictions using this threshold, we can use the following code: 
+
+```r
+predictions <- ifelse( probabilities > .5, "male", "female")
+```
+
+:::{.question} 
+#### Question 8
+Do we predict that penguin 7 is male or female? Does that make sense based on what you claimed in Question 7? 
+:::
+
+At this point, we can assess how well our predictions are doing using something called a **confusion matrix**: 
+
+```r
+table( "predictions" = predictions, "truth" = penguins$sex)
+```
+
+:::{.question} 
+#### Question 9
+For what percent of the penguins do we correctly predict penguin sex using our model? This is called the **accuracy** of our model. 
+:::
+
+:::{.question} 
+#### Question 10
+For all the penguins that are truly male, what percent of the penguins do we correctly predict penguin sex using our model? This is called the **true positive rate** or **sensitivity** of our model. 
+:::
+
+:::{.question} 
+#### Question 11
+For all the penguins that are truly female, what percent of the penguins do we correctly predict penguin sex using our model? This is called the **true negative rate** or **specificity** of our model. 
+:::
+
+:::{.question} 
+#### Question 12
+For all the penguins that are truly female, what percent of the penguins do we NOT correctly predict penguin sex using our model? This is called the **false positive rate** of our model. These penguins were actually female, but we predicted that they were male.  
+:::
+
+:::{.question} 
+#### Question 13
+For all the penguins that are truly male, what percent of the penguins do we NOT correctly predict penguin sex using our model? This is called the **false negative rate** of our model. These penguins were actually male, but we predicted that they were female.   
+:::
+
+
+:::{.question} 
+#### Question 14
+Now, let's consider Model B (our model with bill depth, body mass, and species). Using the code above as a template, build a confusion matrix for this model using .5 as a threshold.
+::: 
+
+
+:::{.question} 
+#### Question 15
+State the true positive rate (TPR), true negative rate (TNR), and accuracy of Model B. 
+:::
+
+:::{.question} 
+#### Question 16
+Based on this, would you recommend using Model A or Model B for prediction? Does this agree with the model you chose in Question 5?
+:::
+
+# Association: Classification Trees
+
+Logistic Regression models are powerful, but they are limited in that they assume a linear relationship between each numeric X and the log odds that a penguin is male. Logistic regression models also assumes that our X variables are independent. This may be reasonable to assume for some data sets, but it may not be reasonable for others. 
+
+Last time we learned about **regression trees**, which are models we can use when $Y$ is numeric. It turns out that we also have **classification trees** which we can use when $Y$ is binary. 
+
+Classification trees have an advantage over logistic regression in that they do not assume a specific shape to the relationship between X and the response variable, and they allow for relationships among the X variables. 
+
+However, the disadvantage of these models is that you cannot perform inference tasks like hypothesis tests or confidence intervals. This is why it is so important at DataFest to really think about the goals of the client and then choose an approach that suits those goals! 
+
+Remember that to build trees, we need the `rpart` package and to visualize the trees we need `rpart.plot` and `rattle`.
+
+```{r,message = FALSE, warning = FALSE}
+library(rpart)
+library(rpart.plot)
+library(rattle)
+```
+
+To build a classification tree, we use the following: 
+
+```{r}
+modelC <- rpart( sex ~ bill_depth_mm, data = penguins)
+```
+
+Just like with regression trees, we can visualize classification trees using `rpart`: 
+
+```{r}
+fancyRpartPlot(modelC, caption = " ")
+```
+
+You will notice that our leaves look a little different than they did with regression trees! Each leaf has a different color. Blue leaves represent penguins that are predicted to be male and green leaves represents penguins that are predicted to be female. 
+
+:::{.question}
+#### Question 17
+Based on the tree, describe what bill depths are associated with penguins being male. Does this agree with what you found using logistic regression? 
+:::
+
+:::{.question}
+#### Question 18
+Build a classification tree model which uses species, body mass, and bill depth as explanatory variables. Call this modelD. Based on modelD, what traits are related to male penguins?
+:::
+
+# Prediction: Classification Trees 
+
+Just like logistic regression, classification tree models can be used for prediction. We can make a confusion matrix for classification trees in a similar way that we did for logistic regression: 
+
+
+```r
+# Make predictions 
+predictionsC <- predict( modelC, type = "class" )
+
+# Make a confusion matrix
+table( "predictions" = predictionsC, "truth" = penguins$sex)
+```
+
+:::{.question}
+#### Question 19
+Based on the confusion matrix, which of the models that you built so far would you recommend that your client use for prediction: Model A, Model B, Model C, or Model D? This is a great time practicing how to explain this clearly, as you will need to do this at DataFest! 
+:::
+
+<div id="license">
+The data set used in this lab is from the palmerpenguins library in R:
+Horst AM, Hill AP, Gorman KB (2020). palmerpenguins: Palmer Archipelago
+  (Antarctica) penguin data. R package version 0.1.0.
+  https://allisonhorst.github.io/palmerpenguins/. doi: 10.5281/zenodo.3960218.
+</a>.
+</div>
