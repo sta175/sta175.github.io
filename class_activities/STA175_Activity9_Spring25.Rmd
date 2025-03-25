@@ -1,0 +1,163 @@
+---
+title: "STA 175 DataFest Activity 9"
+output: 
+  rmdformats::robobook:
+    css: "homework.css"
+    highlight: pygments
+link-citations: yes
+---
+
+# The Goal
+
+Over the course of STA 175, you have practiced working with data: data wrangling and cleaning, data visualization, and statistical modeling. During DataFest, you will need to employ all of these skills to address open-ended research questions from the client. 
+
+Today, we are going to shift our focus to the end of the analysis. Once we have conducted our analysis and come to our conclusions, how do we present our results to our client? This is a key part of DataFest...you can't win without it. 
+
+
+# DataFest - Presenting to the Judges 
+
+On Sunday morning April 6th at DataFest, each of your teams will be presenting your results to a panel of judges. You will have about 7-9 minutes to present your results, and we will have a timer. Now, this isn't very much time, but it is actually fairly reflective of the time you might have in a meeting in industry to summarize your results to a client.  
+
+Even if you have an incredible analysis or visualization or insight...you cannot win if you do not present your results to the judges in a clear and compelling way. 
+
+So, how do you do that?? The answer involves three components: 
+
+- **Content** - is your content clearly explained and does it respond to the client's research question(s)? 
+- **Slides** - are your slides clear and easy to read? 
+- **Presentation** - was your presentation clear and easy to follow? 
+
+We will discuss each of these today and will practice applying them to create a presentation. 
+
+# The Data
+
+This week, you will work with data on electric vehicles (both hybrids and fully electric vehicles). Each row in this data represents one actual vehicle in the population, and we have the following variables available:
+
+* `VIN (1-10)`: Vehicle identification number
+* `County`: County in which the vehicle is registered
+* `City`: City in which the vehicle is registered
+* `State`: State in which the vehicle is registered
+* `Postal Code`: Postal code in which the vehicle is registered
+* `Model Year`: Vehicle's model year
+* `Make`: Vehicle's make
+* `Model`: Vehicle's model
+* `Electric Vehicle Type`: either "Plug-in Hybrid Electric Vehicle (PHEV)" or "Battery Electric Vehicle (BEV)"
+* `Clean Alternative Fuel Vehicle (CAFV) Eligibility`: whether the vehicle is eligible to be recognized as a clean alternative fuel vehicle
+* `Electric Range`: Range of the vehicle using only electric power
+* `Base MSRP`: base price of the vehicle, in USD 
+* `Legislative District`: Legislative District in which the vehicle is registered
+* `Vehicle Location`: (Longitude, Latitude) location for the vehicle
+* `Electric Utility`: electric utility company where the vehicle is registered
+* `2020 Census Tract`: 2020 Census Tract where the vehicle is registered
+
+Your client is interested in understanding how electric vehicle characteristics and usage have changed over time. In particular, they have asked several related questions:
+
+1. What trends are there in the type of electric vehicles purchased?
+2. What trends are there in characteristics of these vehicles (such as electric range and price)?
+3. Have electric vehicles spread to more locations over time?
+
+Now that we have the data, let's think through how we could approach this for DataFest. 
+
+# Content 
+
+The first step is to think about and create content. To plan out the content of your presentation, the best place to start is with the client's research questions. For DataFest, you will be provided with some questions that the client wants you to explore. These research questions should drive the content of your presentation. 
+
+For DataFest, you do not necessarily have to reply to all of the questions asked by the client. In fact, we typically recommend students start with **one** research question. One question answered thoroughly is a lot more competitive than multiple questions that are not answered well. 
+
+In order to respond to your client's research question, there are three items you need to include your presentation. 
+
+- **(1) What method / model / tools did you use?** Note: This can be a visualization, you don't always have to build models.
+- **(2) Why is that method/ model/ tool appropriate?**
+- **(3) Based on this method/ model / tool, how you can you respond to the research question?**
+
+:::{.question}
+#### Question 1 
+Consider the client's research questions above. With your team, choose **one** of the research questions and discuss the answer to the three content items above. If you get stuck, ask!! 
+
+Remember, there are multiple ways of approaching any research question. Your task is to choose an approach that is appropriate and effective, but it is actually a good thing if different members of your team propose different ideas! That is why we work in teams. Let each individual explore their idea, and then come together and decide on which approach you want to propose to the client. 
+:::
+
+## Content - What NOT to Include 
+
+There are a few things that we do NOT include in formal presentations to a client. These include
+
+- **R Code of any kind**
+- **Descriptions of code or coding steps**
+
+Now, this may not seem intuitive. We do a lot of code to perform our analysis. Why don't we want to see it?? 
+
+The client is interested in the process and the results, not in the code used to get there. This means you should not talk about nor show packages, codes, etc., in your presentation. You also should **not show screen shots of R code output unless it is graph**.
+
+For example, suppose we removed missing data in the data set when we loaded it. Do we need to tell the client that we did that? Yes. Do we tell them we used `na.omit()`? Nope. 
+
+- **Use this**: We removed 11 rows containing missing data, leaving us with 333 rows for analysis. 
+- **Do NOT use this**: We used `na.omit()` to remove rows with missing data and created a data frame called `dataClean` with no missing data. 
+
+The first option above tells the client what you did and why, as well as what the result was. The second will not make any sense to a client who does not know R. **Hint: Some of our judges do not use R.**
+
+# Building Slides
+
+Once we have decided on the content we want to present, we need to create slides to display that content to our client. Every team will need to submit slides prior to the presentation, but how you create them is up to you. You can use PowerPoint, or Google Slides, Beamer, or any other method of building slides that works for you. 
+
+:::{.question}
+#### Question 2
+With your team, discuss what tool you think you will use for DataFest. Spend some time making a template of the slide presentation so you will have something to work on for the competition next week! We will also be using it today for our practice DataFest. 
+:::
+
+Your presentation should start with a title slide that includes your team name (which is due tonight on Canvas!!!) and the name of your presentation. 
+
+:::{.question}
+#### Question 3
+Add your team name to the title slide (translation: decide on a team name if you have not done so already!)
+:::
+
+On the next 1-2 slides, you want to clearly state the research question you have chosen to explore. In other words, what was the goal and motivation for your work? You also want to potentially state some techniques you are going to use to approach this research question, and briefly describe the variables involved. 
+
+## Slides - General Tips 
+
+There are a few things to think about when making your slides: 
+
+### Tip 1: Size / Readability 
+
+When you create slides, it is very important that everything on it can be easily read. To check this, answer the following questions. 
+
+- Can everything be easily read? If you have to squint, it's too small!! 
+- Is there so much on a slide that it is hard to follow? If so, split the content over two slides. 
+- Are the colors that you used easy to see? Hint: Don't use yellow or pale pink. They are very hard to see!
+
+### Tip 2: Clarity 
+
+When you create slides, it is also very important that someone looking at your slides can clearly follow your content. To check this, answer the following questions. 
+
+- Are your axes clearly labelled on a graph?
+- Is it clear what each equation or graph or output on the slide refers to? 
+- Is it easy to look at the slide and find the key pieces of information? 
+
+# Presentation
+
+We now have (1) decided  what content we need to include in our presentation and (2) created the slides we are going to use. What is left? 
+
+The final step is to discuss the actual presentation with your team. You need to know: 
+
+- **Who is going to discuss each slide?**: During DataFest, every team member MUST speak during the presentation, so everyone should have at least one slide that they talk about. 
+- **How are we going to move from person to person?**: When you have a team presenting, we don't want long pauses as the team tries to figure out who is speaking next. Make sure you practice going through the whole presentation. 
+- **Volume**:  We will seat the judges in the front, but make sure they can hear you! 
+- **Use Eye Contact**: Presentations are more engaging if you look at the judges or audience while you present. In more general terms, talk to the people rather than the screen. 
+- **Don't read the slides**: We can all see the slides. Make sure you do not simply read off them during your presentation! 
+
+Your presentation will go much more smoothly if you discuss all of these things in advance and if you practice. Remember, you only have a few minutes! Practice will help you figure out what you have time to say. 
+
+# Practice 
+
+At this point, you have decided on a research question, and you have drafted some slides. Now, let's practice the type of analysis we will do at DataFest. 
+
+:::{.question}
+#### Question 4 
+Perform an analysis (or make a graph) to answer your chosen research question about the electric vehicles. This doesn't have to be perfect (we only have an hour today), but this will allow you to practice dividing up tasks, deciding how to approach a problem, etc. Let us know if you get stuck!! 
+
+Once you have some results or thoughts on how you will approach the task, create 1-2 slides showing your work Show it to either. Dr. Dalzell or Dr. Evans so we can give you feedback to help improve your slides for DataFest!! 
+:::
+
+# Get Ready! 
+
+DataFest is next week!!
+
